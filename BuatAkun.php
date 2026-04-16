@@ -1,0 +1,126 @@
+<?php include 'header.php'; ?>
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        * { box-sizing: border-box;
+            margin: 0; padding: 0;
+            font-family: 'Tilt Neon', sans-serif;
+         }
+        
+        body {
+            background-color: #2c1e4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #3b2460; 
+            width: 800px;
+            height: 500px;
+            display: flex;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 1px solid #4a2c7a;
+        }
+
+        .left-section {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #553485;
+            margin-bottom: 10px;
+        }
+
+        .brand-name {
+            color: #7FFF00;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            text-shadow: 0 0 5px rgba(127, 255, 0, 0.5);
+        }
+
+        .right-section {
+            width: 55%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            color: #7FFF00;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: left; 
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            background-color: #7a4d9c;
+            color: white;
+            padding: 10px 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            align-self: flex-end;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #9162b5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-section">
+            <img src="logo2.jpeg" alt="Logo Sphinx" class="logo-img">
+            <div class="brand-name">@sphinx_piercing</div>
+        </div>
+
+        <div class="right-section">
+            <h2>Buat Akun Baru</h2>
+            
+            <form action="" method="POST">
+                <input type="text" name="username" placeholder="Masukkan Username" required>
+                <input type="tel" name="nohp" placeholder="Masukkan No HP" required>
+                <input type="email" name="email" placeholder="Masukkan Email" required>
+                <input type="password" name="password" placeholder="Masukkan Password" required>
+                
+                <button type="submit" name="register">Simpan</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php include 'footer.php'; // Close main-content & body ?>
