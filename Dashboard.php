@@ -668,17 +668,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a id="buyButton" class="btn-buy" href="#">Beli Sekarang</a>
                 </div> -->
                 
-                <div class="modal-actions">
-                    <button id="cartButton" class="btn-cart">
-                        <i class="fa-solid fa-cart-plus"></i> Keranjang
-                    </button>
-                    
-                    <div id="cartQtyControl" class="cart-qty-control">
+                <div class="modal-actions" style="flex-direction:column; gap:10px;">
+                    <div id="cartQtyControl" class="cart-qty-control" style="display:flex; flex:unset; width:100%;">
                         <button id="cartMinus" class="cart-qty-btn"><i class="fa-solid fa-minus"></i></button>
                         <span id="cartQtyValue" class="cart-qty-value">1</span>
                         <button id="cartPlus" class="cart-qty-btn"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <a id="buyButton" class="btn-buy" href="#">Beli Sekarang</a>
+                    <div style="display:flex; gap:10px; width:100%;">
+                        <button id="cartButton" class="btn-cart" style="flex:0 0 52px; width:52px; padding:12px;">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                        <a id="buyButton" class="btn-buy" style="flex:1; margin-top:0;" href="#">Beli Sekarang</a>
+                    </div>
                 </div>
 
             </div>
@@ -744,19 +745,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     // Cek Status Tombol Keranjang (Apakah tampilkan tombol "Keranjang" atau "+ -")
     function updateCartButtonState(productName) {
-        const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-        const item = cart.find(i => i.name === productName);
-        
-        if (item) {
-            // Jika produk sudah ada di keranjang, sembunyikan tombol keranjang, tampilkan +-
-            cartButton.style.display = 'none';
-            cartQtyControl.style.display = 'flex';
-            cartQtyValue.innerText = item.qty;
-        } else {
-            // Jika belum, tampilkan tombol keranjang biasa
-            cartButton.style.display = 'inline-flex';
-            cartQtyControl.style.display = 'none';
-        }
+        cartQtyValue.innerText = 1;
     }
 
     // Handle klik tombol favorit
@@ -831,74 +820,38 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     cartButton.addEventListener('click', function() {
     if (!currentSelectedProduct) return;
+    const qtyToAdd = parseInt(cartQtyValue.innerText) || 1;
 
     if (window.sphinxCart) {
         sphinxCart.addItem({
             name: currentSelectedProduct.name,
             price: currentSelectedProduct.price,
             image: currentSelectedProduct.image,
-            qty: 1
+            qty: qtyToAdd
         });
     } else {
         let cart = JSON.parse(localStorage.getItem('sphinx_cart') || '[]');
         let existing = cart.find(i => i.name === currentSelectedProduct.name);
-        if (existing) existing.qty += 1;
-        else cart.push({ name: currentSelectedProduct.name, price: currentSelectedProduct.price, image: currentSelectedProduct.image, qty: 1 });
+        if (existing) existing.qty += qtyToAdd;
+        else cart.push({ name: currentSelectedProduct.name, price: currentSelectedProduct.price, image: currentSelectedProduct.image, qty: qtyToAdd });
         localStorage.setItem('sphinx_cart', JSON.stringify(cart));
     }
 
     loadCartCount();
-    updateCartButtonState(currentSelectedProduct.name);
+    cartQtyValue.innerText = 1;
+    productModal.classList.remove('active');
 });
 
     // KLIK TOMBOL PLUS (+)
     cartPlus.addEventListener('click', function() {
-        if (!currentSelectedProduct) return;
-        if (window.sphinxCart) {
-            // emulate increasing qty by removing and re-adding with qty 1
-            const cart = JSON.parse(localStorage.getItem('sphinx_cart') || '[]');
-            const item = cart.find(i => i.name === currentSelectedProduct.name);
-            if (item) { item.qty = (parseInt(item.qty||1,10) + 1); localStorage.setItem('sphinx_cart', JSON.stringify(cart)); window.sphinxCart.renderDropdown(); window.sphinxCart.updateCartBadge(); }
-            loadCartCount(); updateCartButtonState(currentSelectedProduct.name);
-        } else {
-            let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-            let item = cart.find(i => i.name === currentSelectedProduct.name);
-            if (item) {
-                item.qty += 1;
-                localStorage.setItem(cartKey, JSON.stringify(cart));
-                loadCartCount();
-                updateCartButtonState(currentSelectedProduct.name);
-            }
-        }
+        let qty = parseInt(cartQtyValue.innerText) || 1;
+        cartQtyValue.innerText = qty + 1;
     });
 
     // KLIK TOMBOL MINUS (-)
     cartMinus.addEventListener('click', function() {
-        if (!currentSelectedProduct) return;
-        if (window.sphinxCart) {
-            let cart = JSON.parse(localStorage.getItem('sphinx_cart') || '[]');
-            let itemIndex = cart.findIndex(i => i.name === currentSelectedProduct.name);
-            if (itemIndex > -1) {
-                if (cart[itemIndex].qty > 1) cart[itemIndex].qty -= 1;
-                else cart.splice(itemIndex,1);
-                localStorage.setItem('sphinx_cart', JSON.stringify(cart));
-                window.sphinxCart.renderDropdown(); window.sphinxCart.updateCartBadge();
-                loadCartCount(); updateCartButtonState(currentSelectedProduct.name);
-            }
-        } else {
-            let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-            let itemIndex = cart.findIndex(i => i.name === currentSelectedProduct.name);
-            if (itemIndex > -1) {
-                if (cart[itemIndex].qty > 1) {
-                    cart[itemIndex].qty -= 1;
-                } else {
-                    cart.splice(itemIndex, 1);
-                }
-                localStorage.setItem(cartKey, JSON.stringify(cart));
-                loadCartCount();
-                updateCartButtonState(currentSelectedProduct.name);
-            }
-        }
+        let qty = parseInt(cartQtyValue.innerText) || 1;
+        if (qty > 1) cartQtyValue.innerText = qty - 1;
     });
 
     // Handle Beli Sekarang (redirect to beli.php)

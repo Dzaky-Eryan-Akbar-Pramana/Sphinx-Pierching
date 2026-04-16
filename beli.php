@@ -526,16 +526,18 @@ if ($fromCart) {
             } else {
                 const quantity = Math.max(1, parseInt(quantityInput.value || '1', 10));
                 const total = productPriceValue * quantity;
-                summaryQuantity.textContent = quantity;
-                summaryTotal.textContent = formatRupiah(total);
-                summaryTotalMethod.textContent = formatRupiah(total);
+                if (summaryQuantity) summaryQuantity.textContent = quantity;
+                if (summaryTotal) summaryTotal.textContent = formatRupiah(total);
+                if (summaryTotalMethod) summaryTotalMethod.textContent = formatRupiah(total);
                 totalPriceInput.value = total;
                 // when single-product checkout, update summary address when pickup
                 const shippingSel = document.querySelector('input[name="shipping"]:checked')?.value || 'gosend';
-                if (shippingSel === 'ambil') {
-                    summaryAddress.textContent = 'Ambil di Toko: Jl. Malioboro No.10, Yogyakarta — Jam buka: 10.00 - 20.00 WIB';
-                } else {
-                    summaryAddress.textContent = '';
+                if (summaryAddress) {
+                    if (shippingSel === 'ambil') {
+                        summaryAddress.textContent = 'Ambil di Toko: Jl. Malioboro No.10, Yogyakarta — Jam buka: 10.00 - 20.00 WIB';
+                    } else {
+                        summaryAddress.textContent = '';
+                    }
                 }
             }
         }
@@ -623,12 +625,15 @@ if ($fromCart) {
         updateSummary();
 
         openPaymentButton.addEventListener('click', () => {
-            // reset selection state when opening modal
-            document.querySelectorAll('.payment-method-card').forEach(c => {
-                c.classList.remove('selected');
-                c.classList.remove('disabled');
-            });
-            paymentModal.classList.add('active');
+            updateSummary();
+            const product = document.querySelector('input[name="product"]').value;
+            const total = totalPriceInput.value;
+            const quantity = fromCart ? '' : (quantityInput ? quantityInput.value : '1');
+            const params = new URLSearchParams();
+            params.set('product', product);
+            params.set('total', total);
+            if (quantity) params.set('quantity', quantity);
+            window.location.href = 'metode.php?' + params.toString();
         });
 
         document.querySelectorAll('.payment-method-card').forEach(card => {

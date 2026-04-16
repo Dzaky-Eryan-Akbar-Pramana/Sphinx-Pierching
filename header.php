@@ -52,6 +52,24 @@ if (!function_exists('sanitize_text')) {
         .cart-bar .logo { font-weight: 600; color: var(--lime); font-size: 18px; }
         .cart-icon { position: relative; cursor: pointer; font-size: 20px; color: var(--text-soft); margin-left: auto; }
         .cart-icon:hover { color: var(--lime); }
+        .profile-wrap { position: relative; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .profile-wrap .profile-name { font-weight: 700; color: var(--text); font-size: 14px; white-space: nowrap; }
+        .profile-btn { background: rgba(255,255,255,0.08); border: none; color: var(--text-soft); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: .2s; flex-shrink: 0; }
+        .profile-btn:hover { background: rgba(130,255,91,0.15); color: var(--lime); }
+        .profile-dropdown {
+            position: absolute; top: calc(100% + 10px); right: 0;
+            background: var(--bg-card); border-radius: 12px; min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+            display: none; flex-direction: column; overflow: hidden; z-index: 200;
+        }
+        .profile-dropdown.active { display: flex; }
+        .profile-dropdown a, .profile-dropdown button {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 16px; background: none; border: none;
+            color: var(--text-soft); font-size: 14px; font-family: inherit;
+            text-decoration: none; cursor: pointer; transition: .2s; width: 100%; text-align: left;
+        }
+        .profile-dropdown a:hover, .profile-dropdown button:hover { background: rgba(255,255,255,0.07); color: var(--lime); }
         .cart-count {
             position: absolute; top: -6px; right: -6px;
             background: var(--lime); color: #111; border-radius: 50%;
@@ -106,14 +124,22 @@ if (!function_exists('sanitize_text')) {
         <div class="hamburger" id="hamburger">
             <span></span><span></span><span></span>
         </div>
-        <?php if ($is_logged_in): ?>
-            <span style="margin-left: auto; color: var(--text-soft);">Hi, <?= htmlspecialchars($username) ?></span>
-            <a href="logout.php" style="color: var(--text-soft); text-decoration: none; font-size: 14px;">Logout</a>
-        <?php endif; ?>
         <div class="cart-icon" id="cartIcon">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count" id="cartCount">0</span>
         </div>
+        <?php if ($is_logged_in): ?>
+            <div class="profile-wrap" id="profileWrap">
+                <span class="profile-name"><?= htmlspecialchars($username) ?></span>
+                <button class="profile-btn" id="profileBtn" aria-label="Profil">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="pengaturan.php"><i class="fa-solid fa-gear"></i> Pengaturan Profil</a>
+                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </div>
+            </div>
+        <?php endif; ?>
 <div class="cart-dropdown" id="cartDropdown">
             <div id="cartItems"></div>
             <div class="cart-total" id="cartTotal">Total: Rp 0</div>
@@ -122,6 +148,22 @@ if (!function_exists('sanitize_text')) {
     </header>
 
     <script>
+        // Profile dropdown toggle
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+                // tutup cart dropdown jika terbuka
+                document.getElementById('cartDropdown')?.classList.remove('active');
+            });
+            document.addEventListener('click', function() {
+                profileDropdown.classList.remove('active');
+            });
+            profileDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+        }
+
         // Hamburger toggle (for sidebar pages)
         document.getElementById('hamburger')?.addEventListener('click', function() {
             this.classList.toggle('active');

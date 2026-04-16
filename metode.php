@@ -155,6 +155,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <span class="method-total">-</span>
             </div>
         </div>
+        <div id="cancelMethodArea" style="display:none; margin-bottom:16px;">
+            <button onclick="resetMethod()" style="background:rgba(255,255,255,0.08); color:var(--text-soft); border:1px solid rgba(255,255,255,0.15); padding:8px 20px; border-radius:8px; cursor:pointer; font-size:13px; transition:.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                <i class="fa-solid fa-rotate-left" style="margin-right:6px;"></i>Batal / Ganti Metode
+            </button>
+        </div>
 
         <div class="payment-details-area" id="detailArea">
             <div class="no-selection" id="defaultMsg">
@@ -184,7 +189,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <div class="method-row">
                         <span class="bill-label">Metode</span><span class="bill-sep">:</span>
                         <span class="bill-val" id="selectedMethodName" style="text-transform: capitalize;">-</span>
-                        <button class="btn-bayar">Bayar</button>
                     </div>
                 </div>
 
@@ -315,14 +319,33 @@ $current_page = basename($_SERVER['PHP_SELF']);
         return type.charAt(0).toUpperCase() + type.slice(1);
     }
 
+    function resetMethod() {
+        clearPaymentTimer();
+        document.getElementById('paymentTimer').style.display = 'none';
+        document.querySelectorAll('.pay-card').forEach(card => {
+            card.classList.remove('active', 'disabled');
+        });
+        document.getElementById('defaultMsg').style.display = 'block';
+        document.getElementById('defaultMsg').innerText = 'PILIH METODE PEMBAYARAN TERLEBIH DAHULU DI ATAS!';
+        document.getElementById('contentGrid').style.display = 'none';
+        document.getElementById('rightContent').innerHTML = '';
+        document.getElementById('cancelMethodArea').style.display = 'none';
+        currentPaymentType = null;
+    }
+
     function selectMethod(type, element) {
         // CEK PENTING: Jika tidak ada transaksi, hentikan eksekusi klik!
         if (!isTransactionActive) return; 
 
         const cards = document.querySelectorAll('.pay-card');
-        cards.forEach(card => card.classList.remove('active'));
+        cards.forEach(card => {
+            card.classList.remove('active');
+            card.classList.add('disabled');
+        });
 
         element.classList.add('active');
+        element.classList.remove('disabled');
+        document.getElementById('cancelMethodArea').style.display = 'block';
 
         document.getElementById('defaultMsg').style.display = 'none';
         document.getElementById('contentGrid').style.display = 'grid';
