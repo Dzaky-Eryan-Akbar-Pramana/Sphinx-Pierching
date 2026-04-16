@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $username = "@sphnx_piercing";
 $current_page = basename($_SERVER['PHP_SELF']);
 $page_title = "Piercing Yang Disukai";
@@ -89,7 +89,7 @@ $page_description = "Lihat daftar piercing favorit pengguna dan tren yang sedang
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="logo2.jpeg" alt="Logo">
+            <img src="gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
         <ul class="menu">
@@ -128,19 +128,19 @@ $page_description = "Lihat daftar piercing favorit pengguna dan tren yang sedang
 <script>
     const favoriteKey = 'piercing_favorites';
     const productImages = {
-        'Cubic Zirconia': 'cubic-zironia.jpg',
-        'Titanium Earrings': 'titanium-earrings.jpg',
-        'Spike Ohrring': 'spkie-ohrring.jpg',
-        'Kyoto Series': 'kyoto-series.jpg',
-        'Ear Piercing Ball': 'ear-piercing-ball.jpg',
-        'Barbell Earrings': 'barbell-earrings.jpg',
-        'Tindik Bunga': 'Tindik-Bunga.png',
-        'Anting Jepit': 'Anting-Jepit.png',
-        'Barre de Surface': 'Barre-de-surface.png',
-        'Circular Barbell': 'Circular-Barbell.png',
-        'Dparis Model Bintang': 'Dparis-Model-Bintang.png',
-        'Titanium Straight Barbel': 'Titanium-Straight-Barbel.png',
-        'Piercing Nostril Em Aço': 'Piercing-Nostril-Em-Aço.png'
+        'Cubic Zirconia': 'gambar/cubic-zironia.jpg',
+        'Titanium Earrings': 'gambar/titanium-earrings.jpg',
+        'Spike Ohrring': 'gambar/spkie-ohrring.jpg',
+        'Kyoto Series': 'gambar/kyoto-series.jpg',
+        'Ear Piercing Ball': 'gambar/ear-piercing-ball.jpg',
+        'Barbell Earrings': 'gambar/barbell-earrings.jpg',
+        'Tindik Bunga': 'gambar/Tindik-Bunga.png',
+        'Anting Jepit': 'gambar/Anting-Jepit.png',
+        'Barre de Surface': 'gambar/Barre-de-surface.png',
+        'Circular Barbell': 'gambar/Circular-Barbell.png',
+        'Dparis Model Bintang': 'gambar/Dparis-Model-Bintang.png',
+        'Titanium Straight Barbel': 'gambar/Titanium-Straight-Barbel.png',
+        'Piercing Nostril Em Aço': 'gambar/Piercing-Nostril-Em-Aço.png'
     };
 
     function loadFavorites() {

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $username = "@sphnx_piercing";
 $full_name = "Aseng Dzaky";
 $email = "AsengDzaky@gmail.com";
@@ -99,7 +99,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <div class="app">
 	<aside class="sidebar">
 		<div class="brand">
-			<img src="logo2.jpeg" alt="Logo">
+			<img src="gambar/logo2.jpeg" alt="Logo">
 			<span><?= htmlspecialchars($username) ?></span>
 		</div>
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $username = "@sphnx_piercing";
 $current_page = basename($_SERVER['PHP_SELF']);
 $page_title = "Alternatif Piercing";
@@ -263,7 +263,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="logo2.jpeg" alt="Logo">
+            <img src="gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
         <ul class="menu">
@@ -295,8 +295,8 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
             <p>Temukan pilihan piercing alternatif yang unik dan menarik, cocok untuk gaya berbeda.</p>
             
             <div class="products-grid">
-        <div class="product-card" data-product="Spike Ohrring" data-price="Rp 55.000" data-img="spkie-ohrring.jpg">
-                    <img src="spkie-ohrring.jpg" alt="Spike Ohrring" class="product-image">
+        <div class="product-card" data-product="Spike Ohrring" data-price="Rp 55.000" data-img="gambar/spkie-ohrring.jpg">
+                    <img src="gambar/spkie-ohrring.jpg" alt="Spike Ohrring" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Spike Ohrring</h3>
                         <p class="product-desc">Piercing dengan desain spike yang tajam dan elegan. Cocok untuk septum, telinga, atau alternatif piercing lainnya dengan tampilan aggressive yang stylish.</p>
@@ -305,7 +305,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Circular-Barbell.png" alt="Circular Barbell" class="product-image">
+                    <img src="gambar/Circular-Barbell.png" alt="Circular Barbell" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Circular Barbell</h3>
                         <p class="product-desc">Piercing berbentuk lingkaran dengan bola pada kedua ujungnya. Desain klasik namun sophisticated, sangat populer untuk body piercing dan septum.</p>
@@ -313,7 +313,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Barre-de-surface.png" alt="Barre de Surface" class="product-image">
+                    <img src="gambar/Barre-de-surface.png" alt="Barre de Surface" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Barre de Surface</h3>
                         <p class="product-desc">Piercing surface bar yang modern dan minimalis. Ideal untuk surface piercing di area dada, punggung, atau bagian tubuh lainnya dengan efek visual unik.</p>
@@ -321,7 +321,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Titanium-Straight-Barbel.png" alt="Titanium Straight Barbel" class="product-image">
+                    <img src="gambar/Titanium-Straight-Barbel.png" alt="Titanium Straight Barbel" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Titanium Straight Barbel</h3>
                         <p class="product-desc">Barbel lurus berkualitas tinggi dari titanium. Hypoallergenic dan aman untuk semua jenis kulit, sempurna untuk piercing bridge atau septa dengan kenyamanan maksimal.</p>
@@ -329,7 +329,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Dparis-Model-Bintang.png" alt="Dparis Model Bintang" class="product-image">
+                    <img src="gambar/Dparis-Model-Bintang.png" alt="Dparis Model Bintang" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Dparis Model Bintang</h3>
                         <p class="product-desc">Desain unik dengan motif bintang yang menawan. Memberikan statement yang berani dan crafty untuk mereka yang ingin tampil beda dan ekspresif.</p>
@@ -337,7 +337,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Piercing-Nostril-Em-Aço.png" alt="Piercing Nostril Em Aço" class="product-image">
+                    <img src="gambar/Piercing-Nostril-Em-Aço.png" alt="Piercing Nostril Em Aço" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Piercing Nostril Em Aço</h3>
                         <p class="product-desc">Piercing nostril berkualitas dengan material steel yang tahan lama. Sempurna untuk septum piercing dengan desain geometri dan finish yang premium.</p>
@@ -345,7 +345,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="cubic-zironia.jpg" alt="Cubic Zirconia" class="product-image">
+                    <img src="gambar/cubic-zironia.jpg" alt="Cubic Zirconia" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Cubic Zirconia</h3>
                         <p class="product-desc">Anting piercing dengan sentuhan kristal cubic zirconia, memberikan kilau mewah tanpa mengorbankan kenyamanan.</p>
@@ -353,7 +353,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="kyoto-series.jpg" alt="Kyoto Series" class="product-image">
+                    <img src="gambar/kyoto-series.jpg" alt="Kyoto Series" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Kyoto Series</h3>
                         <p class="product-desc">Piercing koleksi Kyoto dengan bentuk elegan dan warna lembut, cocok untuk tampilan modern yang minimalis.</p>
@@ -361,7 +361,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="ear-piercing-ball.jpg" alt="Ear Piercing Ball" class="product-image">
+                    <img src="gambar/ear-piercing-ball.jpg" alt="Ear Piercing Ball" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Ear Piercing Ball</h3>
                         <p class="product-desc">Piercing model bola sederhana yang nyaman dipakai sehari-hari, ideal untuk tampilan ringkas dan modern.</p>
@@ -369,7 +369,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="barbell-earrings.jpg" alt="Barbell Earrings" class="product-image">
+                    <img src="gambar/barbell-earrings.jpg" alt="Barbell Earrings" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Barbell Earrings</h3>
                         <p class="product-desc">Desain barbel yang kuat dan stylish, sangat cocok untuk tampilan bold pada piercing telinga atau monroe.</p>
@@ -377,7 +377,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Tindik-Bunga.png" alt="Tindik Bunga" class="product-image">
+                    <img src="gambar/Tindik-Bunga.png" alt="Tindik Bunga" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Tindik Bunga</h3>
                         <p class="product-desc">Piercing motif bunga yang feminin dan manis, membuat tampilan lebih lembut dengan detail yang menarik.</p>
@@ -385,7 +385,7 @@ $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, 
                 </div>
 
                 <div class="product-card">
-                    <img src="Anting-Jepit.png" alt="Anting Jepit" class="product-image">
+                    <img src="gambar/Anting-Jepit.png" alt="Anting Jepit" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Anting Jepit</h3>
                         <p class="product-desc">Pilihan anting tanpa tindik untuk gaya piercing sementara dengan kenyamanan tinggi dan desain trendi.</p>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -63,7 +63,7 @@
 <body>
 
 <div class="container">
-    <img src="logo-sphinx.png" class="logo" alt="Logo">
+    <img src="gambar/logo-sphinx.png" class="logo" alt="Logo">
     <h1>WELCOME</h1>
     <p>SELAMAT DATANG DI<br>SPHINX_PIERCING_JOGJA</p>
 

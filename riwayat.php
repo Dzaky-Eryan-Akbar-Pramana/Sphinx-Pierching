@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 $username = "@sphnx_piercing";
@@ -261,7 +261,7 @@ $orderHistory = array_values($_SESSION['order_history']);
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="logo2.jpeg" alt="Logo">
+            <img src="gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
 

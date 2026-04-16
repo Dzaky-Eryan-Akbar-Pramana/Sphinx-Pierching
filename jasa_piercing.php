@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $username = "@sphnx_piercing";
 $current_page = basename($_SERVER['PHP_SELF']);
 $page_title = "Jasa Piercing";
@@ -341,7 +341,7 @@ $page_description = "Lihat layanan jasa piercing profesional dengan prosedur ama
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="logo2.jpeg" alt="Logo">
+            <img src="gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
         <ul class="menu">
@@ -417,35 +417,35 @@ $page_description = "Lihat layanan jasa piercing profesional dengan prosedur ama
                             <p>Silakan pilih layanan berdasarkan jenis piercing dan penjelasan prosedur yang tersedia:</p>
                             <div class="service-grid">
                                 <div class="service-card">
-                                    <img src="Contoh-Telinga.jpeg" alt="Telinga (Ear Lobe)">
+                                    <img src="gambar/Contoh-Telinga.jpeg" alt="Telinga (Ear Lobe)">
                                     <div class="service-card-content">
                                         <h3>Telinga (Ear Lobe)</h3>
                                         <p>Piercing klasik di daun telinga dengan perawatan cepat dan minim nyeri.</p>
                                     </div>
                                 </div>
                                 <div class="service-card">
-                                    <img src="Contoh-Hidung.png" alt="Hidung (Nose)">
+                                    <img src="gambar/Contoh-Hidung.png" alt="Hidung (Nose)">
                                     <div class="service-card-content">
                                         <h3>Hidung (Nose)</h3>
                                         <p>Piercing hidung profesional untuk model lubang kanan atau kiri.</p>
                                     </div>
                                 </div>
                                 <div class="service-card">
-                                    <img src="Contoh-Alis.png" alt="Alis (Eyebrow)">
+                                    <img src="gambar/Contoh-Alis.png" alt="Alis (Eyebrow)">
                                     <div class="service-card-content">
                                         <h3>Alis (Eyebrow)</h3>
                                         <p>Piercing alis rapi dengan posisi estetis dan aman.</p>
                                     </div>
                                 </div>
                                 <div class="service-card">
-                                    <img src="Contoh-Bibir.png" alt="Bibir (Lip)">
+                                    <img src="gambar/Contoh-Bibir.png" alt="Bibir (Lip)">
                                     <div class="service-card-content">
                                         <h3>Bibir (Lip)</h3>
                                         <p>Piercing bibir atas/bawah dengan teknik steril dan aftercare lengkap.</p>
                                     </div>
                                 </div>
                                 <div class="service-card">
-                                    <img src="Contoh-Lidah.png" alt="Lidah (Tongue)">
+                                    <img src="gambar/Contoh-Lidah.png" alt="Lidah (Tongue)">
                                     <div class="service-card-content">
                                         <h3>Lidah (Tongue)</h3>
                                         <p>Piercing kompleks pada daun telinga dengan dua lubang sekaligus.</p>

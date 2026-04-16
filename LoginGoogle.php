@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -98,7 +98,7 @@
 <div class="container">
      <a href="Welcome.php" class="back">&#8592;</a>
 
-    <img src="logo-sphinx.png" class="logo" alt="Logo">
+    <img src="gambar/logo-sphinx.png" class="logo" alt="Logo">
     <h1>Login Google</h1>
     <form action="proses_login.php" method="POST">
 

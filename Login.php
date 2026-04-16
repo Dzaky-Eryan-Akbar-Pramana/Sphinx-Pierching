@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $error = '';
 
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="container">
         <div class="left-section">
-            <img src="logo2.jpeg" alt="Logo Sphinx" class="logo-img">
+            <img src="gambar/logo2.jpeg" alt="Logo Sphinx" class="logo-img">
             <div class="brand-name">@sphinx_piercing</div>
         </div>
 
