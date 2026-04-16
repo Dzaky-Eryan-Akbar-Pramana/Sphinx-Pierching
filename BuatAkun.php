@@ -1,10 +1,20 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
 
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    // Akun berhasil dibuat, arahkan ke Login dengan pesan sukses
+    header('Location: Login.php?registered=1');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Akun - Sphinx Piercing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
     <style>
         * { box-sizing: border-box;
@@ -98,6 +108,19 @@
         button:hover {
             background-color: #9162b5;
         }
+
+        .small-text {
+            color: #96DB70;
+            font-size: 0.8rem;
+            text-align: right;
+            margin-top: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .small-text:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -116,11 +139,11 @@
                 <input type="tel" name="nohp" placeholder="Masukkan No HP" required>
                 <input type="email" name="email" placeholder="Masukkan Email" required>
                 <input type="password" name="password" placeholder="Masukkan Password" required>
-                
                 <button type="submit" name="register">Simpan</button>
             </form>
+            <a href="Login.php" class="small-text">Sudah punya akun? Login di sini</a>
         </div>
     </div>
-</div>
 
-<?php include 'footer.php'; // Close main-content & body ?>
+</body>
+</html>

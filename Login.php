@@ -143,6 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="right-section">
+            <?php if (isset($_GET['registered'])): ?>
+                <div style="background: rgba(0,255,0,0.15); color: #7FFF00; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #7FFF00;">
+                    Akun berhasil dibuat! Silakan login.
+                </div>
+            <?php endif; ?>
             <?php if ($error): ?>
                 <div style="background: rgba(255,0,0,0.2); color: #ff4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff4444;">
                     <?= htmlspecialchars($error) ?>
@@ -153,10 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="" method="POST">
                 <input type="text" name="username" placeholder="Username (user)" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" required>
                 <input type="password" name="password" placeholder="Password (sphx123)" required>
-                
-                <a href="BuatAkun.php" class="small-text">Jika Belum Punya Akun, Buat Akun Ya</a>
                 <button type="submit" class="btn">Masuk</button>
             </form>
+            <a href="BuatAkun.php" class="small-text">Jika Belum Punya Akun, Buat Akun Ya</a>
         </div>
 
     </div>

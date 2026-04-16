@@ -2,7 +2,8 @@
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : '@sphnx_piercing';
 $is_logged_in = isset($_SESSION['user']);
-if (!$is_logged_in && basename($_SERVER['PHP_SELF']) != 'Login.php') {
+$allowed_pages = ['Login.php', 'BuatAkun.php'];
+if (!$is_logged_in && !in_array(basename($_SERVER['PHP_SELF']), $allowed_pages)) {
     header('Location: Login.php');
     exit;
 }
