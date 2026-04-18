@@ -79,16 +79,111 @@ $current_page = basename($_SERVER['PHP_SELF']);
         .topbar{
             display:flex; align-items:center; gap:20px; margin-bottom:24px;
         }
-        .search-box{
-            flex:1; background:var(--accent); padding:10px 16px;
-            border-radius:999px; display:flex; align-items:center; gap:10px;
+
+        /* --- AD SLIDESHOW --- */
+        .ad-slideshow {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            background: var(--bg-card);
+            height: 180px;
         }
-        .search-box input{
-            flex:1; border:none; outline:none; background:transparent;
-            color:var(--text); font-size:14px;
+        .ad-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
         }
-        .search-box input::placeholder{ color:#f6f6f6; opacity:0.8; }
-        
+        .ad-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .ad-slide-img {
+            flex: 0 0 180px;
+            height: 180px;
+            overflow: hidden;
+        }
+        .ad-slide-img img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .ad-slide-info {
+            flex: 1;
+            padding: 22px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ad-slide-badge {
+            display: inline-block;
+            background: var(--lime);
+            color: #111;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            width: fit-content;
+            margin-bottom: 2px;
+        }
+        .ad-slide-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+        .ad-slide-desc {
+            font-size: 13px;
+            color: var(--text-soft);
+            line-height: 1.6;
+            max-width: 480px;
+        }
+        .ad-slide-sizes {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+        .ad-size-tag {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 12px;
+            color: var(--text-soft);
+        }
+        .ad-slide-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--lime);
+            margin-top: 4px;
+        }
+        .ad-dots {
+            position: absolute;
+            bottom: 10px;
+            right: 16px;
+            display: flex;
+            gap: 6px;
+        }
+        .ad-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            cursor: pointer;
+            transition: background .3s, transform .3s;
+        }
+        .ad-dot.active {
+            background: var(--lime);
+            transform: scale(1.2);
+        }
+
         .top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
         .top-links a{ text-decoration:none; color:var(--text-soft); }
         .top-links a:hover{ color:var(--lime); }
@@ -369,7 +464,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
             .topbar { flex-wrap: wrap; gap: 8px; }
-            .search-box { min-width: 0; }
             .promo-text h1 { font-size: 22px; }
             .features { grid-template-columns: 1fr; }
             .product-images { grid-template-columns: 1fr; }
@@ -495,19 +589,165 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </aside> -->
 
     <main class="main app">
-        <!-- Topbar moved to header, cartIcon synced -->
+        <!-- Iklan Produk Slideshow -->
+        <div class="ad-slideshow" id="adSlideshow">
 
+            <div class="ad-slide active">
+                <div class="ad-slide-img"><img src="gambar/cubic-zironia.jpg" alt="Cubic Zirconia"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge">Terlaris</span>
+                    <div class="ad-slide-name">Cubic Zirconia</div>
+                    <div class="ad-slide-desc">Desain klasik dengan batu cubic zirconia berkilau, cocok untuk tampilan elegan pada berbagai jenis piercing.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">Diameter 6mm</span>
+                        <span class="ad-size-tag">Diameter 8mm</span>
+                        <span class="ad-size-tag">Diameter 10mm</span>
+                        <span class="ad-size-tag">18G / 16G</span>
+                    </div>
+                    <div class="ad-slide-price">Rp 30.000</div>
+                </div>
+            </div>
 
-        <section class="promo-card">
-            <div class="promo-text">
-                <h1><?= $promo_title ?></h1>
-                <p><?= $promo_sub ?></p>
-                <button>Lihat Detail</button>
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/titanium-earrings.jpg" alt="Titanium Earrings"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge">Hypoallergenic</span>
+                    <div class="ad-slide-name">Titanium Earrings</div>
+                    <div class="ad-slide-desc">Anting titanium ringan dan tahan karat, ideal untuk kulit sensitif dan pemakaian sehari-hari tanpa iritasi.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">Panjang 6mm</span>
+                        <span class="ad-size-tag">Panjang 8mm</span>
+                        <span class="ad-size-tag">Panjang 10mm</span>
+                        <span class="ad-size-tag">16G / 18G</span>
+                    </div>
+                    <div class="ad-slide-price">Rp 50.000</div>
+                </div>
             </div>
-            <div class="promo-image">
-                <img src="gambar/promo.png" alt="Promo Piercing">
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/kyoto-series.jpg" alt="Kyoto Series"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge">Edisi Khusus</span>
+                    <div class="ad-slide-name">Kyoto Series</div>
+                    <div class="ad-slide-desc">Koleksi bertema Jepang yang minimalis dan modern, menghadirkan nuansa estetika elegan dan unik.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">Diameter 8mm</span>
+                        <span class="ad-size-tag">Diameter 10mm</span>
+                        <span class="ad-size-tag">14G / 16G</span>
+                    </div>
+                    <div class="ad-slide-price">Rp 40.000</div>
+                </div>
             </div>
-        </section>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Circular-Barbell.png" alt="Circular Barbell"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge">Populer</span>
+                    <div class="ad-slide-name">Circular Barbell</div>
+                    <div class="ad-slide-desc">Piercing berbentuk lingkaran dengan bola pada kedua ujungnya, memberikan gaya klasik yang nyaman dipakai.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">Diameter 10mm</span>
+                        <span class="ad-size-tag">Diameter 12mm</span>
+                        <span class="ad-size-tag">14G / 16G</span>
+                    </div>
+                    <div class="ad-slide-price">Rp 55.000</div>
+                </div>
+            </div>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/spkie-ohrring.jpg" alt="Spike Ohrring"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge">Eksklusif</span>
+                    <div class="ad-slide-name">Spike Ohrring</div>
+                    <div class="ad-slide-desc">Desain spike tajam dan elegan, cocok untuk septum, telinga, atau berbagai pilihan piercing lainnya.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">Panjang 8mm</span>
+                        <span class="ad-size-tag">Panjang 10mm</span>
+                        <span class="ad-size-tag">14G</span>
+                    </div>
+                    <div class="ad-slide-price">Rp 55.000</div>
+                </div>
+            </div>
+
+            <!-- Alternatif Piercing -->
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Contoh-Alis.png" alt="Piercing Alis"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
+                    <div class="ad-slide-name">Piercing Alis</div>
+                    <div class="ad-slide-desc">Piercing alis dengan bentuk rapi dan posisi estetis, cocok untuk memberi aksen wajah yang tajam dan modern.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">16G / 18G</span>
+                        <span class="ad-size-tag">Panjang 8mm</span>
+                        <span class="ad-size-tag">Panjang 10mm</span>
+                    </div>
+                    <div class="ad-slide-price">Jasa Tindik</div>
+                </div>
+            </div>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Contoh-Bibir.png" alt="Piercing Bibir"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
+                    <div class="ad-slide-name">Piercing Bibir</div>
+                    <div class="ad-slide-desc">Piercing bibir yang stylish untuk model labret atau monroe, dengan teknik steril dan hasil simetris.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">16G / 18G</span>
+                        <span class="ad-size-tag">Labret</span>
+                        <span class="ad-size-tag">Monroe</span>
+                    </div>
+                    <div class="ad-slide-price">Jasa Tindik</div>
+                </div>
+            </div>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Contoh-Hidung.png" alt="Piercing Hidung"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
+                    <div class="ad-slide-name">Piercing Hidung</div>
+                    <div class="ad-slide-desc">Piercing hidung untuk model nose stud atau hoop, menggunakan bahan steril agar hasilnya rapi dan nyaman dipakai.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">20G / 18G</span>
+                        <span class="ad-size-tag">Nose Stud</span>
+                        <span class="ad-size-tag">Hoop</span>
+                    </div>
+                    <div class="ad-slide-price">Jasa Tindik</div>
+                </div>
+            </div>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Contoh-Telinga.jpeg" alt="Piercing Telinga"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
+                    <div class="ad-slide-name">Piercing Telinga</div>
+                    <div class="ad-slide-desc">Piercing telinga profesional untuk berbagai model seperti helix, tragus, dan daith, dengan hasil aman dan estetis.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">16G / 18G</span>
+                        <span class="ad-size-tag">Helix</span>
+                        <span class="ad-size-tag">Tragus</span>
+                        <span class="ad-size-tag">Daith</span>
+                    </div>
+                    <div class="ad-slide-price">Jasa Tindik</div>
+                </div>
+            </div>
+
+            <div class="ad-slide">
+                <div class="ad-slide-img"><img src="gambar/Contoh-Lidah.png" alt="Piercing Lidah"></div>
+                <div class="ad-slide-info">
+                    <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
+                    <div class="ad-slide-name">Piercing Lidah</div>
+                    <div class="ad-slide-desc">Piercing lidah aman dan nyaman, direkomendasikan untuk gaya yang berani dengan perawatan aftercare yang lengkap.</div>
+                    <div class="ad-slide-sizes">
+                        <span class="ad-size-tag">14G</span>
+                        <span class="ad-size-tag">Barbell 16mm</span>
+                        <span class="ad-size-tag">Titanium</span>
+                    </div>
+                    <div class="ad-slide-price">Jasa Tindik</div>
+                </div>
+            </div>
+
+            <div class="ad-dots" id="adDots"></div>
+        </div>
 
         <section class="features">
             <a class="feature-item" href="piercing_produk.php">
@@ -859,6 +1099,28 @@ $current_page = basename($_SERVER['PHP_SELF']);
     window.addEventListener('DOMContentLoaded', () => {
         loadFavorites();
         loadCartCount();
+
+        // --- AD SLIDESHOW ---
+        const slides = document.querySelectorAll('#adSlideshow .ad-slide');
+        const dotsContainer = document.getElementById('adDots');
+        let currentSlide = 0;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'ad-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dotsContainer.children[currentSlide].classList.remove('active');
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dotsContainer.children[currentSlide].classList.add('active');
+        }
+
+        setInterval(() => goToSlide(currentSlide + 1), 5000);
     });
 </script>
 

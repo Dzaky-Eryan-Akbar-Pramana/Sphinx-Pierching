@@ -63,12 +63,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             display:flex; flex-direction:column; margin-left:210px;
         }
         .topbar{ display:flex; align-items:center; gap:20px; margin-bottom:24px; }
-        .search-box{
-            flex:1; background:var(--accent); padding:10px 16px;
-            border-radius:999px; display:flex; align-items:center; gap:10px;
-        }
-        .search-box input{ flex:1; border:none; outline:none; background:transparent; color:var(--text); font-size:14px; }
-        .search-box input::placeholder{ color:#f6f6f6; opacity:0.8; }
         .top-icons{ display:flex; align-items:center; gap:16px; font-size:18px; }
 
         /* --- CSS KHUSUS HALAMAN JADWAL --- */
@@ -199,7 +193,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             .main { padding: 12px 10px; }
             .appointment-card { padding: 14px; }
             .topbar { flex-wrap: wrap; gap: 8px; }
-            .search-box { min-width: 0; }
         }
     </style>
 </head>
@@ -229,10 +222,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <main class="main">
         <div class="topbar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Cari jadwal...">
-            </div>
             <div class="top-icons">
                 <i class="fa-regular fa-bell"></i>
                 <i class="fa-regular fa-user"></i>

@@ -50,10 +50,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         /* MAIN CONTENT */
         .main { flex: 1; padding: 20px 40px; background: var(--bg-main); display: flex; flex-direction: column; margin-left: 210px; }
-        .header-payment { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .search-payment { background: var(--accent); padding: 8px 15px; border-radius: 8px; width: 300px; display: flex; align-items: center; gap: 10px; }
-        .search-payment input { background: transparent; border: none; outline: none; color: white; width: 100%; }
-        .search-payment input::placeholder { color: #eee; }
 
         /* OPSI PEMBAYARAN */
         .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
@@ -139,12 +135,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </aside>
 
     <main class="main">
-        <div class="header-payment">
-            <div class="search-payment">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="paymentSearch" type="text" placeholder="Metode Pembayaran" autocomplete="off">
-            </div>
-        </div>
 
         <div class="payment-options">
             <div class="pay-card" data-method="cash" onclick="selectMethod('cash', this)">
@@ -451,32 +441,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
     });
 
-    document.getElementById('paymentSearch').addEventListener('input', function() {
-        if (!isTransactionActive) return; // Matikan fungsi pencarian jika belum beli
-        
-        const query = this.value.trim().toLowerCase();
-        const cards = Array.from(document.querySelectorAll('.pay-card'));
-
-        if (!query) {
-            cards.forEach(card => card.classList.remove('active'));
-            document.getElementById('defaultMsg').style.display = 'block';
-            document.getElementById('contentGrid').style.display = 'none';
-            document.getElementById('selectedMethodName').innerText = '-';
-            document.getElementById('rightContent').innerHTML = '';
-            return;
-        }
-
-        const matchedCard = cards.find(card => {
-            const methodName = card.querySelector('span')?.innerText.toLowerCase() || '';
-            const methodType = card.dataset.method || '';
-            return methodName.includes(query) || methodType.includes(query);
-        });
-
-        if (matchedCard) {
-            selectMethod(matchedCard.dataset.method, matchedCard);
-        }
-    });
-
     function parseQueryParams() {
         return new URLSearchParams(window.location.search);
     }
@@ -505,7 +469,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             // 1. JIKA TIDAK ADA TRANSAKSI -> Kunci semua tombol
             document.querySelectorAll('.pay-card').forEach(card => card.classList.add('disabled'));
             document.getElementById('defaultMsg').innerText = "BELUM ADA TRANSAKSI. SILAKAN LAKUKAN PEMBELIAN TERLEBIH DAHULU.";
-            document.getElementById('paymentSearch').disabled = true; // Kunci kolom pencarian
         } else {
             // 2. JIKA ADA TRANSAKSI -> Aktifkan & Isi data dari Checkout
             document.getElementById('defaultMsg').innerText = "PILIH METODE PEMBAYARAN TERLEBIH DAHULU DI ATAS!";

@@ -51,8 +51,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 		.main{ flex:1; padding:20px 28px; background:var(--bg-main); display:flex; flex-direction:column; margin-left:210px; }
 		.topbar{ display:flex; align-items:center; gap:20px; margin-bottom:24px; }
-		.search-box{ flex:1; background:var(--accent); padding:10px 16px; border-radius:999px; display:flex; align-items:center; gap:10px; }
-		.search-box input{ flex:1; border:none; outline:none; background:transparent; color:var(--text); font-size:14px; }
 		.top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
 		.top-links a{ text-decoration:none; color:var(--text-soft); }
 		.top-links a:hover{ color:var(--lime); }
@@ -120,10 +118,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 	<main class="main">
 		<div class="topbar">
-			<div class="search-box">
-				<i class="fa-solid fa-magnifying-glass"></i>
-				<input type="text" placeholder="Profil Pengguna">
-			</div>
 			<div class="top-links">
 				<a href="#">Produk</a>
 				<a href="#">Jasa</a>

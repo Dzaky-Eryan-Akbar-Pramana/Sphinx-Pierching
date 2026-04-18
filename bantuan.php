@@ -92,15 +92,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         .topbar{
             display:flex; align-items:center; gap:20px; margin-bottom:24px;
         }
-        .search-box{
-            flex:1; background:var(--accent); padding:10px 16px;
-            border-radius:999px; display:flex; align-items:center; gap:10px;
-        }
-        .search-box input{
-            flex:1; border:none; outline:none; background:transparent;
-            color:var(--text); font-size:14px;
-        }
-        .search-box input::placeholder{ color:#f6f6f6; opacity:0.8; }
         
         .top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
         .top-links a{ text-decoration:none; color:var(--text-soft); }
@@ -224,7 +215,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
             .topbar { flex-wrap: wrap; gap: 8px; }
-            .search-box { min-width: 0; }
             .promo-text h1 { font-size: 20px; }
             .features { grid-template-columns: 1fr; }
         }
