@@ -1,13 +1,34 @@
 ﻿<?php
-$username = "@sphnx_piercing";
-$full_name = "Aseng Dzaky";
-$email = "AsengDzaky@gmail.com";
-$phone = "08673526737";
+session_start();
+require_once 'firebase.php';
+
+$username = $_SESSION['user'] ?? "@sphnx_piercing";
+
+// Ambil data profil dari Firebase
+$profileData = $firestore->getDocument('profiles', $username);
+$userData = $firestore->getDocument('users', $username);
+
+$full_name = $profileData['full_name'] ?? $userData['username'] ?? $username;
+$email = $profileData['email'] ?? $userData['email'] ?? '';
+$phone = $profileData['phone'] ?? $userData['nohp'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 	$full_name = trim($_POST['full_name'] ?? $full_name);
 	$email = trim($_POST['email'] ?? $email);
 	$phone = trim($_POST['phone'] ?? $phone);
+
+	// Simpan ke Firebase
+	$profileData = [
+		'username' => $username,
+		'full_name' => $full_name,
+		'email' => $email,
+		'phone' => $phone,
+		'updated_at' => date('Y-m-d H:i:s')
+	];
+	$result = $firestore->saveDocument('profiles', $username, $profileData);
+	if (!isset($result['error'])) {
+		$success_message = 'Profil berhasil diperbarui.';
+	}
 }
 
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -119,9 +140,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
 	<main class="main">
 		<div class="topbar">
 			<div class="top-links">
-				<a href="#">Produk</a>
-				<a href="#">Jasa</a>
-				<a href="#">Maps</a>
+				<a href="piercing_produk.php">Produk</a>
+				<a href="jasa_piercing.php">Jasa</a>
+				<a href="maps.php">Maps</a>
 			</div>
 			<div class="top-icons">
 				<i class="fa-regular fa-bell"></i>
@@ -131,6 +152,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 		<section class="profile-section">
 			<div class="section-title">Profil Pengguna</div>
+
+			<?php if (!empty($success_message)): ?>
+				<div style="margin-bottom:16px; padding:12px 16px; background: rgba(130,255,91,0.15); color: var(--lime); border-radius: 10px; border: 1px solid rgba(130,255,91,0.3);">
+					<?= htmlspecialchars($success_message) ?>
+				</div>
+			<?php endif; ?>
 
 			<div class="profile-card">
 				<div class="profile-details">

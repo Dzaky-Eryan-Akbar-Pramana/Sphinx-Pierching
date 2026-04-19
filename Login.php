@@ -1,13 +1,18 @@
 ﻿<?php
 session_start();
+require_once 'firebase.php';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     
-    if ($username === 'user' && $password === 'sphx123') {
+    // Ambil data user dari Firebase
+    $userData = $firestore->getDocument('users', $username);
+    
+    if ($userData && password_verify($password, $userData['password'])) {
         $_SESSION['user'] = $username;
+        $_SESSION['user_data'] = $userData;
         header('Location: Dashboard.php');
         exit;
     } else {

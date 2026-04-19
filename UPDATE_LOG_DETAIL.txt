@@ -1,0 +1,182 @@
+# UPDATE LOG - SPHINX PIERCING PROJECT
+# Tanggal: April 20, 2026
+# Penjelasan detail semua perubahan dan file terbaru
+
+## 1. PERBAIKAN FIRESTORE INTEGRATION
+### File: firebase.php
+**Masalah sebelumnya:**
+- Endpoint Firestore salah: POST ke /users/{username}
+- Tidak bisa menyimpan data akun
+
+**Perbaikan yang dilakukan:**
+- Mengubah endpoint menjadi: POST /users?documentId={username}
+- Menambah pengecekan error cURL
+- Menambah detail error response (httpCode + response)
+
+**Kode yang diubah:**
+```php
+// SEBELUM (salah):
+$url = FIRESTORE_BASE_URL . $collection . '/' . $documentId . '?key=' . $this->apiKey;
+
+// SESUDAH (benar):
+$url = FIRESTORE_BASE_URL . $collection . '?documentId=' . urlencode($documentId) . '&key=' . $this->apiKey;
+```
+
+## 2. PENAMBAHAN ERROR DISPLAY
+### File: BuatAkun.php
+**Masalah sebelumnya:**
+- Tidak ada pesan error saat gagal daftar akun
+- User bingung kenapa tidak tersimpan
+
+**Perbaikan yang dilakukan:**
+- Menambah display error message di form
+- Error akan muncul di atas form jika saveDocument() gagal
+
+**Kode yang ditambah:**
+```php
+<?php if (isset($error)): ?>
+    <p style="color: #ff6b6b; margin-bottom: 15px;"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
+```
+
+## 3. KONFIGURASI VERCEL DEPLOYMENT (DIHAPUS)
+### Status: DIBATALKAN
+**Alasan:** Vercel tidak support PHP secara native
+**File yang dihapus:**
+- vercel.json
+- api/index.php
+- api/ folder
+- Procfile (Heroku)
+- composer.json (Heroku)
+
+**Solusi hosting:** InfinityFree atau 000webhost
+
+## 4. STATUS DEPLOYMENT
+
+### Vercel Deployment: DIBATALKAN ❌
+**Alasan:** Tidak support PHP
+**File dihapus:** vercel.json, api/index.php, dll.
+
+### Heroku Deployment: DIBATALKAN ❌
+**Status:** Login timeout, tidak jadi pakai
+
+### Hosting Terbaik: InfinityFree ✅
+**Keunggulan:**
+- 5GB storage gratis
+- Unlimited bandwidth
+- Support PHP 7.4+
+- FTP access untuk upload cepat
+
+## 6. CARA DEPLOY KE INFINITYFREE
+
+### Langkah 1: Daftar & Buat Account
+1. https://infinityfree.net/
+2. Sign Up → verifikasi email
+3. Create Account → pilih plan gratis
+4. Dapat domain: nama.epizy.com
+
+### Langkah 2: Upload File
+**Via FTP (recommended):**
+- Host: ftpupload.net
+- Port: 21
+- Username: dari dashboard
+- Password: dari dashboard
+
+**File yang perlu diupload:**
+- Semua file .php
+- Folder gambar/
+- config.php, firebase.php
+- dll.
+
+### Langkah 3: Konfigurasi
+1. Rename Welcome.php → index.php
+2. Atau buat .htaccess:
+   ```
+   DirectoryIndex Welcome.php index.php
+   ```
+
+### Langkah 4: Test
+- Buka domain.epizy.com
+- Test BuatAkun.php
+- Data tersimpan di Firebase Firestore
+
+## 7. FILE CONFIGURATION YANG SUDAH ADA
+
+### firebase.json (Firebase Hosting)
+```json
+{
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-northeast2",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "site": "projek-sphinx-ef1d2",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+```
+
+### config.php (Firebase API Keys)
+- FIREBASE_PROJECT_ID: projek-sphinx
+- FIREBASE_API_KEY: AIzaSyBw4w0-uBaeFb2lTwOZLeyHKanHHQaZ1CU
+- FIREBASE_DATABASE_URL: https://projek-sphinx-default-rtdb.firebaseio.com
+- FIRESTORE_BASE_URL: https://firestore.googleapis.com/v1/projects/projek-sphinx/databases/(default)/documents/
+
+## 8. MASALAH YANG SUDAH DIPERBAIKI
+
+### ✅ Akun tidak tersimpan
+**Root cause:** Endpoint Firestore salah
+**Solusi:** Perbaiki URL di firebase.php
+**Status:** SELESAI
+
+### ✅ Tidak ada error message
+**Root cause:** Tidak ada display error
+**Solusi:** Tambah error display di BuatAkun.php
+**Status:** SELESAI
+
+### ✅ File Vercel dihapus
+**Root cause:** Tidak jadi pakai Vercel
+**Solusi:** Hapus vercel.json, api/, Procfile, composer.json
+**Status:** SELESAI
+
+## 9. TESTING CHECKLIST
+
+Setelah deploy ke InfinityFree:
+- [ ] Buka domain.epizy.com
+- [ ] Klik "Daftar" → BuatAkun.php
+- [ ] Isi form: username, nohp, email, password
+- [ ] Submit → harus redirect ke Login.php
+- [ ] Cek Firebase Console → Firestore → users collection
+- [ ] Harus ada dokumen dengan username yang dibuat
+
+## 10. NEXT STEPS
+
+1. **Deploy ke InfinityFree** (recommended)
+2. **Test pendaftaran akun**
+3. **Test login** (jika sudah ada)
+4. **Fix fitur lain** jika ada error
+## 10. FILE YANG SUDAH DIHAPUS
+
+- ❌ vercel.json (Vercel config)
+- ❌ api/index.php (Vercel router)
+- ❌ api/ folder
+- ❌ Procfile (Heroku)
+- ❌ composer.json (Heroku)
+## 11. CATATAN PENTING
+
+- **Firebase sudah terintegrasi** - tidak perlu setup database
+- **Semua file PHP** sudah siap deploy
+- **Config sudah benar** - API keys sudah ada
+- **Firestore rules** sudah allow read/write
+- **File Vercel sudah dibersihkan** - proyek lebih clean
+
+---
+# UPDATE: April 20, 2026 - File Vercel sudah dihapus
+# END OF UPDATE LOG

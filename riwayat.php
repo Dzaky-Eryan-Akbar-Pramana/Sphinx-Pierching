@@ -1,7 +1,8 @@
 ﻿<?php
 session_start();
+require_once 'firebase.php';
 
-$username = "@sphnx_piercing";
+$username = $_SESSION['user'] ?? "@sphnx_piercing";
 
 // Mendeteksi nama file saat ini agar menu sidebar menyala otomatis
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -10,50 +11,54 @@ function sanitize_text($text) {
     return htmlspecialchars(trim($text), ENT_QUOTES, 'UTF-8');
 }
 
-if (!isset($_SESSION['order_history'])) {
-    $_SESSION['order_history'] = [];
-}
-
 if (isset($_GET['order_complete']) && $_GET['order_complete'] === '1' && !empty($_GET['order_id'])) {
     $orderId = sanitize_text($_GET['order_id']);
 
-    if (!isset($_SESSION['order_history'][$orderId])) {
-        $shippingLabel = 'Lainnya';
-        if (isset($_GET['shipping'])) {
-            $shipping = strtolower(trim($_GET['shipping']));
-            if ($shipping === 'ambil') {
-                $shippingLabel = 'Ambil di Toko';
-            } elseif ($shipping === 'spx') {
-                $shippingLabel = 'SPX';
-            } elseif ($shipping === 'gosend') {
-                $shippingLabel = 'GoSend';
-            } else {
-                $shippingLabel = ucfirst($shipping);
-            }
+    $shippingLabel = 'Lainnya';
+    if (isset($_GET['shipping'])) {
+        $shipping = strtolower(trim($_GET['shipping']));
+        if ($shipping === 'ambil') {
+            $shippingLabel = 'Ambil di Toko';
+        } elseif ($shipping === 'spx') {
+            $shippingLabel = 'SPX';
+        } elseif ($shipping === 'gosend') {
+            $shippingLabel = 'GoSend';
+        } else {
+            $shippingLabel = ucfirst($shipping);
         }
-
-        $_SESSION['order_history'][$orderId] = [
-            'order_id' => $orderId,
-            'service_name' => sanitize_text($_GET['product'] ?? 'Produk'),
-            'quantity' => sanitize_text($_GET['quantity'] ?? '1'),
-            'total' => sanitize_text($_GET['total'] ?? '0'),
-            'payment_method' => sanitize_text($_GET['payment_method'] ?? '-'),
-            'shipping' => $shippingLabel,
-            'recipient_name' => sanitize_text($_GET['recipient_name'] ?? '-'),
-            'recipient_phone' => sanitize_text($_GET['recipient_phone'] ?? '-'),
-            'recipient_address' => sanitize_text($_GET['recipient_address'] ?? '-'),
-            'status' => sanitize_text($_GET['order_status'] ?? 'Selesai'),
-            'payment_note' => sanitize_text($_GET['payment_note'] ?? ''),
-            'date' => date('d F Y'),
-            'time' => date('H:i'),
-        ];
     }
 
-    header('Location: riwayat.php');
-    exit;
+    $orderData = [
+        'order_id' => $orderId,
+        'service_name' => sanitize_text($_GET['product'] ?? 'Produk'),
+        'quantity' => sanitize_text($_GET['quantity'] ?? '1'),
+        'total' => sanitize_text($_GET['total'] ?? '0'),
+        'payment_method' => sanitize_text($_GET['payment_method'] ?? '-'),
+        'shipping' => $shippingLabel,
+        'recipient_name' => sanitize_text($_GET['recipient_name'] ?? '-'),
+        'recipient_phone' => sanitize_text($_GET['recipient_phone'] ?? '-'),
+        'recipient_address' => sanitize_text($_GET['recipient_address'] ?? '-'),
+        'status' => sanitize_text($_GET['order_status'] ?? 'Selesai'),
+        'payment_note' => sanitize_text($_GET['payment_note'] ?? ''),
+        'date' => date('d F Y'),
+        'time' => date('H:i'),
+        'username' => $username
+    ];
+
+    // Simpan ke Firebase
+    $firestore->saveDocument('orders', $orderId, $orderData);
 }
 
-$orderHistory = array_values($_SESSION['order_history']);
+// Ambil order history dari Firebase untuk user ini
+$orderHistory = [];
+$allOrders = $firestore->getCollection('orders');
+foreach ($allOrders as $orderId => $order) {
+    if ($order['username'] === $username) {
+        $orderHistory[$orderId] = $order;
+    }
+}
+
+$orderHistory = array_values($orderHistory);
 ?>
 
 <!DOCTYPE html>

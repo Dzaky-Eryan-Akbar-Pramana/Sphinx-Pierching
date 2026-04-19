@@ -49,6 +49,111 @@ $page_description = "Lihat daftar piercing favorit pengguna dan tren yang sedang
         .favorite-card:hover{transform:translateY(-5px); box-shadow:0 8px 24px rgba(130,255,91,0.1);}
         .favorite-card img{width:100%; aspect-ratio:1/1; object-fit:cover; display:block;}
         .favorite-card-name{padding:12px; color:var(--text-soft); font-size:14px; text-align:center;}
+<<<<<<< HEAD
+=======
+
+        .favorite-price {
+            font-size: 12px;
+            color: var(--lime);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .popularity-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(130, 255, 91, 0.9);
+            color: #111;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .favorite-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .favorite-btn:hover {
+            background: var(--lime);
+            color: #111;
+        }
+
+        .favorite-btn.active {
+            background: var(--lime);
+            color: #111;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-main-dark);
+            border-radius: 16px;
+            margin: 30px 0;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: var(--text-soft);
+            margin-bottom: 16px;
+        }
+
+        .empty-state h2 {
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-soft);
+            margin-bottom: 20px;
+        }
+
+        .popular-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .popular-section h2 {
+            color: var(--text);
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-explore {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--lime);
+            color: #111;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-explore:hover {
+            background: #6fe04a;
+            transform: translateY(-1px);
+        }
+>>>>>>> cee3210 (Update)
         .remove-btn{position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); border:none; cursor:pointer; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:.2s;}
         .remove-btn:hover{background:rgba(255,59,48,0.8);}
         .remove-btn i{color:var(--text-soft); font-size:16px;}
@@ -111,6 +216,64 @@ $page_description = "Lihat daftar piercing favorit pengguna dan tren yang sedang
                 <!-- Favorites will be loaded here by JavaScript -->
             </div>
             
+<<<<<<< HEAD
+=======
+            <!-- Popular Products Section -->
+            <div class="popular-section">
+                <h2>Produk Populer</h2>
+                <div class="favorites-list">
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 45
+                        </div>
+                        <img src="gambar/cubic-zironia.jpg" alt="Cubic Zirconia">
+                        <div class="favorite-card-name">Cubic Zirconia</div>
+                        <div class="favorite-price">Rp 25.000</div>
+                    </div>
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 38
+                        </div>
+                        <img src="gambar/titanium-earrings.jpg" alt="Titanium Earrings">
+                        <div class="favorite-card-name">Titanium Earrings</div>
+                        <div class="favorite-price">Rp 35.000</div>
+                    </div>
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 32
+                        </div>
+                        <img src="gambar/spkie-ohrring.jpg" alt="Spike Ohrring">
+                        <div class="favorite-card-name">Spike Ohrring</div>
+                        <div class="favorite-price">Rp 28.000</div>
+                    </div>
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 29
+                        </div>
+                        <img src="gambar/kyoto-series.jpg" alt="Kyoto Series">
+                        <div class="favorite-card-name">Kyoto Series</div>
+                        <div class="favorite-price">Rp 42.000</div>
+                    </div>
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 27
+                        </div>
+                        <img src="gambar/ear-piercing-ball.jpg" alt="Ear Piercing Ball">
+                        <div class="favorite-card-name">Ear Piercing Ball</div>
+                        <div class="favorite-price">Rp 18.000</div>
+                    </div>
+                    <div class="favorite-card">
+                        <div class="popularity-badge">
+                            <i class="fa-solid fa-heart"></i> 24
+                        </div>
+                        <img src="gambar/barbell-earrings.jpg" alt="Barbell Earrings">
+                        <div class="favorite-card-name">Barbell Earrings</div>
+                        <div class="favorite-price">Rp 30.000</div>
+                    </div>
+                </div>
+            </div>
+            
+>>>>>>> cee3210 (Update)
             <a class="btn-back" href="dashboard.php"><i class="fa-solid fa-arrow-left"></i>Kembali ke Dashboard</a>
         </section>
     </main>

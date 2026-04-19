@@ -1,10 +1,41 @@
 ﻿<?php
 session_start();
+require_once 'firebase.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    // Akun berhasil dibuat, arahkan ke Login dengan pesan sukses
-    header('Location: Login.php?registered=1');
-    exit;
+    $username = trim($_POST['username']);
+    $nohp = trim($_POST['nohp']);
+    $email = trim($_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash password
+
+    // Simpan ke Firebase
+    $userData = [
+        'username' => $username,
+        'nohp' => $nohp,
+        'email' => $email,
+        'password' => $password,
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+
+    $result = $firestore->saveDocument('users', $username, $userData);
+
+    if (!isset($result['error'])) {
+        // Buat juga entri profil agar data akun langsung tersedia
+        $profileData = [
+            'username' => $username,
+            'full_name' => $username,
+            'email' => $email,
+            'phone' => $nohp,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+        $firestore->saveDocument('profiles', $username, $profileData);
+
+        // Akun berhasil dibuat, arahkan ke Login dengan pesan sukses
+        header('Location: Login.php?registered=1');
+        exit;
+    } else {
+        $error = 'Gagal membuat akun: ' . $result['error'];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -145,7 +176,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
         <div class="right-section">
             <h2>Buat Akun Baru</h2>
-            
+            <?php if (isset($error)): ?>
+                <p style="color: #ff6b6b; margin-bottom: 15px;"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
             <form action="" method="POST">
                 <input type="text" name="username" placeholder="Masukkan Username" required>
                 <input type="tel" name="nohp" placeholder="Masukkan No HP" required>
