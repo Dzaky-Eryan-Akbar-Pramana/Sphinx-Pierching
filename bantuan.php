@@ -1,18 +1,8 @@
 ﻿<?php
-$username = "@sphnx_piercing";
 $current_page = basename($_SERVER['PHP_SELF']);
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Bantuan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
-    <style>
+<style>
         /* CSS SAMA SEPERTI YANG KAMU KIRIM */
         :root{
             --bg-main:#2f0c58;
@@ -219,8 +209,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             .features { grid-template-columns: 1fr; }
         }
     </style>
-</head>
-<body>
 
 <div class="app">
     <aside class="sidebar">

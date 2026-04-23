@@ -1,24 +1,8 @@
-<?php
-session_start();
-$username = isset($_SESSION['user']) ? $_SESSION['user'] : '@sphnx_piercing';
-$is_logged_in = isset($_SESSION['user']);
-$allowed_pages = ['Login.php', 'BuatAkun.php'];
-if (!$is_logged_in && !in_array(basename($_SERVER['PHP_SELF']), $allowed_pages)) {
-    header('Location: Login.php');
-    exit;
-}
-
+﻿<?php
 $current_page = basename($_SERVER['PHP_SELF']);
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokasi - Sphinx Piercing</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <style>
+<style>
         :root{
             --bg-main:#2f0c58;
             --bg-main-dark:#20103a;
@@ -290,28 +274,25 @@ $current_page = basename($_SERVER['PHP_SELF']);
             }
         }
     </style>
-</head>
-<body>
     <div class="app">
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="brand">
-                <img src="gambar/sphinx_piercing_logo.jpg" alt="Sphinx Piercing Logo" onerror="this.src='https://via.placeholder.com/90'">
+                <img src="gambar/logo2.jpeg" alt="Logo">
                 <span>Sphinx Piercing</span>
             </div>
 
             <ul class="menu">
-                <li><a href="Dashboard.php"><i class="fa-solid fa-home"></i> Home</a></li>
-                <li><a href="piercing_produk.php"><i class="fa-solid fa-ring"></i> Produk</a></li>
-                <li><a href="jasa_piercing.php"><i class="fa-solid fa-handshake"></i> Jasa</a></li>
-                <li><a href="riwayat.php"><i class="fa-solid fa-history"></i> Riwayat</a></li>
-                <li><a href="maps.php" class="active"><i class="fa-solid fa-map-location-dot"></i> Lokasi</a></li>
+                <li><a href="dashboard.php" class="<?= ($current_page == 'dashboard.php' || $current_page == 'Dashboard.php') ? 'active' : '' ?>"><i class="fa-solid fa-house"></i>Dashboard</a></li>
+                <li><a href="riwayat.php" class="<?= $current_page == 'riwayat.php' ? 'active' : '' ?>"><i class="fa-solid fa-clock-rotate-left"></i>Riwayat Pemesanan</a></li>
+                <li><a href="jadwal.php" class="<?= $current_page == 'jadwal.php' ? 'active' : '' ?>"><i class="fa-solid fa-calendar-check"></i>Jadwal Reservasi</a></li>
+                <li><a href="pengaturan.php" class="<?= $current_page == 'pengaturan.php' ? 'active' : '' ?>"><i class="fa-solid fa-gear"></i>Pengaturan Akun</a></li>
             </ul>
 
             <div class="sidebar-footer">
-                <a href="pengaturan.php" style="text-decoration: none; color: var(--text-soft); font-size: 13px;">
-                    <i class="fa-solid fa-gear"></i> Pengaturan
-                </a>
+                <ul class="menu">
+                    <li><a href="bantuan.php" class="<?= $current_page == 'bantuan.php' ? 'active' : '' ?>"><i class="fa-solid fa-circle-question"></i>Bantuan</a></li>
+                </ul>
             </div>
         </aside>
 
@@ -319,13 +300,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="main">
             <div class="topbar">
                 <div class="top-links">
-                    <a href="piercing_produk.php">Produk</a>
+                    <!-- <a href="piercing_produk.php">Produk</a>
                     <a href="jasa_piercing.php">Jasa</a>
-                    <a href="maps.php">Maps</a>
+                    <a href="maps.php">Maps</a> -->
                 </div>
                 <div class="top-icons">
-                    <i class="fa-regular fa-bell"></i>
-                    <i class="fa-regular fa-user"></i>
+                    <!-- <i class="fa-regular fa-bell"></i>
+                    <i class="fa-regular fa-user"></i> -->
                 </div>
             </div>
 

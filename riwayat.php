@@ -59,19 +59,10 @@ foreach ($allOrders as $orderId => $order) {
 }
 
 $orderHistory = array_values($orderHistory);
+
+include 'header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Riwayat Pemesanan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
-    <style>
+<style>
         /* --- CSS VARIABLE (SAMA SEPERTI SEBELUMNYA) --- */
         :root{
             --bg-main:#2f0c58;
@@ -271,8 +262,6 @@ $orderHistory = array_values($orderHistory);
             .btn { padding: 6px 12px; font-size: 11px; }
         }
     </style>
-</head>
-<body>
 
 <div class="app">
     <aside class="sidebar">

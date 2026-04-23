@@ -1,5 +1,5 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) { session_start(); }
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : '@sphnx_piercing';
 $is_logged_in = isset($_SESSION['user']);
 $allowed_pages = ['Login.php', 'BuatAkun.php'];
@@ -133,42 +133,6 @@ if (!function_exists('sanitize_text')) {
             .cart-dropdown { right: 4px; min-width: calc(100vw - 12px); }
         }
     </style>
-
-<<<<<<< HEAD
-=======
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyBw4w0-uBaeFb2lTwOZLeyHKanHHQaZ1CU",
-          authDomain: "projek-sphinx.firebaseapp.com",
-          databaseURL: "https://projek-sphinx-default-rtdb.firebaseio.com",
-          projectId: "projek-sphinx",
-          storageBucket: "projek-sphinx.firebasestorage.app",
-          messagingSenderId: "497460614598",
-          appId: "1:497460614598:web:68ec7fdfeef07073014ec7"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Make Firebase available globally
-        window.firebaseApp = app;
-        window.firebaseAnalytics = analytics;
-        window.firebaseAuth = auth;
-        window.firebaseDb = db;
-    </script>
-
->>>>>>> cee3210 (Update)
 </head>
 <body>
     <header class="cart-bar">
@@ -181,6 +145,7 @@ if (!function_exists('sanitize_text')) {
             <span class="cart-count" id="cartCount">0</span>
         </div>
         <?php if ($is_logged_in): ?>
+            <a href="maps.php" style="text-decoration:none; color:var(--text-soft); font-size:14px; display:flex; align-items:center; gap:6px; transition:.2s;" onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--text-soft)'"><i class="fa-solid fa-location-dot"></i> Maps</a>
             <div class="profile-wrap" id="profileWrap">
                 <span class="profile-name"><?= htmlspecialchars($username) ?></span>
                 <button class="profile-btn" id="profileBtn" aria-label="Profil">

@@ -751,7 +751,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <section class="features">
             <a class="feature-item" href="piercing_produk.php">
-                <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>X
+                <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>
                 <span>Piercing Produk</span>
             </a>
             <a class="feature-item" href="jasa_piercing.php">
