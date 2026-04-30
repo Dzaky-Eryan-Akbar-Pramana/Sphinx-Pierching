@@ -71,15 +71,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
         
         /* --- MAIN CONTENT --- */
         .main{
-            flex:1; padding:20px 28px; background:var(--bg-main);
+            flex:1; padding:16px 28px 20px; background:var(--bg-main);
             display:flex; flex-direction:column;
             margin-left:210px; /* offset sidebar */
         }
     
-        .topbar{
-            display:flex; align-items:center; gap:20px; margin-bottom:24px;
-        }
-
         /* --- AD SLIDESHOW --- */
         .ad-slideshow {
             position: relative;
@@ -463,7 +459,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
-            .topbar { flex-wrap: wrap; gap: 8px; }
             .promo-text h1 { font-size: 22px; }
             .features { grid-template-columns: 1fr; }
             .product-images { grid-template-columns: 1fr; }
@@ -556,6 +551,60 @@ $current_page = basename($_SERVER['PHP_SELF']);
             min-width: 24px;
             text-align: center;
         }
+
+        /* --- SEARCH BAR --- */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 16px;
+            margin-top: 4px;
+        }
+        .search-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-soft);
+            font-size: 15px;
+            pointer-events: none;
+        }
+        .search-input {
+            width: 100%;
+            padding: 13px 44px 13px 44px;
+            background: var(--bg-card);
+            border: 1px solid rgba(165, 76, 207, 0.35);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+        }
+        .search-input::placeholder { color: var(--text-soft); }
+        .search-input:focus {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 3px rgba(130,255,91,0.12);
+        }
+        .search-clear {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-soft);
+            cursor: pointer;
+            font-size: 15px;
+            display: none;
+            padding: 4px;
+        }
+        .search-clear:hover { color: var(--text); }
+        .search-results-label {
+            font-size: 13px;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+            display: none;
+        }
+        .search-results-label span { color: var(--lime); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -581,14 +630,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     </aside>
 
-        <!-- <div class="sidebar-footer">
-            <ul class="menu">
-                <li><a href="bantuan.php"><i class="fa-solid fa-circle-question"></i>Bantuan</a></li>
-            </ul>
+    <main class="main">
+        <!-- Search Bar -->
+        <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari produk piercing... (contoh: titanium, barbell)">
+            <button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
         </div>
-    </aside> -->
+        <p class="search-results-label" id="searchLabel">Menampilkan <span id="searchCount">0</span> hasil untuk "<span id="searchQuery"></span>"</p>
 
-    <main class="main app">
         <!-- Iklan Produk Slideshow -->
         <div class="ad-slideshow" id="adSlideshow">
 
@@ -760,7 +810,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </a>
             <a class="feature-item" href="alternatif_piercing.php">
                 <div class="feature-icon"><i class="fa-solid fa-ring"></i></div>
-                <span>Alternatif Piercing</span>
+                <span>Katalog Piercing</span>
             </a>
             <a class="feature-item" href="piercing_disukai.php">
                 <div class="feature-icon"><i class="fa-regular fa-heart"></i></div>
@@ -911,7 +961,49 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </main>
 
 <script>
-    
+    // --- SEARCH PRODUK ---
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const searchLabel = document.getElementById('searchLabel');
+    const searchCountEl = document.getElementById('searchCount');
+    const searchQueryEl = document.getElementById('searchQuery');
+    const allProductItems = document.querySelectorAll('.product-item');
+    const adSlideshow = document.getElementById('adSlideshow');
+
+    searchInput.addEventListener('input', function () {
+        const q = this.value.trim().toLowerCase();
+        searchClear.style.display = q ? 'block' : 'none';
+
+        if (q === '') {
+            allProductItems.forEach(item => item.style.display = '');
+            adSlideshow.style.display = '';
+            searchLabel.style.display = 'none';
+            return;
+        }
+
+        // Sembunyikan slideshow saat searching
+        adSlideshow.style.display = 'none';
+
+        let count = 0;
+        allProductItems.forEach(item => {
+            const name = (item.dataset.product || '').toLowerCase();
+            const desc = (item.dataset.desc || '').toLowerCase();
+            const match = name.includes(q) || desc.includes(q);
+            item.style.display = match ? '' : 'none';
+            if (match) count++;
+        });
+
+        searchCountEl.textContent = count;
+        searchQueryEl.textContent = this.value.trim();
+        searchLabel.style.display = 'block';
+    });
+
+    searchClear.addEventListener('click', function () {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+        searchInput.focus();
+    });
+
     const favoriteKey = 'piercing_favorites';
 
     const cartKey = 'sphinx_cart';

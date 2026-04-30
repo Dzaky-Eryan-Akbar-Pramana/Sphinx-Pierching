@@ -96,7 +96,7 @@
 <body>
 
 <div class="container">
-     <a href="Welcome.php" class="back">&#8592;</a>
+     <a href="Login.php" class="back">&#8592;</a>
 
     <img src="gambar/logo-sphinx.png" class="logo" alt="Logo">
     <h1>Login Google</h1>

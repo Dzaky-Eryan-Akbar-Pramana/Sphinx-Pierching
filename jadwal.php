@@ -97,6 +97,92 @@ include 'header.php';
         }
         .btn-submit:hover { background: #6fe04a; }
 
+        .price-tag {
+            display: inline-block;
+            background: rgba(130, 255, 91, 0.15);
+            color: var(--lime);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            border: 1px solid rgba(130, 255, 91, 0.3);
+        }
+
+        .detail-box {
+            background: var(--bg-main);
+            border: 1px solid rgba(165, 76, 207, 0.4);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+            color: var(--text-soft);
+            line-height: 1.8;
+            min-height: 80px;
+        }
+        .detail-box strong { color: var(--text); }
+
+        /* Modal Pembayaran */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-box .modal-icon {
+            font-size: 48px;
+            color: var(--lime);
+            margin-bottom: 16px;
+        }
+        .modal-box h3 { font-size: 18px; margin-bottom: 10px; color: var(--lime); }
+        .modal-box p { font-size: 13px; color: var(--text-soft); margin-bottom: 6px; line-height: 1.7; }
+        .modal-detail {
+            background: var(--bg-main);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0;
+            text-align: left;
+            font-size: 13px;
+            line-height: 2;
+        }
+        .modal-detail span { color: var(--text-soft); }
+        .modal-detail strong { color: var(--text); }
+        .modal-note {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.4);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: orange;
+            margin-bottom: 16px;
+        }
+        .modal-note i { margin-right: 6px; }
+        .btn-modal-ok {
+            background: var(--lime);
+            color: var(--bg-main-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 32px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-modal-ok:hover { background: #6fe04a; }
+
         .schedule-list h2 { font-size: 20px; margin-bottom: 20px; color: var(--text); }
         
         .appointment-card {
@@ -223,12 +309,13 @@ include 'header.php';
                     <div class="form-group">
                         <label>Pilih Layanan</label>
                         <select id="layananInput" class="form-control">
-                            <option>Telinga (Ear Lobe)</option>
-                            <option>Hidung (Nose)</option>
-                            <option>Alis (Eyebrow)</option>
-                            <option>Bibir (Lip)</option>
-                            <option>Industrial Piercing</option>
+                            <option value="Telinga (Ear Lobe)" data-harga="85000">Telinga (Ear Lobe)</option>
+                            <option value="Hidung (Nose)" data-harga="100000">Hidung (Nose)</option>
+                            <option value="Alis (Eyebrow)" data-harga="120000">Alis (Eyebrow)</option>
+                            <option value="Bibir (Lip)" data-harga="110000">Bibir (Lip)</option>
+                            <option value="Industrial Piercing" data-harga="150000">Industrial Piercing</option>
                         </select>
+                        <span class="price-tag" id="hargaTag"><i class="fa-solid fa-tag"></i> Rp 85.000</span>
                     </div>
 
                     <div class="form-group">
@@ -238,8 +325,23 @@ include 'header.php';
                     </div>
 
                     <div class="form-group">
+                        <label>Jumlah Titik Piercing</label>
+                        <input type="number" id="jumlahInput" class="form-control" min="1" max="10" value="1" placeholder="Masukkan jumlah...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detail Reservasi</label>
+                        <div class="detail-box" id="detailBox">
+                            <strong>Layanan:</strong> Telinga (Ear Lobe)<br>
+                            <strong>Harga:</strong> Rp 85.000 / titik<br>
+                            <strong>Hari & Waktu:</strong> —<br>
+                            <strong>Jumlah:</strong> 1 titik &nbsp;|&nbsp; <strong>Total:</strong> Rp 85.000
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>Catatan Tambahan (Opsional)</label>
-                        <textarea id="catatanInput" class="form-control" rows="4" placeholder="Request khusus..."></textarea>
+                        <textarea id="catatanInput" class="form-control" rows="3" placeholder="Request khusus, alergi, atau informasi lain..."></textarea>
                     </div>
 
                     <button type="button" id="btnBooking" class="btn-submit">Booking Sekarang</button>
@@ -288,11 +390,79 @@ include 'header.php';
     </main>
 </div>
 
+<!-- Modal Konfirmasi Pembayaran -->
+<div class="modal-overlay" id="modalPembayaran">
+    <div class="modal-box">
+        <div class="modal-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Reservasi Berhasil!</h3>
+        <p>Detail reservasi kamu:</p>
+        <div class="modal-detail" id="modalDetailIsi">
+            <!-- diisi JS -->
+        </div>
+        <div class="modal-note">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <strong>Informasi Pembayaran</strong><br>
+            Pembayaran dilakukan <strong>setelah pemasangan selesai di tempat</strong> (bayar di studio). Tidak ada pembayaran di muka.
+        </div>
+        <button class="btn-modal-ok" id="btnModalOk">Mengerti, Lanjutkan</button>
+    </div>
+</div>
+
 <script>
+    const hargaMap = {
+        'Telinga (Ear Lobe)': 85000,
+        'Hidung (Nose)': 100000,
+        'Alis (Eyebrow)': 120000,
+        'Bibir (Lip)': 110000,
+        'Industrial Piercing': 150000
+    };
+
+    function formatRupiah(angka) {
+        return 'Rp ' + angka.toLocaleString('id-ID');
+    }
+
+    function updateDetail() {
+        const layananEl = document.getElementById('layananInput');
+        const layanan = layananEl.value;
+        const harga = hargaMap[layanan] || 0;
+        const jumlah = parseInt(document.getElementById('jumlahInput').value) || 1;
+        const tanggal = document.getElementById('tanggalInput').value;
+        const waktu = document.getElementById('waktuInput').value;
+
+        // Update price tag
+        document.getElementById('hargaTag').innerHTML = '<i class="fa-solid fa-tag"></i> ' + formatRupiah(harga);
+
+        // Format hari & waktu
+        let hariWaktu = '—';
+        if (tanggal) {
+            const dateObj = new Date(tanggal);
+            const namaHari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][dateObj.getDay()];
+            const tgl = dateObj.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
+            hariWaktu = namaHari + ', ' + tgl + (waktu ? ' — ' + waktu + ' WIB' : '');
+        } else if (waktu) {
+            hariWaktu = waktu + ' WIB';
+        }
+
+        const total = harga * jumlah;
+        document.getElementById('detailBox').innerHTML =
+            '<strong>Layanan:</strong> ' + layanan + '<br>' +
+            '<strong>Harga:</strong> ' + formatRupiah(harga) + ' / titik<br>' +
+            '<strong>Hari & Waktu:</strong> ' + hariWaktu + '<br>' +
+            '<strong>Jumlah:</strong> ' + jumlah + ' titik &nbsp;|&nbsp; <strong>Total:</strong> ' + formatRupiah(total);
+    }
+
+    document.getElementById('layananInput').addEventListener('change', updateDetail);
+    document.getElementById('jumlahInput').addEventListener('input', updateDetail);
+    document.getElementById('tanggalInput').addEventListener('change', updateDetail);
+    document.getElementById('waktuInput').addEventListener('change', updateDetail);
+
     document.getElementById('btnBooking').addEventListener('click', function() {
         const layanan = document.getElementById('layananInput').value;
         const tanggal = document.getElementById('tanggalInput').value;
         const waktu = document.getElementById('waktuInput').value;
+        const jumlah = parseInt(document.getElementById('jumlahInput').value) || 1;
+        const harga = hargaMap[layanan] || 0;
+        const total = harga * jumlah;
 
         if(tanggal === '' || waktu === '') {
             alert('Mohon lengkapi tanggal dan waktu reservasi!');
@@ -320,6 +490,7 @@ include 'header.php';
             <div class="info-box">
                 <h3>${layanan}</h3>
                 <p><i class="fa-regular fa-clock"></i> ${waktu} - ${waktuAkhir} WIB</p>
+                <p><i class="fa-solid fa-hashtag"></i> ${jumlah} titik &nbsp;|&nbsp; <strong style="color:var(--lime)">${formatRupiah(total)}</strong></p>
                 <p><i class="fa-solid fa-user-doctor"></i> Dr. Sphnx</p>
             </div>
             <div class="card-actions">
@@ -331,7 +502,26 @@ include 'header.php';
         const listJadwal = document.getElementById('listJadwal');
         listJadwal.insertBefore(cardBaru, listJadwal.children[1]);
 
+        // Tampilkan modal pembayaran
+        const dateObjModal = new Date(tanggal);
+        const namaHariModal = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][dateObjModal.getDay()];
+        const tglModal = dateObjModal.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
+        document.getElementById('modalDetailIsi').innerHTML =
+            '<span>Layanan</span> &nbsp; <strong>' + layanan + '</strong><br>' +
+            '<span>Harga</span> &nbsp;&nbsp;&nbsp;&nbsp; <strong>' + formatRupiah(harga) + ' / titik</strong><br>' +
+            '<span>Jumlah</span> &nbsp;&nbsp; <strong>' + jumlah + ' titik</strong><br>' +
+            '<span>Hari</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>' + namaHariModal + ', ' + tglModal + '</strong><br>' +
+            '<span>Waktu</span> &nbsp;&nbsp; <strong>' + waktu + ' – ' + waktuAkhir + ' WIB</strong><br>' +
+            '<span>Total</span> &nbsp;&nbsp;&nbsp;&nbsp; <strong style="color:var(--lime)">' + formatRupiah(total) + '</strong>';
+
+        document.getElementById('modalPembayaran').classList.add('active');
+
         document.getElementById('bookingForm').reset();
+        updateDetail();
+    });
+
+    document.getElementById('btnModalOk').addEventListener('click', function() {
+        document.getElementById('modalPembayaran').classList.remove('active');
     });
 </script>
 

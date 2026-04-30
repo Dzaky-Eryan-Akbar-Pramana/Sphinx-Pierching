@@ -231,6 +231,20 @@ include 'header.php';
             margin: 0;
         }
 
+        .price-badge {
+            display: inline-block;
+            margin-top: 8px;
+            background: rgba(130, 255, 91, 0.15);
+            color: var(--lime);
+            border: 1px solid rgba(130, 255, 91, 0.35);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .price-badge i { margin-right: 4px; }
+
         .service-image {
             width: 220px;
             min-width: 220px;
@@ -401,6 +415,7 @@ include 'header.php';
                                     <div class="service-card-content">
                                         <h3>Telinga (Ear Lobe)</h3>
                                         <p>Piercing klasik di daun telinga dengan perawatan cepat dan minim nyeri.</p>
+                                        <span class="price-badge"><i class="fa-solid fa-tag"></i>Rp 85.000</span>
                                     </div>
                                 </div>
                                 <div class="service-card">
@@ -408,6 +423,7 @@ include 'header.php';
                                     <div class="service-card-content">
                                         <h3>Hidung (Nose)</h3>
                                         <p>Piercing hidung profesional untuk model lubang kanan atau kiri.</p>
+                                        <span class="price-badge"><i class="fa-solid fa-tag"></i>Rp 100.000</span>
                                     </div>
                                 </div>
                                 <div class="service-card">
@@ -415,6 +431,7 @@ include 'header.php';
                                     <div class="service-card-content">
                                         <h3>Alis (Eyebrow)</h3>
                                         <p>Piercing alis rapi dengan posisi estetis dan aman.</p>
+                                        <span class="price-badge"><i class="fa-solid fa-tag"></i>Rp 120.000</span>
                                     </div>
                                 </div>
                                 <div class="service-card">
@@ -422,13 +439,15 @@ include 'header.php';
                                     <div class="service-card-content">
                                         <h3>Bibir (Lip)</h3>
                                         <p>Piercing bibir atas/bawah dengan teknik steril dan aftercare lengkap.</p>
+                                        <span class="price-badge"><i class="fa-solid fa-tag"></i>Rp 110.000</span>
                                     </div>
                                 </div>
                                 <div class="service-card">
                                     <img src="gambar/Contoh-Lidah.png" alt="Lidah (Tongue)">
                                     <div class="service-card-content">
-                                        <h3>Lidah (Tongue)</h3>
+                                        <h3>Industrial Piercing</h3>
                                         <p>Piercing kompleks pada daun telinga dengan dua lubang sekaligus.</p>
+                                        <span class="price-badge"><i class="fa-solid fa-tag"></i>Rp 150.000</span>
                                     </div>
                                 </div>
                             </div>
