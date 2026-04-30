@@ -1,0 +1,370 @@
+﻿:root {
+            --bg-main: #2f0c58;
+            --bg-card: #14062b;
+            --text: #f4f4f4;
+            --text-soft: #cdcdcd;
+            --lime: #82ff5b;
+            --accent: #a54ccf;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #111;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+        }
+
+        .card h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--lime);
+        }
+
+        .card p {
+            color: var(--text-soft);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-control,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: rgba(255, 255, 255, .05);
+            color: var(--text);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--lime);
+        }
+
+        textarea.form-control {
+            resize: none;
+        }
+
+        .readonly-input {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .qty-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .qty-wrapper .form-control {
+            padding-right: 36px;
+        }
+        .qty-wrapper .form-control::-webkit-outer-spin-button,
+        .qty-wrapper .form-control::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .qty-wrapper .form-control[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        .qty-spinners {
+            position: absolute;
+            right: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .qty-spin-btn {
+            background: none;
+            border: none;
+            color: var(--lime);
+            width: 22px;
+            height: 18px;
+            font-size: 9px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background .15s;
+            line-height: 1;
+        }
+        .qty-spin-btn:hover { background: rgba(130,255,91,.15); }
+
+        .radio-group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            cursor: pointer;
+        }
+
+        .radio-item input {
+            accent-color: var(--lime);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Force pickup layout when form has .pickup to avoid race conditions */
+        .pickup #recipientAddressGroup { display: none !important; }
+        .pickup #storeAddress { display: block !important; }
+
+        .contact-fields {
+            display: grid;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .store-address {
+            margin-top: 16px;
+            padding: 18px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 14px;
+            color: var(--text-soft);
+            line-height: 1.7;
+        }
+
+        .summary {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            padding: 22px;
+            margin-top: 24px;
+        }
+
+        .summary h2 {
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .summary p {
+            font-size: 15px;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+        }
+
+        .summary strong {
+            display: block;
+            font-size: 20px;
+            color: var(--lime);
+            margin-top: 10px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .btn-submit,
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-submit {
+            background: var(--lime);
+            color: #111;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, .08);
+            color: var(--text);
+        }
+
+        .btn-submit:hover {
+            opacity: .95;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .payment-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 120;
+            padding: 20px;
+        }
+
+        .payment-modal.active {
+            display: flex;
+        }
+
+        .payment-modal-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            width: min(540px, 100%);
+            padding: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+        }
+
+        .payment-modal-card h2 {
+            font-size: 22px;
+            margin-bottom: 18px;
+            color: var(--lime);
+        }
+
+        .payment-method-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .payment-method-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            cursor: pointer;
+            transition: background .2s, transform .2s;
+        }
+
+        .payment-method-card:hover {
+            background: rgba(130, 255, 91, .08);
+            transform: translateY(-1px);
+        }
+
+        .payment-method-card.disabled {
+            opacity: 0.45;
+            pointer-events: none;
+            filter: grayscale(60%);
+        }
+
+        .payment-method-card.selected {
+            background: rgba(130,255,91,0.12);
+            border-color: rgba(130,255,91,0.25);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .payment-method-card span {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .payment-method-card small {
+            color: var(--text-soft);
+        }
+
+        .payment-summary {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 24px;
+            display: none;
+        }
+
+        .payment-summary.active {
+            display: block;
+        }
+
+        .payment-summary h3 {
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .payment-summary p {
+            font-size: 14px;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+        }
+
+        .payment-summary strong {
+            display: block;
+            font-size: 18px;
+            color: var(--lime);
+            margin-top: 12px;
+        }
+
+        .pay-now {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 20px;
+            margin-top: 18px;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .pay-now:hover {
+            opacity: .95;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: var(--text-soft);
+            margin-top: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .container { margin: 16px auto; padding: 0 12px; }
+            .card { padding: 20px 16px; border-radius: 14px; }
+            .card h1 { font-size: 20px; }
+            .form-group { margin-bottom: 14px; }
+            .form-control, .form-select { padding: 12px 14px; border-radius: 10px; }
+            .form-actions { flex-direction: column; gap: 10px; }
+            .btn-submit, .btn-back { width: 100%; justify-content: center; }
+            .payment-modal-card { padding: 18px; }
+        }

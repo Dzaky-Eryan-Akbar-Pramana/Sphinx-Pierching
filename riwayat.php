@@ -62,206 +62,7 @@ $orderHistory = array_values($orderHistory);
 
 include 'header.php';
 ?>
-<style>
-        /* --- CSS VARIABLE (SAMA SEPERTI SEBELUMNYA) --- */
-        :root{
-            --bg-main:#2f0c58;
-            --bg-main-dark:#20103a;
-            --bg-sidebar:#240744;
-            --bg-card:#14062b; /* Warna Kartu di Gambar */
-            --accent:#a54ccf;
-            --text:#f4f4f4;
-            --text-soft:#cdcdcd;
-            --lime:#82ff5b; /* Warna Hijau Tombol */
-        }
-        *{margin:0;padding:0;box-sizing:border-box;}
-
-        body{ font-family:"Poppins",sans-serif; background:#111; color:var(--text); }
-        .app{ display:flex; min-height:100vh; background:var(--bg-main); }
-       
-        /* --- SIDEBAR STYLE (TETAP) --- */
-        .sidebar{
-            width:210px; background:var(--bg-sidebar); padding:18px 16px;
-            display:flex; flex-direction:column; align-items:center;
-            border-right:1px solid rgba(0,0,0,.4);
-            position:fixed; left:0; top:0; bottom:0; height:100vh; z-index:60;
-        }
-        .brand{ text-align:center; margin-bottom:32px; }
-        .brand img{ width:90px;height:90px; border-radius:50%; border:3px solid var(--accent); object-fit:cover; }
-        .brand span{ display:block; margin-top:8px; font-size:13px; }
-        .menu{ width:100%; list-style:none; flex:1; }
-        .menu li{ margin-bottom:14px; }
-        .menu a{
-            display:flex; align-items:center; gap:10px; padding:10px 12px;
-            border-radius:999px; font-size:13px; text-decoration:none;
-            color:var(--text-soft); transition:.2s;
-        }
-        .menu a i{ width:20px; text-align:center; }
-        .menu a:hover, .menu a.active{ background:var(--bg-main-dark); color:var(--lime); }
-        .sidebar-footer{ width:100%; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.08); }
-
-        /* --- MAIN CONTENT STYLE --- */
-        .main{
-            flex:1; padding:20px 40px; background:var(--bg-main);
-            display:flex; flex-direction:column; margin-left:210px;
-        }
-
-        /* Header Kanan (Jasa, Maps, User) */
-        .header-top {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px;
-        }
-        .page-title { font-size: 28px; font-weight: 500; }
-        .top-nav { display: flex; gap: 20px; align-items: center; font-size: 14px; }
-        .top-nav a { text-decoration: none; color: var(--text-soft); }
-        .top-nav a:hover { color: var(--lime); }
-        .user-icon { font-size: 18px; }
-
-        /* --- CARD STYLE (SESUAI GAMBAR) --- */
-        .order-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: space-between; /* Kiri konten, Kanan status/tombol */
-        }
-
-        .card-left { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .order-id { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
-        .service-name { font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 2px; }
-        .sub-info { font-size: 14px; color: var(--text-soft); margin-bottom: 2px;}
-        .price { font-size: 16px; font-weight: 500; margin-top: 5px; color: var(--text); }
-        
-        .payment-method { display: flex; align-items: center; gap: 5px; margin-top: 5px; color: var(--text-soft); font-size: 14px; }
-
-        .card-right {
-            display: flex; flex-direction: column; 
-            justify-content: space-between; 
-            align-items: flex-end;
-            min-width: 180px;
-        }
-
-        .order-date { font-size: 12px; color: var(--text-soft); margin-bottom: 10px; }
-
-        .status-badge {
-            display: flex; align-items: center; gap: 5px;
-            font-size: 14px; font-weight: 500; margin-bottom: auto; /* Push buttons down */
-        }
-        .status-success { color: var(--lime); }
-        .status-shipping { color: var(--text-soft); }
-
-        /* Tombol Aksi */
-        .action-buttons { display: flex; gap: 10px; margin-top: 15px; }
-        
-        .btn {
-            padding: 6px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.2s;
-        }
-        
-        /* Tombol "Lihat Detail" (Dark) */
-        .btn-detail {
-            background: #2a2a2a; /* Abu-abu gelap */
-            color: var(--lime);
-            border: 1px solid transparent;
-        }
-        .btn-detail:hover { background: #333; }
-
-        /* Tombol Utama (Hijau) */
-        .btn-primary {
-            background: var(--lime);
-            color: #000;
-            border: none;
-        }
-        .btn-primary:hover { opacity: 0.9; }
-
-
-        /* --- MODAL DETAIL (POPUP) --- */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; z-index: 100; left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            align-items: center; justify-content: center;
-        }
-        
-        .modal-content {
-            background-color: var(--bg-card);
-            padding: 0; /* Padding diatur di dalam header/body */
-            border-radius: 12px;
-            width: 500px;
-            max-width: 90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            padding: 25px 30px 10px;
-        }
-        .modal-header h2 { font-size: 28px; font-weight: 500; }
-
-        .modal-body {
-            padding: 10px 30px 40px;
-        }
-        
-        /* Layout Grid Detail sesuai gambar */
-        .detail-row {
-            display: flex; justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        .detail-label { color: var(--text-soft); }
-        .detail-value { text-align: right; color: var(--text); font-weight: 400; }
-        
-        .detail-price {
-            font-size: 18px; font-weight: 500; margin-top: 20px;
-            text-align: right; width: 100%; display: block;
-        }
-        
-        .close-btn {
-            float: right; font-size: 24px; cursor: pointer; color: var(--text-soft); margin-top: -10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .sidebar { width: 60px; padding: 12px 6px; }
-            .brand { display: none; }
-            .sidebar-footer { display: none; }
-            .menu a { font-size: 0; padding: 10px; justify-content: center; }
-            .menu a i { font-size: 18px; width: auto; }
-            .main { margin-left: 60px; padding: 16px 20px; }
-            .order-card { flex-direction: column; gap: 15px; }
-            .card-right { align-items: flex-start; min-width: auto; }
-            .action-buttons { width: 100%; justify-content: space-between; }
-            .order-date { position: static; }
-        }
-
-        @media (max-width: 600px) {
-            .main { padding: 12px 10px; }
-            .page-title { font-size: 20px; }
-            .order-card { padding: 14px; }
-            .btn { padding: 6px 12px; font-size: 11px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/riwayat.css">
 
 <div class="app">
     <aside class="sidebar">
@@ -297,12 +98,9 @@ include 'header.php';
         </div>
 
         <?php if (empty($orderHistory)): ?>
-            <div class="order-card">
-                <div class="card-left">
-                    <div class="order-id">Belum Ada Riwayat</div>
-                    <div class="service-name">Tidak ada pesanan selesai</div>
-                    <div class="sub-info">Lakukan pembelian dan pembayaran agar pesanan muncul di sini.</div>
-                </div>
+            <div class="empty-state">
+                <i class="fa-regular fa-bag-shopping"></i>
+                <p>Belum ada riwayat pemesanan.<br>Lakukan pembelian produk agar muncul di sini.</p>
             </div>
         <?php else: ?>
             <?php foreach ($orderHistory as $order): ?>
@@ -321,8 +119,15 @@ include 'header.php';
 
                     <div class="card-right">
                         <div class="order-date"><?= sanitize_text($order['date']) ?> <?= sanitize_text($order['time']) ?></div>
-                        <div class="status-badge <?= $order['status'] === 'Selesai' ? 'status-success' : 'status-shipping' ?>">
-                            <i class="fa-solid fa-circle-check"></i> <?= sanitize_text($order['status']) ?>
+                        <?php
+                            $st = $order['status'];
+                            if ($st === 'Selesai') { $stClass = 'status-done'; $stIcon = 'fa-circle-check'; }
+                            elseif ($st === 'Dalam Pengiriman') { $stClass = 'status-ship'; $stIcon = 'fa-truck'; }
+                            elseif ($st === 'Sedang Dikemas') { $stClass = 'status-pack'; $stIcon = 'fa-box'; }
+                            else { $stClass = 'status-new'; $stIcon = 'fa-inbox'; }
+                        ?>
+                        <div class="status-badge <?= $stClass ?>">
+                            <i class="fa-solid <?= $stIcon ?>"></i> <?= sanitize_text($st) ?>
                         </div>
                         <div class="action-buttons">
                             <button class="btn btn-detail" type="button"
@@ -356,6 +161,28 @@ include 'header.php';
             <h2>Detail Pemesanan</h2>
         </div>
         <div class="modal-body">
+            <!-- Status Stepper -->
+            <div class="status-stepper" id="detailStepper">
+                <div class="step" data-step="Pesanan Masuk">
+                    <div class="step-dot"><i class="fa-solid fa-inbox"></i></div>
+                    <div class="step-label">Pesanan Masuk</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="Sedang Dikemas">
+                    <div class="step-dot"><i class="fa-solid fa-box"></i></div>
+                    <div class="step-label">Sedang Dikemas</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="Dalam Pengiriman">
+                    <div class="step-dot"><i class="fa-solid fa-truck"></i></div>
+                    <div class="step-label">Dalam Pengiriman</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="Selesai">
+                    <div class="step-dot"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="step-label">Selesai</div>
+                </div>
+            </div>
             <div class="detail-row">
                 <span class="detail-label">NOMOR PEMESANAN</span>
                 <span class="detail-value" id="detailOrderId">-</span>
@@ -450,6 +277,19 @@ include 'header.php';
             document.getElementById('detailDate').innerText = date;
             document.getElementById('detailTime').innerText = time;
             document.getElementById('detailStatus').innerText = status;
+
+            // Update stepper
+            const statusOrder = ['Pesanan Masuk', 'Sedang Dikemas', 'Dalam Pengiriman', 'Selesai'];
+            const currentIdx = statusOrder.indexOf(status);
+            document.querySelectorAll('#detailStepper .step').forEach((step, i) => {
+                step.classList.remove('step-done', 'step-active');
+                if (i < currentIdx) step.classList.add('step-done');
+                else if (i === currentIdx) step.classList.add('step-active');
+            });
+            document.querySelectorAll('#detailStepper .step-line').forEach((line, i) => {
+                line.classList.toggle('line-done', i < currentIdx);
+            });
+
             const noteRow = document.getElementById('detailPaymentNoteRow');
             const noteEl = document.getElementById('detailPaymentNote');
             if (paymentNote && noteRow && noteEl) {

@@ -29,82 +29,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 	if (!isset($result['error'])) {
 		$success_message = 'Profil berhasil diperbarui.';
 	}
+
+	// Ubah password jika diisi
+	$pw_lama = $_POST['pw_lama'] ?? '';
+	$pw_baru = $_POST['pw_baru'] ?? '';
+	$pw_konfirmasi = $_POST['pw_konfirmasi'] ?? '';
+
+	if ($pw_baru !== '') {
+		if (strlen($pw_baru) < 6) {
+			$pw_error = 'Password baru minimal 6 karakter.';
+		} elseif ($pw_baru !== $pw_konfirmasi) {
+			$pw_error = 'Konfirmasi password tidak cocok.';
+		} else {
+			$userDoc = $firestore->getDocument('users', $username);
+			if ($userDoc && password_verify($pw_lama, $userDoc['password'])) {
+				$firestore->saveDocument('users', $username, array_merge($userDoc, [
+					'password' => password_hash($pw_baru, PASSWORD_DEFAULT)
+				]));
+				$pw_success = 'Password berhasil diubah.';
+			} else {
+				$pw_error = 'Password lama salah.';
+			}
+		}
+	}
 }
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
 include 'header.php';
 ?>
-<style>
-		:root{
-			--bg-main:#2f0c58;
-			--bg-main-dark:#20103a;
-			--bg-sidebar:#240744;
-			--bg-card:#14062b;
-			--accent:#a54ccf;
-			--accent-soft:#b86be0;
-			--text:#f4f4f4;
-			--text-soft:#cdcdcd;
-			--lime:#82ff5b;
-		}
-		*{margin:0;padding:0;box-sizing:border-box;}
-
-		body{ font-family:"Poppins",sans-serif; background:#111; color:var(--text); }
-		.app{ display:flex; min-height:100vh; background:var(--bg-main); }
-		.sidebar{ width:210px; background:var(--bg-sidebar); padding:18px 16px; display:flex; flex-direction:column; align-items:center; border-right:1px solid rgba(0,0,0,.4); position:fixed; left:0; top:0; bottom:0; height:100vh; z-index:60; }
-		.brand{ text-align:center; margin-bottom:32px; }
-		.brand img{ width:90px;height:90px; border-radius:50%; border:3px solid var(--accent); object-fit:cover; }
-		.brand span{ display:block; margin-top:8px; font-size:13px; }
-		.menu{ width:100%; list-style:none; flex:1; }
-		.menu li{ margin-bottom:14px; }
-		.menu a{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:999px; font-size:13px; text-decoration:none; color:var(--text-soft); transition:.2s; }
-		.menu a i{ width:20px; text-align:center; }
-		.menu a:hover, .menu a.active{ background:var(--bg-main-dark); color:var(--lime); }
-		.sidebar-footer{ width:100%; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,.08); }
-
-		.main{ flex:1; padding:20px 28px; background:var(--bg-main); display:flex; flex-direction:column; margin-left:210px; }
-		.topbar{ display:flex; align-items:center; gap:20px; margin-bottom:24px; }
-		.top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
-		.top-links a{ text-decoration:none; color:var(--text-soft); }
-		.top-links a:hover{ color:var(--lime); }
-		.top-icons{ display:flex; align-items:center; gap:16px; font-size:18px; }
-
-		/* Profil card */
-		.profile-section{ max-width:900px; }
-		.section-title{ background:transparent; color:var(--lime); padding:10px 12px; border-radius:6px; margin-bottom:18px; font-size:18px; }
-		.profile-card{ background:var(--bg-card); padding:24px; border-radius:10px; display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
-		.profile-details{ color:var(--text); font-size:16px; line-height:1.8; }
-		.profile-details b{ display:block; color:var(--lime); margin-bottom:6px; font-size:18px; }
-		.edit-btn{ background:var(--accent); color:var(--text); border:none; padding:8px 14px; border-radius:8px; cursor:pointer; align-self:flex-start; }
-		.edit-btn:hover{ background:var(--accent-soft); }
-
-		/* Modal styles */
-		.modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:120; }
-		.modal{ background:var(--bg-main-dark); padding:22px; border-radius:12px; width:420px; box-shadow:0 8px 30px rgba(0,0,0,0.6); }
-		.modal-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-		.modal-header h3{ color:var(--lime); font-weight:600; }
-		.modal-close{ background:transparent; border:none; color:var(--text); font-size:22px; cursor:pointer; }
-		.modal-form input{ width:100%; padding:14px; margin-bottom:14px; border-radius:12px; border:none; background:#e6e6e6; color:#111; }
-		.save-btn{ background:#6f3b84; color:var(--lime); border:none; padding:12px 26px; border-radius:10px; cursor:pointer; font-size:18px; }
-		.save-btn:hover{ opacity:.95; }
-		.sr-only{ position:absolute; left:-9999px; }
-
-		@media (max-width: 900px) {
-			.sidebar { width: 60px; padding: 12px 6px; }
-			.brand { display: none; }
-			.sidebar-footer { display: none; }
-			.menu a { font-size: 0; padding: 10px; justify-content: center; }
-			.menu a i { font-size: 18px; width: auto; }
-			.main { margin-left: 60px; }
-			.modal { width: 95vw; max-width: 420px; }
-		}
-
-		@media (max-width: 600px) {
-			.main { padding: 12px 10px; }
-			.profile-card { flex-direction: column; }
-			.modal { padding: 16px; }
-		}
-	</style>
+    <link rel="stylesheet" href="css/pengaturan.css">
 <div class="app">
 	<aside class="sidebar">
 		<div class="brand">
@@ -148,6 +102,16 @@ include 'header.php';
 					<?= htmlspecialchars($success_message) ?>
 				</div>
 			<?php endif; ?>
+			<?php if (!empty($pw_success)): ?>
+				<div style="margin-bottom:16px; padding:12px 16px; background: rgba(130,255,91,0.15); color: var(--lime); border-radius: 10px; border: 1px solid rgba(130,255,91,0.3);">
+					<?= htmlspecialchars($pw_success) ?>
+				</div>
+			<?php endif; ?>
+			<?php if (!empty($pw_error)): ?>
+				<div style="margin-bottom:16px; padding:12px 16px; background: rgba(255,68,68,0.15); color: #ff4444; border-radius: 10px; border: 1px solid #ff4444;">
+					<?= htmlspecialchars($pw_error) ?>
+				</div>
+			<?php endif; ?>
 
 			<div class="profile-card">
 				<div class="profile-details">
@@ -178,6 +142,19 @@ include 'header.php';
 						<label class="sr-only">Masukkan NoTelp</label>
 						<input name="phone" type="tel" placeholder="Masukkan NoTelp" value="<?= htmlspecialchars($phone) ?>" required>
 
+						<!-- Ubah Password -->
+						<div class="pw-section">
+							<button type="button" class="pw-toggle" id="pwToggle">
+								<i class="fa-solid fa-lock"></i> Ubah Password
+								<i class="fa-solid fa-chevron-down pw-chevron" id="pwChevron"></i>
+							</button>
+							<div class="pw-fields" id="pwFields">
+								<input name="pw_lama" type="password" placeholder="Password lama" autocomplete="current-password">
+								<input name="pw_baru" type="password" placeholder="Password baru (min. 6 karakter)" autocomplete="new-password">
+								<input name="pw_konfirmasi" type="password" placeholder="Konfirmasi password baru" autocomplete="new-password">
+							</div>
+						</div>
+
 						<div style="display:flex;justify-content:flex-end;margin-top:18px;">
 							<button type="submit" name="save_profile" class="save-btn">Simpan</button>
 						</div>
@@ -197,6 +174,10 @@ include 'header.php';
 
 	if (openBtn) openBtn.addEventListener('click', () => {
 		overlay.style.display = 'flex';
+		<?php if (!empty($pw_error)): ?>
+		document.getElementById('pwFields').style.display = 'flex';
+		document.getElementById('pwChevron').style.transform = 'rotate(180deg)';
+		<?php endif; ?>
 	});
 	if (closeBtn) closeBtn.addEventListener('click', () => {
 		overlay.style.display = 'none';
@@ -205,6 +186,18 @@ include 'header.php';
 	if (overlay) overlay.addEventListener('click', (e) => {
 		if (e.target === overlay) overlay.style.display = 'none';
 	});
+
+	// Toggle ubah password
+	const pwToggle = document.getElementById('pwToggle');
+	const pwFields = document.getElementById('pwFields');
+	const pwChevron = document.getElementById('pwChevron');
+	if (pwToggle) {
+		pwToggle.addEventListener('click', () => {
+			const open = pwFields.style.display === 'flex';
+			pwFields.style.display = open ? 'none' : 'flex';
+			pwChevron.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
+		});
+	}
 </script>
 
 </body>

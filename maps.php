@@ -2,278 +2,7 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 include 'header.php';
 ?>
-<style>
-        :root{
-            --bg-main:#2f0c58;
-            --bg-main-dark:#20103a;
-            --bg-sidebar:#240744;
-            --bg-card:#14062b;
-            --accent:#a54ccf;
-            --accent-soft:#b86be0;
-            --text:#f4f4f4;
-            --text-soft:#cdcdcd;
-            --lime:#82ff5b;
-        }
-        *{margin:0;padding:0;box-sizing:border-box;}
-
-        body{
-            font-family:"Poppins",sans-serif;
-            background:#111;
-            color:var(--text);
-        }
-
-        .app{
-            display:flex;
-            min-height:100vh;
-            background:var(--bg-main);
-        }
-       
-        /* --- SIDEBAR --- */
-        .sidebar{
-            width:210px;
-            background:var(--bg-sidebar);
-            padding:18px 16px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            border-right:1px solid rgba(0,0,0,.4);
-            position:fixed; left:0; top:0; bottom:0; height:100vh;
-            z-index:60;
-        }
-        .brand{ text-align:center; margin-bottom:32px; }
-        .brand img{
-            width:90px;height:90px; border-radius:50%;
-            border:3px solid var(--accent); object-fit:cover;
-        }
-        .brand span{ display:block; margin-top:8px; font-size:13px; }
-        
-        .menu{ width:100%; list-style:none; flex:1; }
-        .menu li{ margin-bottom:14px; }
-        .menu a{
-            display:flex; align-items:center; gap:10px;
-            padding:10px 12px; border-radius:999px; font-size:13px;
-            text-decoration:none; color:var(--text-soft); transition:.2s;
-        }
-        .menu a i{ width:20px; text-align:center; }
-        .menu a:hover, .menu a.active{ background:var(--bg-main-dark); color:var(--lime); }
-        
-        .sidebar-footer{
-            width:100%; margin-top:auto; padding-top:12px;
-            border-top:1px solid rgba(255,255,255,.08);
-        }
-        
-        /* --- MAIN CONTENT --- */
-        .main{
-            flex:1; padding:20px 28px; background:var(--bg-main);
-            display:flex; flex-direction:column;
-            margin-left:210px;
-        }
-    
-        .topbar{
-            display:flex; align-items:center; gap:20px; margin-bottom:24px;
-        }
-        
-        .top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
-        .top-links a{ text-decoration:none; color:var(--text-soft); }
-        .top-links a:hover{ color:var(--lime); }
-        .top-icons{ display:flex; align-items:center; gap:16px; font-size:18px; cursor:pointer; }
-
-        /* --- MAPS SECTION --- */
-        .maps-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            flex: 1;
-        }
-
-        .maps-frame {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(130,255,91,0.2);
-        }
-
-        .maps-frame iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
-
-        .location-info {
-            background: var(--bg-card);
-            padding: 28px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .location-info h2 {
-            color: var(--lime);
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .info-item {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .info-item i {
-            color: var(--lime);
-            font-size: 18px;
-            width: 24px;
-            margin-top: 2px;
-        }
-
-        .info-item-content {
-            flex: 1;
-        }
-
-        .info-item-content strong {
-            display: block;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-
-        .info-item-content span {
-            color: var(--text-soft);
-            font-size: 14px;
-        }
-
-        .contact-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .contact-btn {
-            flex: 1;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 8px;
-            font-family: "Poppins", sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: .3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .contact-btn.whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .contact-btn.whatsapp:hover {
-            background: #1fa857;
-            transform: translateY(-2px);
-        }
-
-        .contact-btn.call {
-            background: var(--accent);
-            color: white;
-        }
-
-        .contact-btn.call:hover {
-            background: var(--accent-soft);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 1200px) {
-            .maps-container {
-                grid-template-columns: 1fr;
-            }
-
-            .maps-frame iframe {
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 200px;
-                padding: 12px 10px;
-            }
-
-            .sidebar .brand img {
-                width: 75px;
-                height: 75px;
-            }
-
-            .sidebar .brand span {
-                font-size: 11px;
-            }
-
-            .menu a {
-                font-size: 12px;
-                padding: 8px 10px;
-            }
-
-            .main {
-                margin-left: 200px;
-                padding: 16px 20px;
-            }
-
-            .topbar {
-                gap: 12px;
-                margin-bottom: 16px;
-            }
-
-            .top-links {
-                gap: 16px;
-                font-size: 13px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                display: none;
-            }
-
-            .main {
-                margin-left: 0;
-                padding: 12px 16px;
-            }
-
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-
-            .top-links {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .maps-container {
-                gap: 16px;
-            }
-
-            .maps-frame iframe {
-                height: 300px;
-            }
-
-            .location-info {
-                padding: 20px;
-            }
-
-            .location-info h2 {
-                font-size: 20px;
-            }
-
-            .contact-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/maps.css">
     <div class="app">
         <!-- SIDEBAR -->
         <aside class="sidebar">
@@ -314,7 +43,7 @@ include 'header.php';
             <div class="maps-container">
                 <!-- Google Maps -->
                 <div class="maps-frame">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.0562265905516!2d110.36936!3d-7.787529999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5707b1b1b1b1%3A0x1b1b1b1b1b1b1b1b!2sJl.%20Malioboro%20No.10%2C%20Yogyakarta!5e0!3m2!1sid!2sid!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.3!2d110.40183!3d-7.83012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5707b1b1b1b1%3A0x1b1b1b1b1b1b1b1b!2sJl.%20Plumbon%2C%20Modalan%2C%20Banguntapan!5e0!3m2!1sid!2sid!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <!-- Location Info -->
@@ -328,7 +57,7 @@ include 'header.php';
                         <i class="fa-solid fa-location-dot"></i>
                         <div class="info-item-content">
                             <strong>Alamat</strong>
-                            <span>Jl. Malioboro No. 10<br>Yogyakarta 55271<br>Indonesia</span>
+                            <span>Ada motor mio putih, No 1 C, Jalan Unggas Rt 11 Taman Pratama,<br>Jl. Plumbon, Modalan, Banguntapan,<br>Kec. Banguntapan, Kabupaten Bantul,<br>Daerah Istimewa Yogyakarta 55191</span>
                         </div>
                     </div>
 
@@ -344,7 +73,7 @@ include 'header.php';
                         <i class="fa-solid fa-phone"></i>
                         <div class="info-item-content">
                             <strong>Hubungi Kami</strong>
-                            <span>+62 274 xxxx xxx</span>
+                            <span>081994799058</span>
                         </div>
                     </div>
 
@@ -352,15 +81,15 @@ include 'header.php';
                         <i class="fa-brands fa-instagram"></i>
                         <div class="info-item-content">
                             <strong>Instagram</strong>
-                            <span>@sphnx_piercing</span>
+                            <a href="https://www.instagram.com/sphinx_piercingjogja" target="_blank" style="color:var(--lime);text-decoration:none;">@sphinx_piercingjogja</a>
                         </div>
                     </div>
 
                     <div class="contact-buttons">
-                        <a href="https://wa.me/62274xxxxxxx" class="contact-btn whatsapp" target="_blank">
+                        <a href="https://wa.me/6281994799058" class="contact-btn whatsapp" target="_blank">
                             <i class="fa-brands fa-whatsapp"></i> WhatsApp
                         </a>
-                        <a href="tel:+62274xxxxxxx" class="contact-btn call">
+                        <a href="tel:081994799058" class="contact-btn call">
                             <i class="fa-solid fa-phone"></i> Hubungi
                         </a>
                     </div>
