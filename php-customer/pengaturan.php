@@ -4,7 +4,7 @@ require_once 'firebase.php';
 
 $username = $_SESSION['user'] ?? "@sphnx_piercing";
 
-// Ambil data profil dari Firebase
+// Ambil data profil pengguna dari Firebase
 $profileData = $firestore->getDocument('profiles', $username);
 $userData = $firestore->getDocument('users', $username);
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 	$email = trim($_POST['email'] ?? $email);
 	$phone = trim($_POST['phone'] ?? $phone);
 
-	// Simpan ke Firebase
+	// Simpan perubahan profil ke Firebase
 	$profileData = [
 		'username' => $username,
 		'full_name' => $full_name,
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 		$success_message = 'Profil berhasil diperbarui.';
 	}
 
-	// Ubah password jika diisi
+	// Proses perubahan password jika kolom diisi
 	$pw_lama = $_POST['pw_lama'] ?? '';
 	$pw_baru = $_POST['pw_baru'] ?? '';
 	$pw_konfirmasi = $_POST['pw_konfirmasi'] ?? '';
@@ -167,7 +167,7 @@ include 'header.php';
 </div>
 
 <script>
-	// Modal open/close logic
+	// Logika buka/tutup modal edit profil
 	const openBtn = document.getElementById('openEdit');
 	const closeBtn = document.getElementById('closeEdit');
 	const overlay = document.getElementById('modalOverlay');
@@ -182,12 +182,12 @@ include 'header.php';
 	if (closeBtn) closeBtn.addEventListener('click', () => {
 		overlay.style.display = 'none';
 	});
-	// Close when clicking outside modal
+	// Tutup modal saat area luar diklik
 	if (overlay) overlay.addEventListener('click', (e) => {
 		if (e.target === overlay) overlay.style.display = 'none';
 	});
 
-	// Toggle ubah password
+	// Tampilkan/sembunyikan kolom ubah password
 	const pwToggle = document.getElementById('pwToggle');
 	const pwFields = document.getElementById('pwFields');
 	const pwChevron = document.getElementById('pwChevron');

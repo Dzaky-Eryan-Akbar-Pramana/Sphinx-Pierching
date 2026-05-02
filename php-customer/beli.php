@@ -1,6 +1,6 @@
 ﻿<?php include 'header.php';
 
-// Support checkout via cart (cart param) or single product via product/price
+// Mendukung checkout dari keranjang maupun produk satuan
 $cartData = isset($_GET['cart']) ? json_decode(urldecode($_GET['cart']), true) : null;
 $items = is_array($cartData) ? $cartData : [];
 $total = 0;
@@ -14,7 +14,7 @@ if ($fromCart) {
         $total += intval($priceNum) * $qty;
     }
     $priceFormatted = $total > 0 ? 'Rp ' . number_format($total, 0, ',', '.') : 'Rp 0';
-    // Derive a product name for the checkout page when coming from cart
+    // Tentukan nama produk untuk ditampilkan saat checkout dari keranjang
     if (!empty($items)) {
         $firstName = trim((string)($items[0]['name'] ?? 'Produk'));
         if (count($items) === 1) {
@@ -26,7 +26,7 @@ if ($fromCart) {
         $productName = 'Produk';
     }
 } else {
-    // Ambil data dari URL (single product)
+    // Ambil data produk dari URL untuk checkout produk satuan
     $productName = isset($_GET['product']) ? $_GET['product'] : '';
     $priceValue = isset($_GET['price']) ? preg_replace('/[^0-9]/', '', $_GET['price']) : 0;
     $priceFormatted = $priceValue > 0 ? 'Rp ' . number_format($priceValue, 0, ',', '.') : 'Rp 0';
@@ -80,7 +80,7 @@ if ($fromCart) {
                     </div>
                 </div>
                 <?php else: ?>
-                <!-- When checking out from cart, quantity editing is handled in cart. -->
+                <!-- Jumlah produk diatur di keranjang saat checkout dari keranjang -->
                 <?php endif; ?>
 
                 <div class="form-group">
@@ -110,7 +110,7 @@ if ($fromCart) {
                 <div class="store-address hidden" id="storeAddress">
                     <strong>Ambil di Toko</strong>
                     <p>Silakan ambil pesanan Anda di:</p>
-                    <p>Jl. Malioboro No.10, Yogyakarta<br>Kode Pos 55281<br>Jam buka: 10.00 - 20.00 WIB</p>
+                    <p>Jl. Plumbon, Modalan, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55191<br>Kode Pos 55281<br>Jam buka: 10.00 - 20.00 WIB</p>
                 </div>
 
                 <div class="summary">
@@ -237,16 +237,16 @@ if ($fromCart) {
             if (summaryOngkirVal) summaryOngkirVal.textContent = ongkirLabel;
             if (summaryOngkirRow) summaryOngkirRow.style.display = (getOngkir() || true) ? '' : 'none';
             if (fromCart) {
-                // total already calculated server-side, add ongkir
+                // Total sudah dihitung di server, tinggal tambahkan ongkos kirim
                 const base = <?= intval($total) ?>;
                 const grand = base + ongkir;
                 totalPriceInput.value = grand;
                 summaryTotal.textContent = formatRupiah(grand);
                 summaryTotalMethod.textContent = formatRupiah(grand);
-                // summary address depends on shipping selection
+                // Tampilkan alamat toko jika pilih ambil di toko
                 const shippingSel = document.querySelector('input[name="shipping"]:checked')?.value || 'gosend';
                 if (shippingSel === 'ambil') {
-                    summaryAddress.textContent = 'Ambil di Toko: Jl. Malioboro No.10, Yogyakarta — Jam buka: 10.00 - 20.00 WIB';
+                    summaryAddress.textContent = 'Ambil di Toko:Jl. Plumbon, Modalan, Banguntapan,Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55191 — Jam buka: 10.00 - 20.00 WIB';
                 } else {
                     summaryAddress.textContent = '';
                 }
@@ -258,11 +258,11 @@ if ($fromCart) {
                 if (summaryTotal) summaryTotal.textContent = formatRupiah(grand);
                 if (summaryTotalMethod) summaryTotalMethod.textContent = formatRupiah(grand);
                 totalPriceInput.value = grand;
-                // when single-product checkout, update summary address when pickup
+                // Logika alamat yang sama untuk checkout produk satuan
                 const shippingSel = document.querySelector('input[name="shipping"]:checked')?.value || 'gosend';
                 if (summaryAddress) {
                     if (shippingSel === 'ambil') {
-                        summaryAddress.textContent = 'Ambil di Toko: Jl. Malioboro No.10, Yogyakarta — Jam buka: 10.00 - 20.00 WIB';
+                        summaryAddress.textContent = 'Ambil di Toko: Jl. Plumbon, Modalan, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55191 — Jam buka: 10.00 - 20.00 WIB';
                     } else {
                         summaryAddress.textContent = '';
                     }
@@ -270,15 +270,15 @@ if ($fromCart) {
             }
         }
 
-        // Select a payment method (mark selected and disable others). Actual submit happens on Pay Now.
+        // Pilih metode pembayaran dan nonaktifkan pilihan lain
         function selectPaymentMethod(method, cardEl) {
-            // mark selected card
+            // Tandai kartu yang dipilih
             document.querySelectorAll('.payment-method-card').forEach(c => {
                 c.classList.remove('selected');
                 c.classList.remove('disabled');
             });
             if (cardEl) cardEl.classList.add('selected');
-            // disable other cards
+            // Redup-kan kartu lainnya
             document.querySelectorAll('.payment-method-card').forEach(c => {
                 if (c !== cardEl) c.classList.add('disabled');
             });
@@ -286,8 +286,8 @@ if ($fromCart) {
             summaryPaymentMethod.textContent = method;
             paymentSummary.classList.add('active');
             paymentModal.classList.remove('active');
-            // enable pay button (it will perform final validation and submit)
-            // do not clear cart here; only clear after successful submit to avoid data loss
+            // Aktifkan tombol bayar setelah metode dipilih
+            // Jangan hapus keranjang dulu, tunggu sampai pesanan berhasil dikonfirmasi
         }
 
         if (quantityInput) quantityInput.addEventListener('input', updateSummary);
@@ -311,9 +311,9 @@ if ($fromCart) {
                     pickupInput.name = 'pickup_store';
                     purchaseForm.appendChild(pickupInput);
                 }
-                pickupInput.value = 'Jl. Malioboro No.10, Yogyakarta - Jam buka: 10.00 - 20.00 WIB';
+                pickupInput.value = 'Jl. Plumbon, Modalan, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55191 — Jam buka: 10.00 - 20.00 WIB';
                 if (summaryShipping) summaryShipping.textContent = 'Ambil di Toko';
-                if (summaryAddress) summaryAddress.textContent = 'Ambil di Toko: Jl. Malioboro No.10, Yogyakarta — Jam buka: 10.00 - 20.00 WIB';
+                if (summaryAddress) summaryAddress.textContent = 'Ambil di Toko: Jl. Plumbon, Modalan, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55191 — Jam buka: 10.00 - 20.00 WIB';
             } else {
                 recipientAddressGroup.classList.remove('hidden');
                 recipientAddress.disabled = false;
@@ -362,7 +362,7 @@ if ($fromCart) {
             const rPhone = recipientPhone ? recipientPhone.value.trim() : '';
             const rAddr  = recipientAddress ? recipientAddress.value.trim() : '';
 
-            // Validate before leaving
+            // Validasi semua field wajib sebelum lanjut ke pembayaran
             if (!validateForm()) return;
 
             const params = new URLSearchParams();
@@ -379,7 +379,7 @@ if ($fromCart) {
 
         document.querySelectorAll('.payment-method-card').forEach(card => {
             card.addEventListener('click', function () {
-                // prevent selecting disabled cards
+                // Abaikan klik pada kartu yang sudah dinonaktifkan
                 if (this.classList.contains('disabled')) return;
                 const method = this.dataset.method || 'Tidak Diketahui';
                 selectPaymentMethod(method, this);
@@ -392,11 +392,11 @@ if ($fromCart) {
                 return;
             }
             if (!validateForm()) return;
-            // final submit: if checking out from cart, include cart JSON as hidden input
+            // Sertakan data keranjang sebagai input tersembunyi jika checkout dari keranjang
             if (fromCart) {
                 try {
                     const cartJson = encodeURIComponent(JSON.stringify(<?= json_encode($items) ?>));
-                    // create hidden input with cart data
+                    // Buat input tersembunyi untuk membawa data keranjang
                     let cartInput = document.getElementById('cartJsonInput');
                     if (!cartInput) {
                         cartInput = document.createElement('input');
@@ -407,17 +407,17 @@ if ($fromCart) {
                     }
                     cartInput.value = cartJson;
                 } catch (e) {
-                    // ignore
+                    // tidak perlu dilakukan apa-apa
                 }
             }
-            // clear cart after preparing submission (optional)
+            // Kosongkan keranjang setelah form siap dikirim
             if (fromCart && window.sphinxCart) window.sphinxCart.clear();
             purchaseForm.action = 'metode.php';
             purchaseForm.submit();
         });
 
         function validateForm(){
-            // ensure required contact fields are filled based on shipping selection
+            // Pastikan data kontak sesuai dengan metode pengiriman yang dipilih
             const shipping = document.querySelector('input[name="shipping"]:checked')?.value || 'gosend';
             if (shipping === 'ambil'){
                 if (!recipientName.value.trim() || !recipientPhone.value.trim()){

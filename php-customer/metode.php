@@ -103,7 +103,7 @@ include 'header.php';
     let currentTimerSeconds = 0;
     let paymentExpired = false;
     
-    // Variabel kunci untuk mengecek apakah user sedang dalam proses pembelian
+    // Penanda apakah pengguna sedang dalam proses transaksi
     let isTransactionActive = false; 
 
     function formatTimer(seconds, type) {
@@ -158,7 +158,7 @@ include 'header.php';
         const isDelivery = (shippingVal === 'gosend' || shippingVal === 'spx');
         const isPaidOnline = (type === 'qris' || type === 'transfer');
 
-        // Auto-determine status and payment note
+        // Tentukan status pesanan dan catatan pembayaran secara otomatis
         if (!orderStatus) {
             orderStatus = 'Pesanan Masuk';
         }
@@ -247,7 +247,7 @@ include 'header.php';
     }
 
     function selectMethod(type, element) {
-        // CEK PENTING: Jika tidak ada transaksi, hentikan eksekusi klik!
+        // CEK PENTING: Jika tidak ada transaksi aktif, abaikan klik!
         if (!isTransactionActive) return; 
 
         const cards = document.querySelectorAll('.pay-card');
@@ -353,15 +353,15 @@ include 'header.php';
         const quantityParam = params.get('quantity');
         const totalParam = params.get('total');
 
-        // LOGIKA PENGECEKAN: Apakah ada URL data produk/total?
+        // Cek apakah URL mengandung data produk atau total harga
         isTransactionActive = !!(productParam || totalParam);
 
         if (!isTransactionActive) {
-            // 1. JIKA TIDAK ADA TRANSAKSI -> Kunci semua tombol
+            // 1. Belum ada transaksi — kunci semua tombol metode
             document.querySelectorAll('.pay-card').forEach(card => card.classList.add('disabled'));
             document.getElementById('defaultMsg').innerText = "BELUM ADA TRANSAKSI. SILAKAN LAKUKAN PEMBELIAN TERLEBIH DAHULU.";
         } else {
-            // 2. JIKA ADA TRANSAKSI -> Aktifkan & Isi data dari Checkout
+            // 2. Ada transaksi — aktifkan dan isi data dari halaman checkout
             document.getElementById('defaultMsg').innerText = "PILIH METODE PEMBAYARAN TERLEBIH DAHULU DI ATAS!";
             
             document.getElementById('selectedProductType').innerText = 'Produk/Jasa';
@@ -371,7 +371,7 @@ include 'header.php';
             
             window.__methodTotalValue = totalParam || 0;
 
-            // Jika dari halaman checkout pengguna sudah memilih metode (misal dropdown: QRIS)
+            // Jika pengguna sudah memilih metode sebelumnya, langsung pilihkan
             if (methodParam) {
                 const card = Array.from(document.querySelectorAll('.pay-card')).find(c => c.dataset.method === methodParam);
                 if (card) {

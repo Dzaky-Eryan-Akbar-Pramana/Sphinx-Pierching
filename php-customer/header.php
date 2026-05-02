@@ -7,7 +7,7 @@ if (!$is_logged_in && !in_array(basename($_SERVER['PHP_SELF']), $allowed_pages))
     header('Location: Login.php');
     exit;
 }
-// Provide a global sanitize_text helper if not already defined
+// Daftarkan helper sanitize_text jika belum ada
 if (!function_exists('sanitize_text')) {
     function sanitize_text($text) {
         return htmlspecialchars(trim((string)$text), ENT_QUOTES, 'UTF-8');
@@ -58,14 +58,14 @@ if (!function_exists('sanitize_text')) {
     </header>
 
     <script>
-        // Profile dropdown toggle
+        // Buka/tutup dropdown profil
         const profileBtn = document.getElementById('profileBtn');
         const profileDropdown = document.getElementById('profileDropdown');
         if (profileBtn && profileDropdown) {
             profileBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 profileDropdown.classList.toggle('active');
-                // tutup cart dropdown jika terbuka
+                // tutup dropdown keranjang kalau sedang terbuka
                 document.getElementById('cartDropdown')?.classList.remove('active');
             });
             document.addEventListener('click', function() {
@@ -74,20 +74,20 @@ if (!function_exists('sanitize_text')) {
             profileDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
         }
 
-        // Hamburger toggle (for sidebar pages)
+        // Tombol hamburger untuk membuka/tutup sidebar
         document.getElementById('hamburger')?.addEventListener('click', function() {
             this.classList.toggle('active');
             const sidebar = document.querySelector('.sidebar');
             if (sidebar) sidebar.classList.toggle('hidden');
         });
         
-        // Cart initialization handled in the shared sphinxCart script below
+        // Inisialisasi keranjang ditangani oleh script sphinxCart di bawah
     </script>
 
 <div class="main-content">
 
 <script>
-// Global cart helper available on all pages
+// Helper keranjang yang tersedia di semua halaman
 window.sphinxCart = (function(){
     const KEY = 'sphinx_cart';
     function load(){
@@ -138,7 +138,7 @@ window.sphinxCart = (function(){
         totalEl.textContent = 'Total: ' + formatRupiah(total);
         if (checkoutBtn) {
             checkoutBtn.style.display = 'block';
-            // bind to checkoutFromCart so behavior is consistent
+            // Sambungkan ke checkoutFromCart agar perilakunya konsisten
             try { checkoutBtn.onclick = checkoutFromCart; } catch(e) {}
         }
     }
@@ -160,7 +160,7 @@ window.sphinxCart = (function(){
         // redirect to beli.php with cart param
         window.location.href = 'beli.php?cart=' + encoded;
     }
-    // bind UI
+    // Pasang event listener setelah DOM siap
     document.addEventListener('DOMContentLoaded', function(){
         updateCartBadge(); renderDropdown();
         const icon = document.getElementById('cartIcon');
@@ -170,7 +170,7 @@ window.sphinxCart = (function(){
             document.addEventListener('click', function(ev){ if(!icon.contains(ev.target) && !dropdown.contains(ev.target)) dropdown.classList.remove('active'); });
         }
         
-        // Ensure checkout button always redirects to beli.php with cart JSON (same as product buy flow)
+        // Tombol checkout selalu diarahkan ke beli.php dengan data keranjang
         const checkoutBtnEl = document.getElementById('checkoutBtn');
         if (checkoutBtnEl) {
             checkoutBtnEl.addEventListener('click', function(ev){
@@ -179,7 +179,7 @@ window.sphinxCart = (function(){
                 if (!cart || cart.length === 0){ alert('Keranjang kosong'); return; }
                 try {
                     const encoded = encodeURIComponent(JSON.stringify(cart));
-                    // close dropdown then redirect
+                    // tutup dropdown lalu arahkan halaman
                     const dropdownEl = document.getElementById('cartDropdown');
                     if (dropdownEl) dropdownEl.classList.remove('active');
                     window.location.href = 'beli.php?cart=' + encoded;

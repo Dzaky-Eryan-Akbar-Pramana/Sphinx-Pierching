@@ -2,12 +2,40 @@
 session_start();
 require_once 'firebase.php';
 $error = '';
+$google_error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Login via email (modal Google)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    // Cari akun berdasarkan email di koleksi users
+    $allUsers = $firestore->getCollection('users');
+    $foundUser = null;
+    $foundUsername = null;
+    foreach ($allUsers as $uname => $udata) {
+        if (isset($udata['email']) && strtolower($udata['email']) === strtolower($email)) {
+            $foundUser = $udata;
+            $foundUsername = $uname;
+            break;
+        }
+    }
+
+    if ($foundUser && password_verify($password, $foundUser['password'])) {
+        $_SESSION['user'] = $foundUsername;
+        $_SESSION['user_data'] = $foundUser;
+        header('Location: Dashboard.php');
+        exit;
+    } else {
+        $google_error = 'Email atau password salah!';
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['email'])) {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Admin login
+    // Login sebagai admin
     if ($username === 'admin' && $password === 'admin') {
         $_SESSION['admin'] = true;
         $_SESSION['user'] = 'admin';
@@ -15,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Ambil data user dari Firebase
+    // Ambil data pengguna dari Firebase
     $userData = $firestore->getDocument('users', $username);
     
     if ($userData && password_verify($password, $userData['password'])) {
@@ -92,11 +120,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <h3>Masuk Akun Google</h3>
             <p>Gunakan email Google kamu untuk masuk</p>
-            <form action="LoginGoogle.php" method="POST">
+            <form action="Login.php" method="POST">
+                <input type="hidden" name="google_login" value="1">
                 <label>Email Google</label>
+                <?php if ($google_error): ?>
+                <div style="background:rgba(255,0,0,0.2);color:#ff4444;padding:10px 12px;border-radius:6px;margin-bottom:12px;border-left:4px solid #ff4444;font-size:13px;">
+                    <?= htmlspecialchars($google_error) ?>
+                </div>
+                <?php endif; ?>
                 <input type="email" name="email" placeholder="contoh@gmail.com" required>
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Password akun Google" required>
+                <input type="password" name="password" placeholder="Password akun" required>
                 <button type="submit" class="modal-submit">Masuk</button>
             </form>
         </div>
@@ -129,7 +163,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // --- Modal Google ---
+        // --- Modal Login Google ---
+        <?php if ($google_error): ?>
+        // Buka kembali modal Google jika ada error login
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('googleModal').classList.add('active');
+        });
+        <?php endif; ?>
         document.getElementById('btnGoogleLogin').addEventListener('click', function () {
             document.getElementById('googleModal').classList.add('active');
         });
@@ -174,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 return;
             }
 
-            // Tampilkan pesan sukses (integrasi backend bisa ditambahkan di sini)
+            // Tampilkan pesan sukses setelah permintaan reset password
             msg.style.display = 'block';
             msg.style.background = 'rgba(127,255,0,0.12)';
             msg.style.color = '#7FFF00';

@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = trim($_POST['username']);
     $nohp = trim($_POST['nohp']);
     $email = trim($_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash password
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Enkripsi password sebelum disimpan
 
-    // Simpan ke Firebase
+    // Simpan data akun ke Firebase
     $userData = [
         'username' => $username,
         'nohp' => $nohp,
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $result = $firestore->saveDocument('users', $username, $userData);
 
     if (!isset($result['error'])) {
-        // Buat juga entri profil agar data akun langsung tersedia
+        // Buat juga data profil supaya langsung bisa dipakai
         $profileData = [
             'username' => $username,
             'full_name' => $username,
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         ];
         $firestore->saveDocument('profiles', $username, $profileData);
 
-        // Akun berhasil dibuat, arahkan ke Login dengan pesan sukses
+        // Akun berhasil dibuat, langsung arahkan ke halaman login
         header('Location: Login.php?registered=1');
         exit;
     } else {

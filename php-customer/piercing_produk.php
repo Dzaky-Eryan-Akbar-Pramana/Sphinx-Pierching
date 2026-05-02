@@ -238,7 +238,7 @@ include 'header.php';
         productModal.classList.add('active');
     }
 
-    // open modal when clicking cart icon on card
+    // Buka modal saat ikon keranjang di kartu diklik
     document.querySelectorAll('.btn-card-cart').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -246,7 +246,7 @@ include 'header.php';
         });
     });
 
-    // also open modal when clicking anywhere on card
+    // Buka modal juga saat kartu produk diklik langsung
     document.querySelectorAll('.product-card').forEach(card => {
         card.style.cursor = 'pointer';
         card.addEventListener('click', function(e) {

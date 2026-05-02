@@ -41,7 +41,7 @@ class FirebaseFirestore {
         }
     }
 
-    // Fungsi untuk mengambil dokumen dari Firestore
+    // Fungsi untuk mengambil satu dokumen dari Firestore
     public function getDocument($collection, $documentId) {
         $url = FIRESTORE_BASE_URL . $collection . '/' . $documentId . '?key=' . $this->apiKey;
 
@@ -61,7 +61,7 @@ class FirebaseFirestore {
         }
     }
 
-    // Fungsi untuk mengambil semua dokumen dari koleksi
+    // Fungsi untuk mengambil semua dokumen dalam satu koleksi
     public function getCollection($collection) {
         $url = FIRESTORE_BASE_URL . $collection . '?key=' . $this->apiKey;
 
@@ -86,7 +86,7 @@ class FirebaseFirestore {
         }
     }
 
-    // Konversi data PHP ke format Firestore fields
+    // Ubah data PHP ke format field Firestore
     private function convertToFirestoreFields($data) {
         $fields = [];
         foreach ($data as $key => $value) {
@@ -109,7 +109,7 @@ class FirebaseFirestore {
         return $fields;
     }
 
-    // Konversi dari Firestore fields ke data PHP
+    // Ubah format field Firestore kembali ke data PHP biasa
     private function convertFromFirestoreFields($fields) {
         $data = [];
         foreach ($fields as $key => $field) {
@@ -133,6 +133,6 @@ class FirebaseFirestore {
     }
 }
 
-// Inisialisasi instance Firebase
+// Buat instance Firebase yang siap dipakai
 $firestore = new FirebaseFirestore();
 ?>

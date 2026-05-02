@@ -361,7 +361,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </main>
 
 <script>
-    // --- SEARCH PRODUK ---
+    // --- PENCARIAN PRODUK ---
     const searchInput = document.getElementById('searchInput');
     const searchClear = document.getElementById('searchClear');
     const searchLabel = document.getElementById('searchLabel');
@@ -381,7 +381,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             return;
         }
 
-        // Sembunyikan slideshow saat searching
+        // Sembunyikan slideshow saat pengguna sedang mencari
         adSlideshow.style.display = 'none';
 
         let count = 0;
@@ -408,7 +408,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     const cartKey = 'sphinx_cart';
 
-    // Elemen DOM
+    // Elemen-elemen di halaman
     const cartCountEl = document.getElementById('cartCount');
     const productModal = document.getElementById('productModal');
     const productNameEl = document.getElementById('modalProductName');
@@ -417,7 +417,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     const productStockEl = document.getElementById('modalProductStock');
     const productImageEl = document.getElementById('modalProductImage');
     
-    // Elemen Tombol Modal
+    // Tombol-tombol di dalam modal
     const buyButton = document.getElementById('buyButton');
     const cartButton = document.getElementById('cartButton');
     const cartQtyControl = document.getElementById('cartQtyControl');
@@ -432,7 +432,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     let currentSelectedProduct = null;
 
-    // Load Favorit
+    // Muat data produk favorit
     function loadFavorites() {
         const favorites = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
         favorites.forEach(fav => {
@@ -445,19 +445,19 @@ $current_page = basename($_SERVER['PHP_SELF']);
         });
     }
 
-    // Load Angka Keranjang Topbar
+    // Perbarui angka keranjang di topbar
     function loadCartCount() {
         const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
         const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
         cartCountEl.innerText = totalItems;
     }
 
-    // Cek Status Tombol Keranjang (Apakah tampilkan tombol "Keranjang" atau "+ -")
+    // Cek apakah produk ini sudah ada di keranjang
     function updateCartButtonState(productName) {
         cartQtyValue.innerText = 1;
     }
 
-    // Handle klik tombol favorit
+    // Tangani klik tombol favorit (hati)
     document.querySelectorAll('.product-love-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -483,7 +483,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         });
     });
 
-    // Buka Modal Produk
+    // Buka modal detail produk
     document.querySelectorAll('.product-item').forEach(item => {
         item.addEventListener('click', function () {
             const name = this.dataset.product || '';
@@ -500,20 +500,20 @@ $current_page = basename($_SERVER['PHP_SELF']);
             productStockEl.innerText = stock;
             productImageEl.src = image ? image.src : '';
             productImageEl.alt = image ? image.alt : name;
-            // Set buy link to open checkout page for this product (global handler will redirect)
+            // Arahkan tombol beli ke halaman checkout produk ini
             if (buyButton) {
                 const encodedProduct = encodeURIComponent(name || '');
                 const encodedPrice = encodeURIComponent(price || '');
                 buyButton.href = `beli.php?product=${encodedProduct}&price=${encodedPrice}`;
             }
-            // Update UI Keranjang berdasarkan data produk ini
+            // Sesuaikan tampilan tombol keranjang berdasarkan data produk
             updateCartButtonState(name);
 
             productModal.classList.add('active');
         });
     });
 
-    // KLIK TOMBOL KERANJANG (Klik Pertama)
+    // KLIK TOMBOL TAMBAH KE KERANJANG
     // cartButton.addEventListener('click', function() {
     //     if (!currentSelectedProduct) return;
     //     let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
@@ -554,30 +554,30 @@ $current_page = basename($_SERVER['PHP_SELF']);
     productModal.classList.remove('active');
 });
 
-    // KLIK TOMBOL PLUS (+)
+    // KLIK TOMBOL TAMBAH JUMLAH (+)
     cartPlus.addEventListener('click', function() {
         let qty = parseInt(cartQtyValue.innerText) || 1;
         cartQtyValue.innerText = qty + 1;
     });
 
-    // KLIK TOMBOL MINUS (-)
+    // KLIK TOMBOL KURANGI JUMLAH (-)
     cartMinus.addEventListener('click', function() {
         let qty = parseInt(cartQtyValue.innerText) || 1;
         if (qty > 1) cartQtyValue.innerText = qty - 1;
     });
 
-    // Handle Beli Sekarang (redirect to beli.php)
+    // Tangani klik Beli Sekarang
     buyButton.addEventListener('click', function (event) {
         event.preventDefault();
         if (!this.href || this.href === '#') return;
         const qty = parseInt(cartQtyValue.innerText) || 1;
         const baseHref = this.href.split('&qty=')[0];
         productModal.classList.remove('active');
-        // redirect top-level to the link (beli.php) with selected quantity
+        // Arahkan ke beli.php dengan jumlah yang dipilih
         window.location.href = baseHref + '&qty=' + qty;
     });
 
-    // Handle Tutup Modal
+    // Tutup modal saat tombol close diklik
     closeModalBtn.addEventListener('click', () => { productModal.classList.remove('active'); });
     productModal.addEventListener('click', (event) => {
         if (event.target === productModal) productModal.classList.remove('active');
@@ -591,12 +591,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
     });
 
-    // Load data saat pertama kali
+    // Muat semua data pertama kali halaman dibuka
     window.addEventListener('DOMContentLoaded', () => {
         loadFavorites();
         loadCartCount();
 
-        // --- AD SLIDESHOW ---
+        // --- SLIDESHOW IKLAN ---
         const slides = document.querySelectorAll('#adSlideshow .ad-slide');
         const dotsContainer = document.getElementById('adDots');
         let currentSlide = 0;

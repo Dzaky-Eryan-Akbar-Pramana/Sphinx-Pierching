@@ -242,7 +242,7 @@ include 'header.php';
         return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    // ===== MODAL =====
+    // ===== MODAL DETAIL PRODUK =====
     const favModal      = document.getElementById('favModal');
     const favModalClose = document.getElementById('favModalClose');
     const favModalImg   = document.getElementById('favModalImg');
@@ -312,7 +312,7 @@ include 'header.php';
         window.location.href = base + '&qty=' + qty;
     });
 
-    // ===== RENDER KARTU =====
+    // ===== TAMPILKAN KARTU FAVORIT =====
     function loadFavorites() {
         const favorites = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
         const container = document.getElementById('favoritesContainer');

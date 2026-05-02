@@ -53,7 +53,7 @@ include 'header.php';
                     </div>
 
 <style>
-/* === DATETIME PICKER INLINE OVERRIDE === */
+/* === PENGATURAN TAMPILAN KALENDER & WAKTU === */
 .datetime-picker {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -160,7 +160,6 @@ include 'header.php';
                                     <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span class="sunday-label">Ming</span>
                                 </div>
                                 <div class="cal-dates" id="calDates"></div>
-                                <button type="button" class="btn-konfirmasi" id="calKonfirmasi">Konfirmasi</button>
                             </div>
                             <!-- Panel Waktu -->
                             <div class="time-panel">
@@ -170,7 +169,6 @@ include 'header.php';
                                     <span id="timeSelectedDateText">Pilih tanggal dulu</span>
                                 </div>
                                 <div class="time-slots" id="timeSlots"></div>
-                                <button type="button" class="btn-konfirmasi" id="timeKonfirmasi">Konfirmasi</button>
                             </div>
                         </div>
                         <input type="hidden" id="tanggalInput">
@@ -253,10 +251,10 @@ include 'header.php';
         const tanggal = document.getElementById('tanggalInput').value;
         const waktu = document.getElementById('waktuInput').value;
 
-        // Update price tag
+        // Perbarui label harga sesuai layanan dipilih
         document.getElementById('hargaTag').innerHTML = '<i class="fa-solid fa-tag"></i> ' + formatRupiah(harga);
 
-        // Format hari & waktu
+        // Format tampilan hari dan waktu reservasi
         let hariWaktu = '—';
         if (tanggal) {
             const dateObj = new Date(tanggal);
@@ -328,7 +326,7 @@ include 'header.php';
         if (emptyState) emptyState.style.display = 'none';
         listJadwal.insertBefore(cardBaru, listJadwal.children[1]);
 
-        // Tampilkan modal pembayaran
+        // Tampilkan modal ringkasan pembayaran
         const dateObjModal = new Date(tanggal);
         const namaHariModal = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][dateObjModal.getDay()];
         const tglModal = dateObjModal.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
@@ -350,7 +348,7 @@ include 'header.php';
         document.getElementById('modalPembayaran').classList.remove('active');
     });
 
-    // ===== CUSTOM CALENDAR & TIME PICKER =====
+    // ===== KALENDER & PILIHAN WAKTU =====
     const availableSlots = ['10:00','11:00','13:00','14:00','15:00','17:00','18:00','19:00'];
     const namaBulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     const bulanShort = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
@@ -365,7 +363,7 @@ include 'header.php';
         document.getElementById('calMonthYear').textContent = namaBulan[calMonth] + ' ' + calYear;
         const calDates = document.getElementById('calDates');
         const firstDay  = new Date(calYear, calMonth, 1).getDay();
-        const startOff  = (firstDay === 0) ? 6 : firstDay - 1; // Monday-based
+        const startOff  = (firstDay === 0) ? 6 : firstDay - 1; // Mulai dari hari Senin
         const daysTotal = new Date(calYear, calMonth + 1, 0).getDate();
         const prevDays  = new Date(calYear, calMonth, 0).getDate();
         let html = '';
@@ -444,13 +442,6 @@ include 'header.php';
     });
     document.getElementById('calNext').addEventListener('click', function() {
         calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar();
-    });
-    document.getElementById('calKonfirmasi').addEventListener('click', function() {
-        if (!calSelectedDate) { alert('Pilih tanggal terlebih dahulu!'); return; }
-        document.getElementById('timeSlots').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-    document.getElementById('timeKonfirmasi').addEventListener('click', function() {
-        if (!calSelectedDate || !selectedSlot) { alert('Pilih tanggal dan waktu terlebih dahulu!'); return; }
     });
     document.getElementById('bookingForm').addEventListener('reset', function() {
         calSelectedDate = null; selectedSlot = null; renderCalendar(); renderTimePanel(); syncHidden();

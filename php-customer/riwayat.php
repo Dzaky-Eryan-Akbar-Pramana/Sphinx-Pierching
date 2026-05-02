@@ -4,7 +4,7 @@ require_once 'firebase.php';
 
 $username = $_SESSION['user'] ?? "@sphnx_piercing";
 
-// Mendeteksi nama file saat ini agar menu sidebar menyala otomatis
+// Deteksi nama halaman aktif untuk menyalakan menu sidebar yang sesuai
 $current_page = basename($_SERVER['PHP_SELF']);
 
 function sanitize_text($text) {
@@ -45,11 +45,11 @@ if (isset($_GET['order_complete']) && $_GET['order_complete'] === '1' && !empty(
         'username' => $username
     ];
 
-    // Simpan ke Firebase
+    // Simpan data pesanan ke Firebase
     $firestore->saveDocument('orders', $orderId, $orderData);
 }
 
-// Ambil order history dari Firebase untuk user ini
+// Ambil riwayat pesanan milik pengguna ini dari Firebase
 $orderHistory = [];
 $allOrders = $firestore->getCollection('orders');
 foreach ($allOrders as $orderId => $order) {
@@ -278,7 +278,7 @@ include 'header.php';
             document.getElementById('detailTime').innerText = time;
             document.getElementById('detailStatus').innerText = status;
 
-            // Update stepper
+            // Perbarui tampilan stepper sesuai status pesanan
             const statusOrder = ['Pesanan Masuk', 'Sedang Dikemas', 'Dalam Pengiriman', 'Selesai'];
             const currentIdx = statusOrder.indexOf(status);
             document.querySelectorAll('#detailStepper .step').forEach((step, i) => {
