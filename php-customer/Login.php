@@ -6,6 +6,14 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
+
+    // Admin login
+    if ($username === 'admin' && $password === 'admin') {
+        $_SESSION['admin'] = true;
+        $_SESSION['user'] = 'admin';
+        header('Location: ../admin/Dashboard-admin.php');
+        exit;
+    }
     
     // Ambil data user dari Firebase
     $userData = $firestore->getDocument('users', $username);
@@ -29,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login - Sphinx Piercing</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="css/Login.css">
+    <link rel="stylesheet" href="../css-customer/Login.css">
 </head>
 <body>
 
     <div class="container">
         <div class="left-section">
-            <img src="gambar/logo2.jpeg" alt="Logo Sphinx" class="logo-img">
+            <img src="../gambar/logo2.jpeg" alt="Logo Sphinx" class="logo-img">
             <div class="brand-name">@sphinx_piercing</div>
         </div>
 

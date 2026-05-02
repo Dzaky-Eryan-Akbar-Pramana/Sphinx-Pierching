@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/LoginGoogle.css">
+    <link rel="stylesheet" href="../css-customer/LoginGoogle.css">
 
 </head>
 <body>
@@ -12,7 +12,7 @@
 <div class="container">
      <a href="Login.php" class="back">&#8592;</a>
 
-    <img src="gambar/logo-sphinx.png" class="logo" alt="Logo">
+    <img src="../gambar/logo-sphinx.png" class="logo" alt="Logo">
     <h1>Login Google</h1>
     <form action="proses_login.php" method="POST">
 

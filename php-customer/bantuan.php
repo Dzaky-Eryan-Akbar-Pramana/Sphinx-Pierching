@@ -1,13 +1,13 @@
 ﻿<?php
 $current_page = basename($_SERVER['PHP_SELF']);
+$page_css = '../css-customer/bantuan.css';
 include 'header.php';
 ?>
-    <link rel="stylesheet" href="css/bantuan.css">
 
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="gambar/logo2.jpeg" alt="Logo">
+            <img src="../gambar/logo2.jpeg" alt="Logo">
             <span><?= isset($username) ? htmlspecialchars($username) : 'Tamu' ?></span>
         </div>
 

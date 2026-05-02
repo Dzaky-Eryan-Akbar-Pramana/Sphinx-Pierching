@@ -60,14 +60,14 @@ foreach ($allOrders as $orderId => $order) {
 
 $orderHistory = array_values($orderHistory);
 
+$page_css = '../css-customer/riwayat.css';
 include 'header.php';
 ?>
-    <link rel="stylesheet" href="css/riwayat.css">
 
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="gambar/logo2.jpeg" alt="Logo">
+            <img src="../gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
 

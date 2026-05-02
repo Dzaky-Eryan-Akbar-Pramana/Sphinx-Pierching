@@ -3,13 +3,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
 $page_title = "Alternatif Piercing";
 $page_heading = "Alternatif Piercing";
 $page_description = "Temukan pilihan piercing alternatif yang unik dan menarik, cocok untuk gaya berbeda.";
+$page_css = '../css-customer/piercing_produk.css';
+$username = '@sphnx_piercing';
 include 'header.php';
 ?>
-    <link rel="stylesheet" href="css/piercing_produk.css">
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="gambar/logo2.jpeg" alt="Logo">
+            <img src="../gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
         <ul class="menu">
@@ -42,7 +43,7 @@ include 'header.php';
             
             <div class="products-grid">
         <div class="product-card" data-product="Spike Ohrring" data-price="Rp 55.000" data-stock="10" data-desc="Piercing dengan desain spike yang tajam dan elegan. Cocok untuk septum, telinga, atau alternatif piercing lainnya dengan tampilan aggressive yang stylish.">
-                    <img src="gambar/spkie-ohrring.jpg" alt="Spike Ohrring" class="product-image">
+                    <img src="../gambar/spkie-ohrring.jpg" alt="Spike Ohrring" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Spike Ohrring</h3>
                         <p class="product-desc">Piercing dengan desain spike yang tajam dan elegan. Cocok untuk septum, telinga, atau alternatif piercing lainnya dengan tampilan aggressive yang stylish.</p>
@@ -51,7 +52,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Circular Barbell" data-price="Rp 45.000" data-stock="8" data-desc="Piercing berbentuk lingkaran dengan bola pada kedua ujungnya. Desain klasik namun sophisticated, sangat populer untuk body piercing dan septum.">
-                    <img src="gambar/Circular-Barbell.png" alt="Circular Barbell" class="product-image">
+                    <img src="../gambar/Circular-Barbell.png" alt="Circular Barbell" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Circular Barbell</h3>
                         <p class="product-desc">Piercing berbentuk lingkaran dengan bola pada kedua ujungnya. Desain klasik namun sophisticated, sangat populer untuk body piercing dan septum.</p>
@@ -60,7 +61,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Barre de Surface" data-price="Rp 60.000" data-stock="6" data-desc="Piercing surface bar yang modern dan minimalis. Ideal untuk surface piercing di area dada, punggung, atau bagian tubuh lainnya dengan efek visual unik.">
-                    <img src="gambar/Barre-de-surface.png" alt="Barre de Surface" class="product-image">
+                    <img src="../gambar/Barre-de-surface.png" alt="Barre de Surface" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Barre de Surface</h3>
                         <p class="product-desc">Piercing surface bar yang modern dan minimalis. Ideal untuk surface piercing di area dada, punggung, atau bagian tubuh lainnya dengan efek visual unik.</p>
@@ -69,7 +70,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Titanium Straight Barbel" data-price="Rp 75.000" data-stock="5" data-desc="Barbel lurus berkualitas tinggi dari titanium. Hypoallergenic dan aman untuk semua jenis kulit, sempurna untuk piercing bridge atau septa dengan kenyamanan maksimal.">
-                    <img src="gambar/Titanium-Straight-Barbel.png" alt="Titanium Straight Barbel" class="product-image">
+                    <img src="../gambar/Titanium-Straight-Barbel.png" alt="Titanium Straight Barbel" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Titanium Straight Barbel</h3>
                         <p class="product-desc">Barbel lurus berkualitas tinggi dari titanium. Hypoallergenic dan aman untuk semua jenis kulit, sempurna untuk piercing bridge atau septa dengan kenyamanan maksimal.</p>
@@ -78,7 +79,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Dparis Model Bintang" data-price="Rp 50.000" data-stock="12" data-desc="Desain unik dengan motif bintang yang menawan. Memberikan statement yang berani dan crafty untuk mereka yang ingin tampil beda dan ekspresif.">
-                    <img src="gambar/Dparis-Model-Bintang.png" alt="Dparis Model Bintang" class="product-image">
+                    <img src="../gambar/Dparis-Model-Bintang.png" alt="Dparis Model Bintang" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Dparis Model Bintang</h3>
                         <p class="product-desc">Desain unik dengan motif bintang yang menawan. Memberikan statement yang berani dan crafty untuk mereka yang ingin tampil beda dan ekspresif.</p>
@@ -87,7 +88,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Piercing Nostril Em Aço" data-price="Rp 40.000" data-stock="15" data-desc="Piercing nostril berkualitas dengan material steel yang tahan lama. Sempurna untuk septum piercing dengan desain geometri dan finish yang premium.">
-                    <img src="gambar/Piercing-Nostril-Em-Aço.png" alt="Piercing Nostril Em Aço" class="product-image">
+                    <img src="../gambar/Piercing-Nostril-Em-Aço.png" alt="Piercing Nostril Em Aço" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Piercing Nostril Em Aço</h3>
                         <p class="product-desc">Piercing nostril berkualitas dengan material steel yang tahan lama. Sempurna untuk septum piercing dengan desain geometri dan finish yang premium.</p>
@@ -96,7 +97,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Cubic Zirconia" data-price="Rp 85.000" data-stock="7" data-desc="Anting piercing dengan sentuhan kristal cubic zirconia, memberikan kilau mewah tanpa mengorbankan kenyamanan.">
-                    <img src="gambar/cubic-zironia.jpg" alt="Cubic Zirconia" class="product-image">
+                    <img src="../gambar/cubic-zironia.jpg" alt="Cubic Zirconia" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Cubic Zirconia</h3>
                         <p class="product-desc">Anting piercing dengan sentuhan kristal cubic zirconia, memberikan kilau mewah tanpa mengorbankan kenyamanan.</p>
@@ -105,7 +106,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Kyoto Series" data-price="Rp 70.000" data-stock="4" data-desc="Piercing koleksi Kyoto dengan bentuk elegan dan warna lembut, cocok untuk tampilan modern yang minimalis.">
-                    <img src="gambar/kyoto-series.jpg" alt="Kyoto Series" class="product-image">
+                    <img src="../gambar/kyoto-series.jpg" alt="Kyoto Series" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Kyoto Series</h3>
                         <p class="product-desc">Piercing koleksi Kyoto dengan bentuk elegan dan warna lembut, cocok untuk tampilan modern yang minimalis.</p>
@@ -114,7 +115,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Ear Piercing Ball" data-price="Rp 35.000" data-stock="20" data-desc="Piercing model bola sederhana yang nyaman dipakai sehari-hari, ideal untuk tampilan ringkas dan modern.">
-                    <img src="gambar/ear-piercing-ball.jpg" alt="Ear Piercing Ball" class="product-image">
+                    <img src="../gambar/ear-piercing-ball.jpg" alt="Ear Piercing Ball" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Ear Piercing Ball</h3>
                         <p class="product-desc">Piercing model bola sederhana yang nyaman dipakai sehari-hari, ideal untuk tampilan ringkas dan modern.</p>
@@ -123,7 +124,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Barbell Earrings" data-price="Rp 45.000" data-stock="9" data-desc="Desain barbel yang kuat dan stylish, sangat cocok untuk tampilan bold pada piercing telinga atau monroe.">
-                    <img src="gambar/barbell-earrings.jpg" alt="Barbell Earrings" class="product-image">
+                    <img src="../gambar/barbell-earrings.jpg" alt="Barbell Earrings" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Barbell Earrings</h3>
                         <p class="product-desc">Desain barbel yang kuat dan stylish, sangat cocok untuk tampilan bold pada piercing telinga atau monroe.</p>
@@ -132,7 +133,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Tindik Bunga" data-price="Rp 50.000" data-stock="11" data-desc="Piercing motif bunga yang feminin dan manis, membuat tampilan lebih lembut dengan detail yang menarik.">
-                    <img src="gambar/Tindik-Bunga.png" alt="Tindik Bunga" class="product-image">
+                    <img src="../gambar/Tindik-Bunga.png" alt="Tindik Bunga" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Tindik Bunga</h3>
                         <p class="product-desc">Piercing motif bunga yang feminin dan manis, membuat tampilan lebih lembut dengan detail yang menarik.</p>
@@ -141,7 +142,7 @@ include 'header.php';
                 </div>
 
                 <div class="product-card" data-product="Anting Jepit" data-price="Rp 30.000" data-stock="18" data-desc="Pilihan anting tanpa tindik untuk gaya piercing sementara dengan kenyamanan tinggi dan desain trendi.">
-                    <img src="gambar/Anting-Jepit.png" alt="Anting Jepit" class="product-image">
+                    <img src="../gambar/Anting-Jepit.png" alt="Anting Jepit" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">Anting Jepit</h3>
                         <p class="product-desc">Pilihan anting tanpa tindik untuk gaya piercing sementara dengan kenyamanan tinggi dan desain trendi.</p>

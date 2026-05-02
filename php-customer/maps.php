@@ -1,13 +1,13 @@
 ﻿<?php
 $current_page = basename($_SERVER['PHP_SELF']);
+$page_css = '../css-customer/maps.css';
 include 'header.php';
 ?>
-    <link rel="stylesheet" href="css/maps.css">
     <div class="app">
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="brand">
-                <img src="gambar/logo2.jpeg" alt="Logo">
+                <img src="../gambar/logo2.jpeg" alt="Logo">
                 <span>Sphinx Piercing</span>
             </div>
 

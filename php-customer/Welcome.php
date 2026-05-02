@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-    <link rel="stylesheet" href="css/Welcome.css">
+    <link rel="stylesheet" href="../css-customer/Welcome.css">
 </head>
 <body>
 
 <div class="container">
-    <img src="gambar/logo-sphinx.png" class="logo" alt="Logo">
+    <img src="../gambar/logo-sphinx.png" class="logo" alt="Logo">
     <h1>WELCOME</h1>
     <p>SELAMAT DATANG DI<br>SPHINX_PIERCING_JOGJA</p>
 

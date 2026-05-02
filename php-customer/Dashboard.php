@@ -1,4 +1,5 @@
 ﻿﻿<?php 
+$page_css = '../css-customer/Dashboard.css';
 include 'header.php'; 
 
 $username = "@sphnx_piercing";
@@ -7,13 +8,10 @@ $promo_sub = "Diskon 20%";
 
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
-    <link rel="stylesheet" href="css/Dashboard.css">
-</head>
-<body>
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="gambar/logo2.jpeg" alt="Logo">
+            <img src="../gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
 
@@ -45,7 +43,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="ad-slideshow" id="adSlideshow">
 
             <div class="ad-slide active">
-                <div class="ad-slide-img"><img src="gambar/cubic-zironia.jpg" alt="Cubic Zirconia"></div>
+                <div class="ad-slide-img"><img src="../gambar/cubic-zironia.jpg" alt="Cubic Zirconia"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge">Terlaris</span>
                     <div class="ad-slide-name">Cubic Zirconia</div>
@@ -61,7 +59,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/titanium-earrings.jpg" alt="Titanium Earrings"></div>
+                <div class="ad-slide-img"><img src="../gambar/titanium-earrings.jpg" alt="Titanium Earrings"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge">Hypoallergenic</span>
                     <div class="ad-slide-name">Titanium Earrings</div>
@@ -77,7 +75,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/kyoto-series.jpg" alt="Kyoto Series"></div>
+                <div class="ad-slide-img"><img src="../gambar/kyoto-series.jpg" alt="Kyoto Series"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge">Edisi Khusus</span>
                     <div class="ad-slide-name">Kyoto Series</div>
@@ -92,7 +90,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Circular-Barbell.png" alt="Circular Barbell"></div>
+                <div class="ad-slide-img"><img src="../gambar/Circular-Barbell.png" alt="Circular Barbell"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge">Populer</span>
                     <div class="ad-slide-name">Circular Barbell</div>
@@ -107,7 +105,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/spkie-ohrring.jpg" alt="Spike Ohrring"></div>
+                <div class="ad-slide-img"><img src="../gambar/spkie-ohrring.jpg" alt="Spike Ohrring"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge">Eksklusif</span>
                     <div class="ad-slide-name">Spike Ohrring</div>
@@ -123,7 +121,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
             <!-- Alternatif Piercing -->
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Contoh-Alis.png" alt="Piercing Alis"></div>
+                <div class="ad-slide-img"><img src="../gambar/Contoh-Alis.png" alt="Piercing Alis"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
                     <div class="ad-slide-name">Piercing Alis</div>
@@ -138,7 +136,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Contoh-Bibir.png" alt="Piercing Bibir"></div>
+                <div class="ad-slide-img"><img src="../gambar/Contoh-Bibir.png" alt="Piercing Bibir"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
                     <div class="ad-slide-name">Piercing Bibir</div>
@@ -153,7 +151,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Contoh-Hidung.png" alt="Piercing Hidung"></div>
+                <div class="ad-slide-img"><img src="../gambar/Contoh-Hidung.png" alt="Piercing Hidung"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
                     <div class="ad-slide-name">Piercing Hidung</div>
@@ -168,7 +166,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Contoh-Telinga.jpeg" alt="Piercing Telinga"></div>
+                <div class="ad-slide-img"><img src="../gambar/Contoh-Telinga.jpeg" alt="Piercing Telinga"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
                     <div class="ad-slide-name">Piercing Telinga</div>
@@ -184,7 +182,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
 
             <div class="ad-slide">
-                <div class="ad-slide-img"><img src="gambar/Contoh-Lidah.png" alt="Piercing Lidah"></div>
+                <div class="ad-slide-img"><img src="../gambar/Contoh-Lidah.png" alt="Piercing Lidah"></div>
                 <div class="ad-slide-info">
                     <span class="ad-slide-badge" style="background:#a54ccf;color:#fff;">Alternatif</span>
                     <div class="ad-slide-name">Piercing Lidah</div>
@@ -223,67 +221,67 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <section class="product-images">
             <div class="product-item" data-product="Cubic Zirconia" data-desc="Desain klasik dengan batu cubic zirconia yang berkilau, cocok untuk tampilan elegan pada berbagai jenis piercing." data-price="Rp 30.000" data-stock="12">
                 <button class="product-love-btn" data-product="Cubic Zirconia"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/cubic-zironia.jpg" alt="Product 1">
+                <img src="../gambar/cubic-zironia.jpg" alt="Product 1">
                 <span>Cubic Zirconia</span>
             </div>
             <div class="product-item" data-product="Titanium Earrings" data-desc="Anting titanium ringan dan tahan karat, ideal untuk kulit sensitif dan pemakaian sehari-hari." data-price="Rp 50.000" data-stock="8">
                 <button class="product-love-btn" data-product="Titanium Earrings"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/titanium-earrings.jpg" alt="Product 2">
+                <img src="../gambar/titanium-earrings.jpg" alt="Product 2">
                 <span>Titanium Earrings</span>
             </div>
             <div class="product-item" data-product="Spike Ohrring" data-desc="Piercing dengan desain spike yang tajam dan elegan. Cocok untuk septum, telinga, atau alternatif piercing lainnya." data-price="Rp 55.000" data-stock="10">
                 <button class="product-love-btn" data-product="Spike Ohrring"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/spkie-ohrring.jpg" alt="Product 3">
+                <img src="../gambar/spkie-ohrring.jpg" alt="Product 3">
                 <span>Spike Ohrring</span>
             </div>
             <div class="product-item" data-product="Kyoto Series" data-desc="Koleksi piercing bertema Jepang yang minimalis dan modern, memberikan nuansa estetika elegan." data-price="Rp 40.000" data-stock="7">
                 <button class="product-love-btn" data-product="Kyoto Series"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/kyoto-series.jpg" alt="Product 4">
+                <img src="../gambar/kyoto-series.jpg" alt="Product 4">
                 <span>Kyoto Series</span>
             </div>
             <div class="product-item" data-product="Ear Piercing Ball" data-desc="Piercing bentuk bola yang halus, cocok untuk berbagai variasi anting dan piercing telinga." data-price="Rp 45.000" data-stock="15">
                 <button class="product-love-btn" data-product="Ear Piercing Ball"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/ear-piercing-ball.jpg" alt="Product 5">
+                <img src="../gambar/ear-piercing-ball.jpg" alt="Product 5">
                 <span>Ear Piercing Ball</span>
             </div>
             <div class="product-item" data-product="Barbell Earrings" data-desc="Anting barbell dengan desain kuat dan trendi untuk gaya piercing yang berani." data-price="Rp 35.000" data-stock="9">
                 <button class="product-love-btn" data-product="Barbell Earrings"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/barbell-earrings.jpg" alt="Product 6">
+                <img src="../gambar/barbell-earrings.jpg" alt="Product 6">
                 <span>Barbell Earrings</span>
             </div>
             <div class="product-item" data-product="Tindik Bunga" data-desc="Piercing motif bunga yang feminin dan manis, cocok untuk tampilan lembut." data-price="Rp 50.000" data-stock="6">
                 <button class="product-love-btn" data-product="Tindik Bunga"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Tindik-Bunga.png" alt="Product 7">
+                <img src="../gambar/Tindik-Bunga.png" alt="Product 7">
                 <span>Tindik Bunga</span>
             </div>
             <div class="product-item" data-product="Anting Jepit" data-desc="Anting jepit praktis tanpa tindik, ideal untuk yang ingin tampil stylish tanpa komitmen permanen." data-price="Rp 35.000" data-stock="18">
                 <button class="product-love-btn" data-product="Anting Jepit"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Anting-Jepit.png" alt="Product 8">
+                <img src="../gambar/Anting-Jepit.png" alt="Product 8">
                 <span>Anting Jepit</span>
             </div>
             <div class="product-item" data-product="Barre de Surface" data-desc="Piercing surface bar yang modern dan minimalis untuk area dada atau punggung." data-price="Rp 30.000" data-stock="5">
                 <button class="product-love-btn" data-product="Barre de Surface"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Barre-de-surface.png" alt="Product 9">
+                <img src="../gambar/Barre-de-surface.png" alt="Product 9">
                 <span>Barre de Surface</span>
             </div>
             <div class="product-item" data-product="Circular Barbell" data-desc="Piercing berbentuk lingkaran dengan bola pada kedua ujungnya untuk gaya klasik yang nyaman." data-price="Rp 55.000" data-stock="11">
                 <button class="product-love-btn" data-product="Circular Barbell"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Circular-Barbell.png" alt="Product 10">
+                <img src="../gambar/Circular-Barbell.png" alt="Product 10">
                 <span>Circular Barbell</span>
             </div>
             <div class="product-item" data-product="Dparis Model Bintang" data-desc="Desain unik dengan motif bintang yang menawan, cocok untuk tampilan berani dan ekspresif." data-price="Rp 35.000" data-stock="4">
                 <button class="product-love-btn" data-product="Dparis Model Bintang"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Dparis-Model-Bintang.png" alt="Product 11">
+                <img src="../gambar/Dparis-Model-Bintang.png" alt="Product 11">
                 <span>Dparis Model Bintang</span>
             </div>
             <div class="product-item" data-product="Titanium Straight Barbel" data-desc="Barbel lurus titanium hypoallergenic, sempurna untuk piercing bridge atau septum." data-price="Rp 40.000" data-stock="8">
                 <button class="product-love-btn" data-product="Titanium Straight Barbel"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Titanium-Straight-Barbel.png" alt="Product 12">
+                <img src="../gambar/Titanium-Straight-Barbel.png" alt="Product 12">
                 <span>Titanium Straight Barbel</span>
             </div>
             <div class="product-item" data-product="Piercing Nostril Em Aço" data-desc="Piercing nostril berkualitas steel dengan desain geometri dan finish premium." data-price="Rp 35.000" data-stock="7">
                 <button class="product-love-btn" data-product="Piercing Nostril Em Aço"><i class="fa-regular fa-heart"></i></button>
-                <img src="gambar/Piercing-Nostril-Em-Aço.png" alt="Product 13">
+                <img src="../gambar/Piercing-Nostril-Em-Aço.png" alt="Product 13">
                 <span>Piercing Nostril Em Aço</span>
             </div>
         </section>
@@ -437,7 +435,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
     // Load Favorit
     function loadFavorites() {
         const favorites = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
-        favorites.forEach(productName => {
+        favorites.forEach(fav => {
+            const productName = typeof fav === 'string' ? fav : fav.name;
             const btn = document.querySelector(`.product-love-btn[data-product="${productName}"]`);
             if (btn) {
                 btn.classList.add('active');
@@ -464,15 +463,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
             e.preventDefault();
             e.stopPropagation();
             const productName = this.dataset.product;
+            const productItem = this.closest('.product-item');
+            const img = productItem ? productItem.querySelector('img') : null;
+            const price = productItem ? (productItem.dataset.price || '') : '';
             let favorites = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
 
             if (this.classList.contains('active')) {
-                favorites = favorites.filter(name => name !== productName);
+                favorites = favorites.filter(f => (typeof f === 'string' ? f : f.name) !== productName);
                 this.classList.remove('active');
                 this.innerHTML = '<i class="fa-regular fa-heart"></i>';
             } else {
-                if (!favorites.includes(productName)) {
-                    favorites.push(productName);
+                if (!favorites.find(f => (typeof f === 'string' ? f : f.name) === productName)) {
+                    favorites.push({ name: productName, image: img ? img.src : '', price: price });
                 }
                 this.classList.add('active');
                 this.innerHTML = '<i class="fa-solid fa-heart"></i>';

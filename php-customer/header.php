@@ -22,7 +22,10 @@ if (!function_exists('sanitize_text')) {
     <title>Sphinx Piercing</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="../css-customer/header.css">
+    <?php if (!empty($page_css)): ?>
+    <link rel="stylesheet" href="<?= htmlspecialchars($page_css, ENT_QUOTES, 'UTF-8') ?>">
+    <?php endif; ?>
 </head>
 <body>
     <header class="cart-bar">

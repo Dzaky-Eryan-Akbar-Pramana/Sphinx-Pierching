@@ -4,6 +4,7 @@
 $cartData = isset($_GET['cart']) ? json_decode(urldecode($_GET['cart']), true) : null;
 $items = is_array($cartData) ? $cartData : [];
 $total = 0;
+$priceValue = 0;
 $fromCart = !empty($items);
 $initialQty = 1;
 if ($fromCart) {
@@ -43,7 +44,7 @@ if ($fromCart) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="css/beli.css">
+    <link rel="stylesheet" href="../css-customer/beli.css">
 </head>
 <body>
     <div class="container">

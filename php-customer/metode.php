@@ -1,13 +1,14 @@
 ﻿<?php
 $current_page = basename($_SERVER['PHP_SELF']);
+$page_css = '../css-customer/metode.css';
+$username = '@sphnx_piercing';
 include 'header.php';
 ?>
-    <link rel="stylesheet" href="css/metode.css">
 
 <div class="app">
     <aside class="sidebar">
         <div class="brand">
-            <img src="gambar/logo2.jpeg" alt="Logo">
+            <img src="../gambar/logo2.jpeg" alt="Logo">
             <span><?= htmlspecialchars($username) ?></span>
         </div>
         <ul class="menu">

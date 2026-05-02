@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Firebase Configuration
 define('FIREBASE_PROJECT_ID', 'projek-sphinx'); // Project ID Firebase
 define('FIREBASE_API_KEY', 'AIzaSyBw4w0-uBaeFb2lTwOZLeyHKanHHQaZ1CU'); // API Key Firebase

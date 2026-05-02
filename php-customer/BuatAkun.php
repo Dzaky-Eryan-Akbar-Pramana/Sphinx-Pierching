@@ -46,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <title>Buat Akun - Sphinx Piercing</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="css/BuatAkun.css">
+    <link rel="stylesheet" href="../css-customer/BuatAkun.css">
 </head>
 <body>
 
     <div class="container">
         <div class="left-section">
-            <img src="gambar/logo2.jpeg" alt="Logo Sphinx" class="logo-img">
+            <img src="../gambar/logo2.jpeg" alt="Logo Sphinx" class="logo-img">
             <div class="brand-name">@sphinx_piercing</div>
         </div>
 
