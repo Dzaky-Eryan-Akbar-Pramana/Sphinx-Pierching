@@ -450,8 +450,90 @@
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
             .promo-text h1 { font-size: 22px; }
-            .features { grid-template-columns: 1fr; }
-            .product-images { grid-template-columns: 1fr; }
+            .features { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .feature-item { padding: 16px 10px; }
+            .feature-icon { width: 60px; height: 60px; }
+            .feature-icon i { font-size: 26px; }
+            .feature-item span { font-size: 12px; }
+            .product-images { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
+
+        /* ===== MOBILE SMALL (≤480px) — sidebar jadi overlay drawer ===== */
+        @media (max-width: 480px) {
+            /* Sidebar disembunyikan by default, muncul saat hamburger diklik */
+            .sidebar {
+                transform: translateX(-100%) !important;
+                width: 200px !important;
+                padding: 18px 16px !important;
+                z-index: 200 !important;
+                transition: transform 0.3s ease;
+            }
+            /* Tampilkan brand & footer lagi saat sidebar muncul sebagai overlay */
+            .sidebar .brand { display: flex !important; flex-direction: column; align-items: center; }
+            .sidebar .sidebar-footer { display: block !important; }
+            .sidebar .menu a { font-size: 13px !important; padding: 10px 12px !important; justify-content: flex-start !important; }
+            .sidebar .menu a i { font-size: 16px !important; }
+
+            /* Sidebar terbuka saat TIDAK punya class .hidden (setelah hamburger diklik pertama kali) */
+            /* JS toggle: klik hamburger → tambah .hidden; klik lagi → hapus .hidden */
+            /* Kita balik logikanya: gunakan class .open untuk membuka */
+            .sidebar.mobile-open { transform: translateX(0) !important; }
+
+            /* Main mendapat lebar penuh */
+            .main {
+                margin-left: 0 !important;
+                padding: 12px 10px !important;
+                width: 100%;
+            }
+
+            /* Features — 2 kolom marketplace style */
+            .features {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+                margin-top: 20px;
+            }
+            .feature-item {
+                padding: 18px 10px !important;
+                border-radius: 12px;
+                min-height: 110px;
+            }
+            .feature-icon {
+                width: 52px !important;
+                height: 52px !important;
+                margin-bottom: 10px;
+            }
+            .feature-icon i { font-size: 24px !important; }
+            .feature-item span { font-size: 12px !important; font-weight: 500; }
+
+            /* Product images — 2 kolom marketplace style */
+            .product-images {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+                margin-top: 20px;
+            }
+            .product-item { padding: 10px !important; border-radius: 10px; }
+            .product-item img { border-radius: 8px !important; margin-bottom: 8px !important; }
+            .product-item span { font-size: 12px !important; }
+
+            /* Backdrop gelap saat sidebar terbuka */
+            .mobile-sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 190;
+            }
+            .mobile-sidebar-backdrop.active { display: block; }
+
+            /* Slideshow kompak */
+            .ad-slideshow { height: 140px; margin-bottom: 16px; }
+            .ad-slide-img { flex: 0 0 130px; height: 140px; }
+            .ad-slide-img img { width: 130px; height: 140px; }
+            .ad-slide-name { font-size: 15px; }
+            .ad-slide-desc { display: none; }
+            .ad-slide-info { padding: 14px 14px; }
         }
 
         /* --- UPDATE MODAL BUTTONS --- */

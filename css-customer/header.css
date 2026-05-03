@@ -106,4 +106,41 @@
         @media (max-width: 480px) {
             .profile-wrap .profile-name { display: none; }
             .cart-dropdown { right: 4px; min-width: calc(100vw - 12px); }
+
+            /* === SIDEBAR OVERLAY DRAWER (semua halaman) === */
+            .sidebar {
+                transform: translateX(-100%) !important;
+                width: 200px !important;
+                padding: 18px 16px !important;
+                z-index: 200 !important;
+                transition: transform 0.3s ease !important;
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0) !important;
+            }
+            /* Tampilkan brand & footer saat drawer terbuka */
+            .sidebar .brand { display: flex !important; flex-direction: column; align-items: center; }
+            .sidebar .sidebar-footer { display: block !important; }
+            .sidebar .menu a {
+                font-size: 13px !important;
+                padding: 10px 12px !important;
+                justify-content: flex-start !important;
+            }
+            .sidebar .menu a i { font-size: 16px !important; }
+
+            /* Main mendapat lebar penuh di semua halaman */
+            .main {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+
+            /* Backdrop gelap */
+            .mobile-sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 190;
+            }
+            .mobile-sidebar-backdrop.active { display: block; }
         }

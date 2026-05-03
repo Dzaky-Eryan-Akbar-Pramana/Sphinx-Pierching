@@ -1,6 +1,36 @@
 ﻿﻿<?php 
-$page_css = '../css-customer/Dashboard.css';
+$page_css = '../css-customer/Dashboard.css?v=4';
 include 'header.php'; 
+?>
+<style>
+@media (max-width: 480px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+        width: 200px !important;
+        z-index: 200 !important;
+        transition: transform 0.3s ease;
+    }
+    .sidebar.mobile-open {
+        transform: translateX(0) !important;
+    }
+    .main {
+        margin-left: 0 !important;
+        padding: 12px 10px !important;
+        width: 100% !important;
+    }
+    .features {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    .product-images {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+}
+</style>
+<?php
 
 $username = "@sphnx_piercing";
 $promo_title = "Promo Piercing";
@@ -616,7 +646,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             dotsContainer.children[currentSlide].classList.add('active');
         }
 
-        setInterval(() => goToSlide(currentSlide + 1), 5000);
+        setInterval(() => goToSlide(currentSlide + 1), 3000);
     });
 </script>
 

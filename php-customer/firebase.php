@@ -10,16 +10,18 @@ class FirebaseFirestore {
         $this->apiKey = FIREBASE_API_KEY;
     }
 
-    // Fungsi untuk menyimpan dokumen ke Firestore
+    // Fungsi untuk menyimpan dokumen ke Firestore (create or update / upsert)
     public function saveDocument($collection, $documentId, $data) {
-        $url = FIRESTORE_BASE_URL . $collection . '?documentId=' . urlencode($documentId) . '&key=' . $this->apiKey;
+        // Gunakan PATCH agar bisa create sekaligus update (upsert)
+        $url = FIRESTORE_BASE_URL . $collection . '/' . urlencode($documentId) . '?key=' . $this->apiKey;
 
-        $jsonData = json_encode(['fields' => $this->convertToFirestoreFields($data)]);
+        $fields = $this->convertToFirestoreFields($data);
+        $jsonData = json_encode(['fields' => $fields]);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',

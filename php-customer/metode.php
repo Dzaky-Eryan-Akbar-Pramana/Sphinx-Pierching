@@ -1,6 +1,6 @@
 ﻿<?php
 $current_page = basename($_SERVER['PHP_SELF']);
-$page_css = '../css-customer/metode.css';
+$page_css = '../css-customer/metode.css?v=3';
 $username = '@sphnx_piercing';
 include 'header.php';
 ?>
@@ -275,8 +275,8 @@ include 'header.php';
                     <span class="qr-id">NMID : ID10190000213</span>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PembayaranSphinx" alt="QRIS">
                     <span style="font-size:10px; margin-top:5px; display:block;">Scan untuk membayar</span>
+                    <button class="btn-bayar" id="paymentActionButton">Bayar Sekarang</button>
                 </div>
-                <button class="btn-bayar" id="paymentActionButton">Bayar Sekarang</button>
             `;
         } else if (type === 'transfer') {
             rightBox.innerHTML = `
@@ -306,7 +306,7 @@ include 'header.php';
                         <i class="fa-solid fa-truck" style="font-size:50px; color:var(--lime); margin-bottom:15px;"></i>
                         <p style="font-weight:700; font-size:14px; color:var(--lime); letter-spacing:.5px; text-transform:uppercase; margin-bottom:10px;">Lakukan pembayaran di kurir<br>jika barang sudah diterima</p>
                         <p style="font-size:12px; color:var(--text-soft); margin-bottom:20px;">Pesanan akan segera dikirimkan ke alamat Anda.</p>
-                        <button class="btn-bayar" id="codOkeButton" style="background:var(--lime); color:#111; padding:10px 32px; font-size:15px; border-radius:8px;">OKE</button>
+                        <button class="btn-bayar" id="codOkeButton">OKE</button>
                     </div>
                 `;
             } else {

@@ -11,11 +11,13 @@ $userData = $firestore->getDocument('users', $username);
 $full_name = $profileData['full_name'] ?? $userData['username'] ?? $username;
 $email = $profileData['email'] ?? $userData['email'] ?? '';
 $phone = $profileData['phone'] ?? $userData['nohp'] ?? '';
+$address = $profileData['address'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 	$full_name = trim($_POST['full_name'] ?? $full_name);
 	$email = trim($_POST['email'] ?? $email);
 	$phone = trim($_POST['phone'] ?? $phone);
+	$address = trim($_POST['address'] ?? $address);
 
 	// Simpan perubahan profil ke Firebase
 	$profileData = [
@@ -23,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 		'full_name' => $full_name,
 		'email' => $email,
 		'phone' => $phone,
+		'address' => $address,
 		'updated_at' => date('Y-m-d H:i:s')
 	];
 	$result = $firestore->saveDocument('profiles', $username, $profileData);
@@ -118,6 +121,11 @@ include 'header.php';
 					<b id="display-name"><?= htmlspecialchars($full_name) ?></b>
 					<div id="display-email"><?= htmlspecialchars($email) ?></div>
 					<div id="display-phone"><?= htmlspecialchars($phone) ?></div>
+						<?php if (!empty($address)): ?>
+						<div id="display-address" style="margin-top:4px; font-size:13px; color:var(--text-soft);"><i class="fa-solid fa-location-dot" style="margin-right:6px;"></i><?= htmlspecialchars($address) ?></div>
+						<?php else: ?>
+						<div id="display-address" style="margin-top:4px; font-size:13px; color:#ff9900;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:6px;"></i>Alamat belum diisi</div>
+						<?php endif; ?>
 				</div>
 
 				<div>
@@ -141,6 +149,9 @@ include 'header.php';
 
 						<label class="sr-only">Masukkan NoTelp</label>
 						<input name="phone" type="tel" placeholder="Masukkan NoTelp" value="<?= htmlspecialchars($phone) ?>" required>
+
+						<label class="sr-only">Alamat Lengkap</label>
+						<textarea name="address" rows="3" placeholder="Masukkan alamat lengkap (untuk pengiriman GoSend/SPX)" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:var(--text); font-family:inherit; font-size:14px; resize:vertical;"><?= htmlspecialchars($address) ?></textarea>
 
 						<!-- Ubah Password -->
 						<div class="pw-section">

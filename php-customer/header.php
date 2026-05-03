@@ -22,7 +22,7 @@ if (!function_exists('sanitize_text')) {
     <title>Sphinx Piercing</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="../css-customer/header.css">
+    <link rel="stylesheet" href="../css-customer/header.css?v=2">
     <?php if (!empty($page_css)): ?>
     <link rel="stylesheet" href="<?= htmlspecialchars($page_css, ENT_QUOTES, 'UTF-8') ?>">
     <?php endif; ?>
@@ -75,11 +75,52 @@ if (!function_exists('sanitize_text')) {
         }
 
         // Tombol hamburger untuk membuka/tutup sidebar
-        document.getElementById('hamburger')?.addEventListener('click', function() {
-            this.classList.toggle('active');
-            const sidebar = document.querySelector('.sidebar');
-            if (sidebar) sidebar.classList.toggle('hidden');
-        });
+        (function() {
+            const hamburger = document.getElementById('hamburger');
+            if (!hamburger) return;
+
+            // Buat backdrop untuk mobile
+            const backdrop = document.createElement('div');
+            backdrop.className = 'mobile-sidebar-backdrop';
+            document.body.appendChild(backdrop);
+
+            function isMobile() { return window.innerWidth <= 480; }
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const sidebar = document.querySelector('.sidebar');
+                if (!sidebar) return;
+
+                if (isMobile()) {
+                    // Mobile: sidebar sebagai overlay drawer
+                    const isOpen = sidebar.classList.toggle('mobile-open');
+                    backdrop.classList.toggle('active', isOpen);
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                } else {
+                    // Desktop/tablet: toggle hidden seperti semula
+                    sidebar.classList.toggle('hidden');
+                }
+            });
+
+            // Tutup sidebar saat klik backdrop
+            backdrop.addEventListener('click', function() {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar) sidebar.classList.remove('mobile-open');
+                backdrop.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Handle resize: bersihkan state mobile jika pindah ke desktop
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    const sidebar = document.querySelector('.sidebar');
+                    if (sidebar) sidebar.classList.remove('mobile-open');
+                    backdrop.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        })();
         
         // Inisialisasi keranjang ditangani oleh script sphinxCart di bawah
     </script>

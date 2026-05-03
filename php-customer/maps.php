@@ -39,6 +39,13 @@ include 'header.php';
                 </div>
             </div>
 
+            <!-- BACK BUTTON -->
+            <div style="margin-bottom: 16px;">
+                <a href="dashboard.php" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-soft); font-size:14px; background:var(--bg-card); padding:8px 16px; border-radius:999px; border:1px solid rgba(255,255,255,0.1); transition:.2s;" onmouseover="this.style.color='#82ff5b'; this.style.borderColor='#82ff5b';" onmouseout="this.style.color=''; this.style.borderColor='rgba(255,255,255,0.1)';">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </a>
+            </div>
+
             <!-- MAPS CONTENT -->
             <div class="maps-container">
                 <!-- Google Maps -->

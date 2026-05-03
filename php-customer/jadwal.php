@@ -177,7 +177,13 @@ include 'header.php';
 
                     <div class="form-group">
                         <label>Jumlah Titik Piercing</label>
-                        <input type="number" id="jumlahInput" class="form-control" min="1" max="10" value="1" placeholder="Masukkan jumlah...">
+                        <div class="qty-wrapper">
+                            <input type="number" id="jumlahInput" class="form-control" min="1" max="10" value="1" placeholder="Masukkan jumlah..." style="-moz-appearance:textfield; appearance:textfield; padding-right:36px;">
+                            <div class="qty-spinners">
+                                <button type="button" class="qty-spin-btn" id="jumlahPlus"><i class="fa-solid fa-chevron-up"></i></button>
+                                <button type="button" class="qty-spin-btn" id="jumlahMinus"><i class="fa-solid fa-chevron-down"></i></button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -277,6 +283,20 @@ include 'header.php';
     document.getElementById('jumlahInput').addEventListener('input', updateDetail);
     document.getElementById('tanggalInput').addEventListener('change', updateDetail);
     document.getElementById('waktuInput').addEventListener('change', updateDetail);
+
+    // Tombol +/- untuk jumlah titik piercing
+    document.getElementById('jumlahPlus').addEventListener('click', function() {
+        const el = document.getElementById('jumlahInput');
+        const max = parseInt(el.max) || 10;
+        const val = parseInt(el.value) || 1;
+        if (val < max) { el.value = val + 1; updateDetail(); }
+    });
+    document.getElementById('jumlahMinus').addEventListener('click', function() {
+        const el = document.getElementById('jumlahInput');
+        const min = parseInt(el.min) || 1;
+        const val = parseInt(el.value) || 1;
+        if (val > min) { el.value = val - 1; updateDetail(); }
+    });
 
     document.getElementById('btnBooking').addEventListener('click', function() {
         const layanan = document.getElementById('layananInput').value;
