@@ -59,6 +59,7 @@ include 'header.php';
     grid-template-columns: 1fr 1fr !important;
     gap: 14px !important;
     margin-top: 6px !important;
+    align-items: start !important;
 }
 .cal-panel, .time-panel {
     background: #20103a !important;
@@ -98,7 +99,7 @@ include 'header.php';
 .cal-dates {
     display: grid !important;
     grid-template-columns: repeat(7, 1fr) !important;
-    gap: 1px; flex: 1; margin-bottom: 12px;
+    gap: 1px; margin-bottom: 12px;
 }
 .cal-date-btn {
     background: transparent; border: none; color: #f4f4f4;
@@ -129,12 +130,19 @@ include 'header.php';
 .time-slots {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 7px; margin-bottom: 12px; flex: 1; align-content: start;
+    gap: 6px; align-content: start;
+    max-height: 260px; overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #82ff5b #20103a;
 }
+.time-slots::-webkit-scrollbar { width: 5px; }
+.time-slots::-webkit-scrollbar-thumb { background: #82ff5b; border-radius: 4px; }
+.time-slots::-webkit-scrollbar-track { background: transparent; }
 .time-slot-btn {
     background: transparent;
     border: 1px solid rgba(255,255,255,0.22);
-    color: #f4f4f4; font-size: 12px; padding: 9px 2px;
+    color: #f4f4f4; font-size: 11px; padding: 7px 2px;
     border-radius: 8px; cursor: pointer; transition: 0.2s;
     font-family: inherit; text-align: center;
 }
@@ -369,7 +377,18 @@ include 'header.php';
     });
 
     // ===== KALENDER & PILIHAN WAKTU =====
-    const availableSlots = ['10:00','11:00','13:00','14:00','15:00','17:00','18:00','19:00'];
+    function generateSlots() {
+        const slots = [];
+        const excludeHours = [12, 16]; // jam istirahat
+        for (let h = 10; h <= 19; h++) {
+            if (excludeHours.includes(h)) continue;
+            for (let m = 0; m < 60; m += 15) {
+                slots.push(String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0'));
+            }
+        }
+        return slots;
+    }
+    const availableSlots = generateSlots();
     const namaBulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     const bulanShort = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
     const hariShort  = ['Ming','Sen','Sel','Rab','Kam','Jum','Sab'];
@@ -429,8 +448,11 @@ include 'header.php';
         let html = '';
         availableSlots.forEach(slot => {
             const isSel = selectedSlot === slot;
-            const [h] = slot.split(':');
-            const end  = String(parseInt(h) + 1).padStart(2,'0') + ':00';
+            const [h, min] = slot.split(':');
+            const totalMins = parseInt(h) * 60 + parseInt(min) + 15;
+            const endH = Math.floor(totalMins / 60);
+            const endM = totalMins % 60;
+            const end = String(endH).padStart(2,'0') + ':' + String(endM).padStart(2,'0');
             const label = isSel ? `${slot}-${end}` : slot.replace(':','.');
             html += `<button type="button" class="time-slot-btn${isSel ? ' selected' : ''}" data-slot="${slot}">${label}</button>`;
         });
