@@ -298,6 +298,14 @@
         .cart-qty-btn:hover { background: rgba(130,255,91,.2); }
         .cart-qty-value { color: var(--lime); font-weight: 700; font-size: 16px; min-width: 24px; text-align: center; }
 
+        @media (max-width: 1280px) {
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+        }
+
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+        }
+
         @media (max-width: 900px) {
             .sidebar { width: 60px; padding: 12px 6px; }
             .brand { display: none; }
@@ -306,11 +314,40 @@
             .menu a i { font-size: 18px; width: auto; }
             .main { margin-left: 60px; }
             .feature-page { padding: 22px; }
-            .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
         }
 
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
             .feature-page h1 { font-size: 22px; }
-            .products-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                transform: translateX(-100%) !important;
+                width: 200px !important;
+                padding: 18px 16px !important;
+                z-index: 200 !important;
+                transition: transform 0.3s ease;
+            }
+            .sidebar .brand { display: flex !important; flex-direction: column; align-items: center; }
+            .sidebar .sidebar-footer { display: block !important; }
+            .sidebar .menu a { font-size: 13px !important; padding: 10px 12px !important; justify-content: flex-start !important; }
+            .sidebar .menu a i { font-size: 16px !important; }
+            .sidebar.mobile-open { transform: translateX(0) !important; }
+            .main { margin-left: 0 !important; padding: 12px 10px !important; width: 100%; }
+            .feature-page { padding: 16px !important; }
+            .feature-page h1 { font-size: 20px !important; }
+            .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; margin: 20px 0 !important; }
+            .product-name { font-size: 14px !important; }
+            .product-desc { font-size: 12px !important; }
+            .mobile-sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 190;
+            }
+            .mobile-sidebar-backdrop.active { display: block; }
         }

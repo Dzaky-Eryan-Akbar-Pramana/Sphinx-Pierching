@@ -98,6 +98,7 @@ include 'header.php';
 		</div>
 
 		<section class="profile-section">
+			<a href="dashboard.php" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</a>
 			<div class="section-title">Profil Pengguna</div>
 
 			<?php if (!empty($success_message)): ?>

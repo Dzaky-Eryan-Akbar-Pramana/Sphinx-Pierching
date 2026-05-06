@@ -315,7 +315,7 @@ include 'header.php';
                         <i class="fa-solid fa-cash-register" style="font-size:50px; color:var(--lime); margin-bottom:15px;"></i>
                         <p>Silakan lakukan pembayaran<br>di meja kasir.</p>
                     </div>
-                    <button class="btn-bayar" id="paymentActionButton">Bayar Sekarang</button>
+                    <button class="btn-bayar" id="paymentActionButton">Bayar di Kasir</button>
                 `;
             }
         }

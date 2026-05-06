@@ -279,14 +279,39 @@ include 'header.php';
             document.getElementById('detailStatus').innerText = status;
 
             // Perbarui tampilan stepper sesuai status pesanan
-            const statusOrder = ['Pesanan Masuk', 'Sedang Dikemas', 'Dalam Pengiriman', 'Selesai'];
+            const isPickup = (shipping === 'Ambil di Toko');
+
+            // Tampilkan/sembunyikan step Sedang Dikemas & Dalam Pengiriman
+            document.querySelectorAll('#detailStepper .step').forEach(step => {
+                const s = step.dataset.step;
+                if (isPickup && (s === 'Sedang Dikemas' || s === 'Dalam Pengiriman')) {
+                    step.style.display = 'none';
+                } else {
+                    step.style.display = '';
+                }
+            });
+            // Sembunyikan garis step yang terhubung ke step tersembunyi
+            const stepLines = document.querySelectorAll('#detailStepper .step-line');
+            if (isPickup) {
+                // Hanya ada 2 step (Pesanan Masuk & Selesai) → 1 garis
+                stepLines.forEach((line, i) => { line.style.display = i === 0 ? '' : 'none'; });
+            } else {
+                stepLines.forEach(line => { line.style.display = ''; });
+            }
+
+            const statusOrder = isPickup
+                ? ['Pesanan Masuk', 'Selesai']
+                : ['Pesanan Masuk', 'Sedang Dikemas', 'Dalam Pengiriman', 'Selesai'];
             const currentIdx = statusOrder.indexOf(status);
-            document.querySelectorAll('#detailStepper .step').forEach((step, i) => {
+            document.querySelectorAll('#detailStepper .step').forEach((step) => {
+                if (step.style.display === 'none') return;
                 step.classList.remove('step-done', 'step-active');
-                if (i < currentIdx) step.classList.add('step-done');
-                else if (i === currentIdx) step.classList.add('step-active');
+                const stepIdx = statusOrder.indexOf(step.dataset.step);
+                if (stepIdx < currentIdx) step.classList.add('step-done');
+                else if (stepIdx === currentIdx) step.classList.add('step-active');
             });
             document.querySelectorAll('#detailStepper .step-line').forEach((line, i) => {
+                if (line.style.display === 'none') return;
                 line.classList.toggle('line-done', i < currentIdx);
             });
 

@@ -129,7 +129,6 @@
             background: var(--bg-card);
             border-radius: 16px;
             padding: 32px;
-            max-width: 920px;
             width: 100%;
         }
 
@@ -182,45 +181,53 @@
 
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
             margin-top: 16px;
         }
 
         .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--bg-main-dark);
             border-radius: 14px;
+            overflow: hidden;
             display: flex;
-            gap: 12px;
-            padding: 12px 14px;
-            align-items: center;
-            min-width: 260px;
+            flex-direction: column;
+            transition: .3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(130, 255, 91, 0.15);
         }
 
         .service-card img {
-            width: 64px;
-            height: 64px;
+            width: 100%;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 12px;
-            flex-shrink: 0;
+            display: block;
+            background: var(--bg-card);
         }
 
         .service-card-content {
             flex: 1;
+            padding: 16px 18px 18px;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card-content h3 {
-            font-size: 15px;
-            color: var(--text);
-            margin-bottom: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--lime);
+            margin-bottom: 6px;
         }
 
         .service-card-content p {
             font-size: 13px;
             color: var(--text-soft);
-            line-height: 1.5;
+            line-height: 1.6;
             margin: 0;
+            flex: 1;
         }
 
         .price-badge {
@@ -253,11 +260,12 @@
         .slot-table-wrap {
             overflow-x: auto;
             margin-top: 16px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .slot-table {
             width: 100%;
-            min-width: 760px;
+            min-width: 520px;
             border-collapse: collapse;
             font-size: 14px;
         }
@@ -308,6 +316,14 @@
             color: #111;
         }
 
+        @media (max-width: 1280px) {
+            .service-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        }
+
+        @media (max-width: 1024px) {
+            .service-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        }
+
         @media (max-width: 900px) {
             .sidebar { width: 60px; padding: 12px 6px; }
             .brand { display: none; }
@@ -317,9 +333,67 @@
             .main { margin-left: 60px; }
             .feature-page { padding: 22px; }
             .feature-list { grid-template-columns: 1fr; }
+            .service-block { flex-direction: column; }
+            .service-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
         }
 
         @media (max-width: 600px) {
             .main { padding: 12px 10px; }
             .feature-page h1 { font-size: 22px; }
+            .service-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .slot-table { min-width: 380px; font-size: 13px; }
+            .slot-table th, .slot-table td { padding: 10px 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                transform: translateX(-100%) !important;
+                width: 200px !important;
+                padding: 18px 16px !important;
+                z-index: 200 !important;
+                transition: transform 0.3s ease;
+            }
+            .sidebar .brand { display: flex !important; flex-direction: column; align-items: center; }
+            .sidebar .sidebar-footer { display: block !important; }
+            .sidebar .menu a { font-size: 13px !important; padding: 10px 12px !important; justify-content: flex-start !important; }
+            .sidebar .menu a i { font-size: 16px !important; }
+            .sidebar.mobile-open { transform: translateX(0) !important; }
+            .main { margin-left: 0 !important; padding: 12px 10px !important; width: 100%; }
+            .feature-page { padding: 16px !important; }
+            .feature-page h1 { font-size: 20px !important; }
+
+            /* Tabel slot: kompak dan tidak overflow */
+            .slot-table { min-width: 320px !important; font-size: 12px !important; }
+            .slot-table th, .slot-table td { padding: 8px 8px !important; }
+
+            /* Service card: balik ke horizontal compact di mobile */
+            .service-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+            .service-card {
+                flex-direction: row !important;
+                align-items: center !important;
+                overflow: visible !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            .service-card:hover { transform: none !important; box-shadow: none !important; }
+            .service-card img {
+                width: 72px !important;
+                height: 72px !important;
+                aspect-ratio: 1/1 !important;
+                flex-shrink: 0 !important;
+                border-radius: 10px !important;
+                object-fit: cover !important;
+            }
+            .service-card-content { padding: 0 12px !important; }
+            .service-card-content h3 { font-size: 14px !important; }
+            .service-card-content p { font-size: 12px !important; }
+
+            .mobile-sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 190;
+            }
+            .mobile-sidebar-backdrop.active { display: block; }
         }
