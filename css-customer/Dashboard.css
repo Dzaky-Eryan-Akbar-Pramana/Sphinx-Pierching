@@ -324,26 +324,6 @@
             background: rgba(255, 255, 255, 0.16);
         }
 
-        .btn-buy {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px 18px;
-            margin-top: 22px;
-            border-radius: 12px;
-            background: var(--lime);
-            color: #111;
-            text-decoration: none;
-            font-weight: 700;
-            transition: transform .2s ease, opacity .2s ease;
-        }
-
-        .btn-buy:hover {
-            transform: translateY(-1px);
-            opacity: 0.95;
-        }
-
         .product-modal-card h2 {
             font-size: 24px;
             margin-bottom: 14px;
@@ -445,6 +425,14 @@
             .promo-card { flex-direction: column; }
             .promo-image { max-width: 100%; min-width: auto; height: 200px; }
             .product-images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            /* Slideshow — kurangi gambar, sembunyikan size tags */
+            .ad-slideshow { height: 150px; }
+            .ad-slide-img { flex: 0 0 150px; height: 150px; }
+            .ad-slide-img img { width: 150px; height: 150px; }
+            .ad-slide-sizes { display: none; }
+            .ad-slide-name { font-size: 17px; }
+            .ad-slide-desc { font-size: 12px; }
+            .ad-slide-info { padding: 16px 18px; }
         }
 
         @media (max-width: 600px) {
@@ -456,6 +444,18 @@
             .feature-icon i { font-size: 26px; }
             .feature-item span { font-size: 12px; }
             .product-images { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            /* Slideshow vertikal: gambar atas, teks bawah */
+            .ad-slideshow { height: auto; border-radius: 12px; margin-bottom: 16px; }
+            .ad-slide { position: relative; inset: auto; flex-direction: column; align-items: stretch; }
+            .ad-slide:not(.active) { display: none; }
+            .ad-slide-img { flex: none; width: 100%; height: 155px; }
+            .ad-slide-img img { width: 100%; height: 155px; }
+            .ad-slide-info { padding: 12px 14px; gap: 4px; }
+            .ad-slide-name { font-size: 15px; }
+            .ad-slide-desc { font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+            .ad-slide-sizes { display: none; }
+            .ad-slide-price { font-size: 14px; margin-top: 2px; }
+            .ad-dots { bottom: 8px; right: 10px; }
         }
 
         /* ===== MOBILE SMALL (≤480px) — sidebar jadi overlay drawer ===== */
@@ -527,20 +527,33 @@
             }
             .mobile-sidebar-backdrop.active { display: block; }
 
-            /* Slideshow kompak */
-            .ad-slideshow { height: 140px; margin-bottom: 16px; }
-            .ad-slide-img { flex: 0 0 130px; height: 140px; }
-            .ad-slide-img img { width: 130px; height: 140px; }
-            .ad-slide-name { font-size: 15px; }
+            /* Slideshow kompak vertikal */
+            .ad-slideshow { height: auto; border-radius: 10px; margin-bottom: 12px; }
+            .ad-slide { position: relative; inset: auto; flex-direction: column; align-items: stretch; }
+            .ad-slide:not(.active) { display: none; }
+            .ad-slide-img { flex: none; width: 100%; height: 130px; }
+            .ad-slide-img img { width: 100%; height: 130px; }
+            .ad-slide-info { padding: 10px 12px; gap: 3px; }
+            .ad-slide-name { font-size: 14px; }
             .ad-slide-desc { display: none; }
-            .ad-slide-info { padding: 14px 14px; }
+            .ad-slide-sizes { display: none; }
+            .ad-slide-price { font-size: 13px; margin-top: 1px; }
+            .ad-dots { bottom: 6px; right: 8px; }
         }
 
         /* --- UPDATE MODAL BUTTONS --- */
         .modal-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 22px;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .modal-btn-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             width: 100%;
         }
 
@@ -548,7 +561,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            flex: 1; /* Berbagi ruang yang sama rata dengan tombol keranjang */
+            flex: 1;
             padding: 12px 18px;
             border-radius: 12px;
             background: var(--lime);
@@ -567,30 +580,29 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex: 1; /* Berbagi ruang yang sama rata */
-            padding: 12px 18px;
+            flex: 0 0 52px;
+            width: 52px;
+            padding: 12px;
             border-radius: 12px;
             background: transparent;
             color: var(--lime);
             border: 2px solid var(--lime);
-            text-decoration: none;
             font-weight: 700;
             cursor: pointer;
             transition: .2s ease;
         }
 
         .btn-cart:hover {
-            background: rgba(130, 255, 91, 0.1); /* Efek hover hijau transparan */
+            background: rgba(130, 255, 91, 0.1);
             transform: translateY(-1px);
         }
 
         /* --- KONTROL PLUS MINUS KERANJANG --- */
         .cart-qty-control {
-            display: none; /* Disembunyikan di awal */
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            flex: 1; /* Ukuran menyesuaikan agar sejajar dengan Beli */
+            width: 100%;
             padding: 8px 12px;
             border-radius: 12px;
             border: 2px solid var(--lime);

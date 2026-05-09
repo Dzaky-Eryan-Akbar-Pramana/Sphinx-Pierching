@@ -41,9 +41,29 @@
             display:flex; flex-direction:column; margin-left:210px;
         }
 
+        /* --- TOMBOL BACK --- */
+        .btn-back-page {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 9px 18px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
+        }
+        .btn-back-page:hover {
+            background: var(--lime);
+            color: #111;
+        }
+
         /* Header Kanan (Jasa, Maps, User) */
         .header-top {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; flex-direction: column; align-items: flex-start;
             margin-bottom: 30px;
         }
         .page-title { font-size: 28px; font-weight: 500; }

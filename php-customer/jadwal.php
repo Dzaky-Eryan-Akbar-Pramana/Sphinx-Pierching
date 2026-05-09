@@ -29,6 +29,7 @@ include 'header.php';
 
     <main class="main">
         <div class="topbar">
+            <a href="Dashboard.php" class="btn-back-page"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
             <div class="top-icons">
                 <!-- <i class="fa-regular fa-bell"></i>
                 <i class="fa-regular fa-user"></i> -->

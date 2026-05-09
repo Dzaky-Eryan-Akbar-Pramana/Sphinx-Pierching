@@ -60,7 +60,7 @@ foreach ($allOrders as $orderId => $order) {
 
 $orderHistory = array_values($orderHistory);
 
-$page_css = '../css-customer/riwayat.css';
+$page_css = '../css-customer/riwayat.css?v=' . filemtime(__DIR__ . '/../css-customer/riwayat.css');
 include 'header.php';
 ?>
 
@@ -89,6 +89,7 @@ include 'header.php';
     <main class="main">
         
         <div class="header-top">
+            <a href="Dashboard.php" class="btn-back-page"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
             <h1 class="page-title">Riwayat Pemesanan</h1>
             <!-- <nav class="top-nav">
                 <a href="#">Jasa</a>

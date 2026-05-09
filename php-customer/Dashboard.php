@@ -1,35 +1,7 @@
 ﻿﻿<?php 
-$page_css = '../css-customer/Dashboard.css?v=4';
+$page_css = '../css-customer/Dashboard.css?v=5';
 include 'header.php'; 
 ?>
-<style>
-@media (max-width: 480px) {
-    .sidebar {
-        transform: translateX(-100%) !important;
-        width: 200px !important;
-        z-index: 200 !important;
-        transition: transform 0.3s ease;
-    }
-    .sidebar.mobile-open {
-        transform: translateX(0) !important;
-    }
-    .main {
-        margin-left: 0 !important;
-        padding: 12px 10px !important;
-        width: 100% !important;
-    }
-    .features {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-    }
-    .product-images {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-    }
-}
-</style>
 <?php
 
 $username = "@sphnx_piercing";
@@ -364,17 +336,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a id="buyButton" class="btn-buy" href="#">Beli Sekarang</a>
                 </div> -->
                 
-                <div class="modal-actions" style="flex-direction:column; gap:10px;">
-                    <div id="cartQtyControl" class="cart-qty-control" style="display:flex; flex:unset; width:100%;">
+                <div class="modal-actions">
+                    <div id="cartQtyControl" class="cart-qty-control">
                         <button id="cartMinus" class="cart-qty-btn"><i class="fa-solid fa-minus"></i></button>
                         <span id="cartQtyValue" class="cart-qty-value">1</span>
                         <button id="cartPlus" class="cart-qty-btn"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <div style="display:flex; gap:10px; width:100%;">
-                        <button id="cartButton" class="btn-cart" style="flex:0 0 52px; width:52px; padding:12px;">
+                    <div class="modal-btn-row">
+                        <button id="cartButton" class="btn-cart">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
-                        <a id="buyButton" class="btn-buy" style="flex:1; margin-top:0;" href="#">Beli Sekarang</a>
+                        <a id="buyButton" class="btn-buy" href="#">Beli Sekarang</a>
                     </div>
                 </div>
 
@@ -464,22 +436,29 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     // Muat data produk favorit
     function loadFavorites() {
-        const favorites = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
-        favorites.forEach(fav => {
-            const productName = typeof fav === 'string' ? fav : fav.name;
-            const btn = document.querySelector(`.product-love-btn[data-product="${productName}"]`);
-            if (btn) {
-                btn.classList.add('active');
-                btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-            }
-        });
+        try {
+            var favs = JSON.parse(localStorage.getItem(favoriteKey) || '[]');
+            favs.forEach(function(fav) {
+                var productName = typeof fav === 'string' ? fav : fav.name;
+                var btn = document.querySelector('.product-love-btn[data-product="' + productName + '"]');
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+                }
+            });
+        } catch(e) {}
     }
 
     // Perbarui angka keranjang di topbar
     function loadCartCount() {
-        const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-        const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-        cartCountEl.innerText = totalItems;
+        if (!cartCountEl) return;
+        try {
+            var cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+            var totalItems = cart.reduce(function(sum, item) {
+                return sum + (parseInt(item.qty || item.quantity || 1, 10) || 1);
+            }, 0);
+            cartCountEl.innerText = totalItems;
+        } catch(e) { cartCountEl.innerText = 0; }
     }
 
     // Cek apakah produk ini sudah ada di keranjang
@@ -544,45 +523,29 @@ $current_page = basename($_SERVER['PHP_SELF']);
     });
 
     // KLIK TOMBOL TAMBAH KE KERANJANG
-    // cartButton.addEventListener('click', function() {
-    //     if (!currentSelectedProduct) return;
-    //     let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-        
-    //     cart.push({
-    //         name: currentSelectedProduct.name,
-    //         price: currentSelectedProduct.price,
-    //         image: currentSelectedProduct.image,
-    //         qty: 1
-    //     });
-
-    //     localStorage.setItem(cartKey, JSON.stringify(cart));
-    //     loadCartCount();
-    //     updateCartButtonState(currentSelectedProduct.name); // Animasi tombol berubah
-    // });
-
     cartButton.addEventListener('click', function() {
-    if (!currentSelectedProduct) return;
-    const qtyToAdd = parseInt(cartQtyValue.innerText) || 1;
-
-    if (window.sphinxCart) {
-        sphinxCart.addItem({
-            name: currentSelectedProduct.name,
-            price: currentSelectedProduct.price,
-            image: currentSelectedProduct.image,
-            qty: qtyToAdd
-        });
-    } else {
-        let cart = JSON.parse(localStorage.getItem('sphinx_cart') || '[]');
-        let existing = cart.find(i => i.name === currentSelectedProduct.name);
-        if (existing) existing.qty += qtyToAdd;
-        else cart.push({ name: currentSelectedProduct.name, price: currentSelectedProduct.price, image: currentSelectedProduct.image, qty: qtyToAdd });
-        localStorage.setItem('sphinx_cart', JSON.stringify(cart));
-    }
-
-    loadCartCount();
-    cartQtyValue.innerText = 1;
-    productModal.classList.remove('active');
-});
+        if (!currentSelectedProduct) return;
+        var qtyToAdd = parseInt(cartQtyValue.innerText) || 1;
+        if (window.sphinxCart) {
+            sphinxCart.addItem({
+                name: currentSelectedProduct.name,
+                price: currentSelectedProduct.price,
+                image: currentSelectedProduct.image,
+                qty: qtyToAdd
+            });
+        } else {
+            try {
+                var cart = JSON.parse(localStorage.getItem('sphinx_cart') || '[]');
+                var existing = cart.find(function(i) { return i.name === currentSelectedProduct.name; });
+                if (existing) existing.qty += qtyToAdd;
+                else cart.push({ name: currentSelectedProduct.name, price: currentSelectedProduct.price, image: currentSelectedProduct.image, qty: qtyToAdd });
+                localStorage.setItem('sphinx_cart', JSON.stringify(cart));
+            } catch(e) {}
+        }
+        loadCartCount();
+        cartQtyValue.innerText = 1;
+        productModal.classList.remove('active');
+    });
 
     // KLIK TOMBOL TAMBAH JUMLAH (+)
     cartPlus.addEventListener('click', function() {
@@ -627,26 +590,31 @@ $current_page = basename($_SERVER['PHP_SELF']);
         loadCartCount();
 
         // --- SLIDESHOW IKLAN ---
-        const slides = document.querySelectorAll('#adSlideshow .ad-slide');
-        const dotsContainer = document.getElementById('adDots');
-        let currentSlide = 0;
+        (function() {
+            var slides = document.querySelectorAll('#adSlideshow .ad-slide');
+            var dotsContainer = document.getElementById('adDots');
+            if (!slides.length || !dotsContainer) return;
+            var currentSlide = 0;
 
-        slides.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.className = 'ad-dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        });
+            slides.forEach(function(_, i) {
+                var dot = document.createElement('span');
+                dot.className = 'ad-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', function() { goToSlide(i); });
+                dotsContainer.appendChild(dot);
+            });
 
-        function goToSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            dotsContainer.children[currentSlide].classList.remove('active');
-            currentSlide = (index + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            dotsContainer.children[currentSlide].classList.add('active');
-        }
+            function goToSlide(index) {
+                if (!slides[currentSlide] || !dotsContainer.children[currentSlide]) return;
+                slides[currentSlide].classList.remove('active');
+                dotsContainer.children[currentSlide].classList.remove('active');
+                currentSlide = (index + slides.length) % slides.length;
+                if (!slides[currentSlide] || !dotsContainer.children[currentSlide]) return;
+                slides[currentSlide].classList.add('active');
+                dotsContainer.children[currentSlide].classList.add('active');
+            }
 
-        setInterval(() => goToSlide(currentSlide + 1), 3000);
+            setInterval(function() { goToSlide(currentSlide + 1); }, 3000);
+        })();
     });
 </script>
 
